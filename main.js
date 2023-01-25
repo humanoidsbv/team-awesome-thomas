@@ -1,4 +1,4 @@
-const toggleButton = document.querySelector('.hamburger');
+const toggleButton = document.querySelector('.menu-icon');
 const navMenu = document.querySelector('.nav-menu');
 toggleButton.addEventListener('click', () => {
     toggleButton.classList.toggle('open');
