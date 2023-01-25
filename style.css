@@ -169,7 +169,7 @@ header {
 /* Desktop */
 @media only screen and (min-width: 960px) {
     .menu-icon {
-        visibility: hidden;
+        display: none;
     }
     .nav-menu, .nav-menu.open {
         display: unset;
