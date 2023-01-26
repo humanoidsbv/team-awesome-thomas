@@ -1,14 +1,13 @@
+import { useState } from "react";
 import { ReactComponent as ArrowDown } from "../../public/icons/arrow-down.svg";
 import { ReactComponent as HumanoidsLogo } from "../../public/img/humanoids.svg";
-import { useState } from "react";
 
 export const Header = () => {
     
-    const [isOpen, toggleIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleToggle = () => {
-        toggleIsOpen(!isOpen);
-        console.log(isOpen);
+        setIsOpen(!isOpen);
     };
 
   return (
