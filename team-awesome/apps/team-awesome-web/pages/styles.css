@@ -1,0 +1,221 @@
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url(../public/fonts/proxima-nova-regular.woff);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Bello';
+  src: url(../public/fonts/bello-script.ttf);
+  font-weight: 400;
+}
+
+:root {
+  --blue-1: #4F88EF;
+  --grey-1: #FFFFFF;
+  --grey-2: #F5F7F9;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--grey-2);
+  box-sizing: border-box;
+  font-family: 'Proxima Nova', Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.header {
+  align-items: center;
+  background-color: var(--blue-1);
+  display: flex;
+  height: 70px;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 30px;
+  position: fixed;
+}
+
+/* Logo */
+.header-logo {
+  color: var(--grey-1);
+  font-family: 'Bello';
+  font-size: 26px;
+  margin-right: 30px;
+  white-space: nowrap;
+  width: 136px;
+}
+
+/* Foldout menu */
+.nav-menu {
+  background-color: var(--blue-1);
+  height: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transition-property: height;
+  transition-duration: 0.8s;
+  width: 100vw;
+  z-index: -1;
+}
+
+/* This is where the fun begins */
+/* Sizing definitions */
+.drawer-icon {
+  --size: 18px;
+  --stroke: 2px;
+  --margin: 4px;
+  box-sizing: content-box;
+  color: var(--grey-1);
+  height: var(--size);
+  position: relative;
+  vertical-align: middle;
+  width: var(--size);
+}
+
+/* Calculated hamburger drawer positioning */
+.drawer-icon span:first-child {
+  margin-top: calc(var(--margin) - var(--stroke) / 2);
+}
+
+.drawer-icon span:nth-child(2) {
+  margin-top: calc(var(--size) / 2 - var(--stroke) / 2);
+}
+
+.drawer-icon span:nth-child(3) {
+  margin-top: calc(var(--size) - var(--margin) -  var(--stroke) / 2);
+}
+
+/* General stroke definitions */
+.drawer-icon span {
+  border-radius: calc(var(--stroke) / 2);
+  border: solid calc(var(--stroke) / 2) currentColor;
+  display: block;
+  height: 0;
+  left: 0;
+  margin-left: calc(var(--stroke) / 2);
+  position: absolute;
+  top: 0;
+  transition-duration: 0.6s;
+  transition-property: transform opacity;
+  width: calc(var(--size) - var(--stroke));
+}
+
+/* Hover animation fun */
+.drawer-icon.open span:first-child {
+  transform: translateY(calc((var(--size) - var(--margin) * 2) / 2)) rotate(225deg);
+}
+
+.drawer-icon.open span:nth-child(2) {
+  transform: scalex(0) translateX(var(--size));
+}
+
+.drawer-icon.open span:nth-child(3) {
+  transform: translateY(calc((var(--size) - var(--margin) * 2) / -2)) rotate(-226deg);
+}
+
+/* Icon interaction */
+.nav-menu.open {
+  display: unset;
+  height: 100vh;
+}
+
+.nav-menu ul {
+  list-style: none;
+  margin-top: 8rem;
+  overflow: hidden;
+}
+
+/* Individual navigation links */
+.nav-menu ul li {
+  padding: 13px 20px 9px;
+  margin: 1rem 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.nav-menu ul li a {
+  color: var(--grey-1);
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.nav-menu ul li a:hover {
+  border-bottom: solid 2px var(--grey-1);
+  margin-bottom: -2px;
+}
+
+/* Right menu styling */
+.profile {
+  align-items: center;
+  background-color: var(--grey-1);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+  width: 148px;
+}
+
+.profile svg {
+  margin-left: 15px;
+}
+
+.right-menu {
+  display: none;
+}
+
+/* Profile picture styling */
+.profile-pic {
+  border-radius: 18px;
+  height: 36px;
+  width: 36px;
+}
+
+/* Desktop */
+@media only screen and (min-width: 960px) {
+  .drawer-icon {
+      display: none;
+  }
+
+  .nav-menu, .nav-menu.open {
+      display: unset;
+      height: 70px;
+      overflow: visible;
+      position: relative;
+      transition-property: none;
+      width: 100%;
+      z-index: 1;
+  }
+
+  .nav-menu ul {
+      display: flex;
+      flex-direction: row;
+      margin-top: 0;
+  }
+
+  .nav-menu ul li a {
+      font-size: 0.875rem;
+  }
+
+  /* Right menu */
+  .right-menu {
+      display: flex;
+      gap: 1rem;
+  }
+}
