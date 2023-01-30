@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import * as Styled from "./Header.styled.js";
-import { ReactComponent as ArrowDown } from "../../public/icons/arrow-down.svg";
-import { ReactComponent as HumanoidsLogo } from "../../public/img/humanoids.svg";
+import { ReactComponent as ArrowDown } from "../../../public/icons/arrow-down.svg";
+import { ReactComponent as HumanoidsLogo } from "../../../public/img/humanoids.svg";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
