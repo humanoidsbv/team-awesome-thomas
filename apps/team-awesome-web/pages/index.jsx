@@ -1,4 +1,4 @@
-import { Header } from '../components/header';
+import { Header } from "../components/header";
 
 export function Index() {
   /*
@@ -6,9 +6,7 @@ export function Index() {
    *
    * Note: The corresponding styles are in the ./index.styled-components file.
    */
-  return (
-    <Header />
-  );
+  return <Header />;
 }
 
 export default Index;

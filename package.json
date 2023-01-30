@@ -2,7 +2,9 @@
   "name": "team-awesome",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "pretty": "prettier --write \"*.js*\""
+  },
   "private": true,
   "dependencies": {
     "@nrwl/next": "15.6.2",

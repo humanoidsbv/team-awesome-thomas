@@ -3,21 +3,15 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: 'Proxima Nova';
-        src: url('/fonts/proxima-nova-regular.woff');
         font-weight: 400;
+        src: url('/fonts/proxima-nova-regular.woff');
     }
     
     @font-face {
         font-family: 'Bello';
-        src: url('/fonts/bello-script.ttf');
         font-weight: 400;
+        src: url('/fonts/bello-script.ttf');
     }
-    
-    // :root {
-    //     --blue-1: ;
-    //     --grey-1: #FFFFFF;
-    //     --grey-2: #F5F7F9;
-    // }
     
     * {
         box-sizing: border-box;
@@ -32,8 +26,8 @@ const GlobalStyle = createGlobalStyle`
     }
     
     a {
-        text-decoration: none;
         color: inherit;
+        text-decoration: none;
     }
     
     button {
