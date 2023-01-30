@@ -121,9 +121,6 @@ export const ListLink = styled.a`
   }
 `;
 
-// Hamburgers
-
-// Sizing definitions
 export const DrawerIcon = styled.button`
   --size: 18px;
   --stroke: 2px;
