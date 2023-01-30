@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     }
     
     @font-face {
-        font-family: 'Bello';
+        font-family: 'Bello Script';
         font-weight: 400;
         src: url('/fonts/bello-script.ttf');
     }

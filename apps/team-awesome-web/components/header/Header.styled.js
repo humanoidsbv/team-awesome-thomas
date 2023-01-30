@@ -13,8 +13,8 @@ export const Header = styled.header`
 
 export const Logo = styled.a`
   color: ${({ theme }) => theme.backgroundPrimary};
-  font-family: "Bello";
-  font-size: 26px;
+  font-family: ${({ theme }) => theme.fontSecondary};
+  font-size: ${({ theme }) => theme.fontSizeDefault};
   margin-right: 30px;
   white-space: nowrap;
   width: 136px;
@@ -95,8 +95,8 @@ export const MenuList = styled.ul`
 
 export const ListItem = styled.li`
   color: ${({ theme }) => theme.backgroundPrimary};
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizeDefault};
+  font-weight: ${({ theme }) => theme.fontWeightDefault};
   margin: 10px;
   padding: 13px 20px 9px;
   text-align: center;
@@ -117,7 +117,7 @@ export const ListLink = styled.a`
   }
 
   @media screen and (${({ theme }) => theme.tablet}) {
-    font-size: 0.875rem;
+    font-size: ${({ theme }) => theme.fontSizeMedium};
   }
 `;
 
