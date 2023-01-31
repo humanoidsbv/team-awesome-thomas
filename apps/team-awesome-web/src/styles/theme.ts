@@ -5,12 +5,23 @@ export const theme = {
   borderPrimary: "1px solid #e6eaee",
   colorPrimary: "#354052",
 
+  // Colors
+  green: "#37B047",
+
+  grey1: "#ffffff",
+  grey2: "#F5F7F9",
+  grey3: "#E6EAEE",
+  grey4: "#9B9B9B",
+  grey5: "#7F8FA4",
+  grey6: "#4B5464",
+
   // Fonts
   fontPrimary: "Proxima Nova",
   fontSecondary: "Bello Script",
   fontSizeDefault: "26px",
   fontSizeMedium: "14px",
   fontWeightDefault: "400",
+  fontWeightBold: "600",
 
   // Breakpoints
   desktop: "min-width: 1024px",

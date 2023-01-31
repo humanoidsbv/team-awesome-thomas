@@ -4,7 +4,19 @@ const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: 'Proxima Nova';
         font-weight: 400;
-        src: url('/fonts/proxima-nova-regular.woff');
+        src: url('/fonts/proxima-nova-light.ttf');
+    }
+
+    @font-face {
+        font-family: 'Proxima Nova';
+        font-weight: 600;
+        src: url('/fonts/proxima-nova-regular.ttf');
+    }
+    
+    @font-face {
+        font-family: 'Proxima Nova';
+        font-weight: 800;
+        src: url('/fonts/proxima-nova-bold.ttf');
     }
     
     @font-face {
