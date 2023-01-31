@@ -57,7 +57,7 @@ export const Profile = styled.div`
   }
 `;
 
-export const Menu = styled.nav`
+export const Menu = styled.nav<{ isOpen?: boolean }>`
   background-color: ${({ theme }) => theme.backgroundSecondary};
   height: ${(props) => (props.isOpen ? `100vh` : `0`)};
   left: 0;
@@ -78,7 +78,7 @@ export const Menu = styled.nav`
   }
 `;
 
-export const MenuList = styled.ul`
+export const MenuList = styled.ul<{ isOpen?: boolean }>`
   display: ${(props) => !props.isOpen && `none;`};
   list-style: none;
   margin-top: 8rem;
