@@ -9,6 +9,7 @@ export const SubHeader = styled.div`
   height: auto;
   margin-top: 70px;
   padding: 20px;
+  position: fixed;
   width: 100%;
 
   @media screen and (${({ theme }) => theme.tablet}) {
