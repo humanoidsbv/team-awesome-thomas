@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: 'Proxima Nova';
         font-weight: 600;
-        src: url('/fonts/proxima-nova-regular.ttf');
+        src: url('/fonts/proxima-nova-regular.woff');
     }
     
     @font-face {
