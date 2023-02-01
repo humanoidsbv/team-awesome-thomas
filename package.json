@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "pretty": "prettier --write \"*.js*\""
+    "pretty": "prettier --write \"*.js*\"",
+    "dev": "nx serve team-awesome-web"
   },
   "private": true,
   "dependencies": {
