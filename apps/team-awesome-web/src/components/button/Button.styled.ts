@@ -9,9 +9,8 @@ export const ButtonBox = styled.button<ButtonProps>`
   background-color: ${({ theme }) => theme.green};
   border-radius: 4px;
   color: ${({ theme }) => theme.backgroundPrimary};
-  display: flex;
-  font-size: ${({ theme }) => theme.fontSizeMedium};
-  font-weight: ${({ theme }) => theme.fontWeightBold};
+  display: grid;
+  grid-auto-flow: column;
   justify-content: center;
   line-height: 0.8;
   padding: 13px 30px;
