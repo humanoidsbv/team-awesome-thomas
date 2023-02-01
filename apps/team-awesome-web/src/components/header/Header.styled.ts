@@ -5,9 +5,10 @@ const headerHeight = "70px";
 export const Header = styled.header`
   align-items: center;
   background-color: ${({ theme }) => theme.backgroundSecondary};
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  grid-template-rows: 1fr;
   height: ${headerHeight};
-  justify-content: space-between;
   padding: 0 30px;
   position: fixed;
   top: 0;
@@ -19,16 +20,16 @@ export const Logo = styled.a`
   color: ${({ theme }) => theme.backgroundPrimary};
   font-family: ${({ theme }) => theme.fontSecondary};
   font-size: ${({ theme }) => theme.fontSizeDefault};
-  margin-right: 30px;
   white-space: nowrap;
-  width: 136px;
+  margin-right: 30px;
 `;
 
 export const RightMenu = styled.div`
   display: none;
 
   @media screen and (${({ theme }) => theme.tablet}) {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     gap: 1rem;
   }
 `;
@@ -45,7 +46,8 @@ export const Profile = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.backgroundPrimary};
   border-radius: 20px;
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
   justify-content: space-between;
   padding: 2px;
   width: 148px;
@@ -75,7 +77,7 @@ export const Menu = styled.nav<{ isOpen: boolean }>`
   @media screen and (${({ theme }) => theme.tablet}) {
     height: ${headerHeight};
     margin-top: 0;
-    overflow: visible;
+    overflow-x: hidden;
     position: relative;
     transition: none;
     width: 100%;
@@ -85,14 +87,13 @@ export const Menu = styled.nav<{ isOpen: boolean }>`
 export const MenuList = styled.ul<{ isOpen: boolean }>`
   display: ${(props) => !props.isOpen && `none;`};
   list-style: none;
-  margin-top: 8rem;
-  overflow: hidden;
+  margin-top: calc(100px - ${headerHeight});
 
   @media screen and (${({ theme }) => theme.tablet}) {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    height: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min-content;
+    grid-template-rows: 1fr;
     margin-top: 0;
   }
 `;
@@ -107,6 +108,8 @@ export const ListItem = styled.li`
   white-space: nowrap;
 
   @media screen and (${({ theme }) => theme.tablet}) {
+    display: inline-block;
+    font-size: ${({ theme }) => theme.fontSizeMedium};
     margin: 0;
     padding: 28px 20px;
   }
@@ -119,10 +122,6 @@ export const ListLink = styled.a`
     text-decoration: solid underline 2px;
     text-underline-offset: 0.4rem;
   }
-
-  @media screen and (${({ theme }) => theme.tablet}) {
-    font-size: ${({ theme }) => theme.fontSizeMedium};
-  }
 `;
 
 export const DrawerIcon = styled.button`
@@ -131,6 +130,7 @@ export const DrawerIcon = styled.button`
   --margin: 4px;
   box-sizing: content-box;
   color: ${({ theme }) => theme.backgroundPrimary};
+  justify-self: right;
   vertical-align: middle;
 
   &::after,
