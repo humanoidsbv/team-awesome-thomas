@@ -3,13 +3,7 @@ import styled, { css } from "styled-components";
 type ButtonProps = {
   variant?: string;
 };
-import styled, { css } from "styled-components";
 
-type ButtonProps = {
-  variant?: string;
-};
-
-export const ButtonBox = styled.button<ButtonProps>`
 export const ButtonBox = styled.button<ButtonProps>`
   align-content: center;
   border-radius: 4px;
@@ -42,53 +36,53 @@ export const ButtonBox = styled.button<ButtonProps>`
       background-color: ${({ theme }) => theme.green};
       color: ${({ theme }) => theme.backgroundPrimary};
 
-  &:active {
-    transition: none;
-  }
-
-  ${({ variant }) =>
-    (variant === "primary" || !variant) &&
-    css`
-      background-color: ${({ theme }) => theme.green};
-      color: ${({ theme }) => theme.backgroundPrimary};
-
-      & svg g {
-        fill: ${({ theme }) => theme.backgroundPrimary};
-      }
-      & svg g {
-        fill: ${({ theme }) => theme.backgroundPrimary};
-      }
-
-      &:hover,
-      &focus {
-        background-color: #1e990a;
-      }
-
       &:active {
-        background-color: #19770a;
-      }
-    `}
-
-  ${({ variant }) =>
-    variant === "secondary" &&
-    css`
-      background-color: ${({ theme }) => theme.grey2};
-      border: solid 1px ${({ theme }) => theme.grey3};
-      color: ${({ theme }) => theme.grey6};
-
-      & svg g {
-        fill: ${({ theme }) => theme.grey6};
+        transition: none;
       }
 
-      &:hover,
-      &:focus {
-        background-color: #f1f2f2;
-      }
+      ${({ variant }) =>
+        (variant === "primary" || !variant) &&
+        css`
+          background-color: ${({ theme }) => theme.green};
+          color: ${({ theme }) => theme.backgroundPrimary};
 
-      &:active {
-        background-color: #e9e9e9;
-      }
-    `}
+          & svg g {
+            fill: ${({ theme }) => theme.backgroundPrimary};
+          }
+          & svg g {
+            fill: ${({ theme }) => theme.backgroundPrimary};
+          }
+
+          &:hover,
+          &focus {
+            background-color: #1e990a;
+          }
+
+          &:active {
+            background-color: #19770a;
+          }
+        `}
+
+      ${({ variant }) =>
+        variant === "secondary" &&
+        css`
+          background-color: ${({ theme }) => theme.grey2};
+          border: solid 1px ${({ theme }) => theme.grey3};
+          color: ${({ theme }) => theme.grey6};
+
+          & svg g {
+            fill: ${({ theme }) => theme.grey6};
+          }
+
+          &:hover,
+          &:focus {
+            background-color: #f1f2f2;
+          }
+
+          &:active {
+            background-color: #e9e9e9;
+          }
+        `}
 
       &:hover,
       &focus {
