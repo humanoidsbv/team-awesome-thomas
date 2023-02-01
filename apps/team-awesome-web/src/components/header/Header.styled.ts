@@ -1,15 +1,18 @@
 import styled from "styled-components";
 
+const headerHeight = "70px";
+
 export const Header = styled.header`
   align-items: center;
   background-color: ${({ theme }) => theme.backgroundSecondary};
   display: flex;
-  height: 70px;
+  height: ${headerHeight};
   justify-content: space-between;
   padding: 0 30px;
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 10;
 `;
 
 export const Logo = styled.a`
@@ -60,22 +63,22 @@ export const Profile = styled.div`
 
 export const Menu = styled.nav<{ isOpen: boolean }>`
   background-color: ${({ theme }) => theme.backgroundSecondary};
-  height: ${(props) => (props.isOpen ? `100vh` : `0`)};
+  height: ${(props) => (props.isOpen ? `calc(100vh - ${headerHeight})` : `0`)};
   left: 0;
+  margin-top: ${headerHeight};
   overflow: hidden;
   position: absolute;
   top: 0;
   transition: height 0.8s;
   width: 100vw;
-  z-index: -1;
 
   @media screen and (${({ theme }) => theme.tablet}) {
-    height: 70px;
+    height: ${headerHeight};
+    margin-top: 0;
     overflow: visible;
     position: relative;
-    transition-property: none;
+    transition: none;
     width: 100%;
-    z-index: 1;
   }
 `;
 
