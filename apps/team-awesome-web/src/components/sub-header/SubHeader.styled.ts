@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SubHeader = styled.div`
-  align-items: center;
+  align-content: center;
   background-color: ${({ theme }) => theme.backgroundPrimary};
   border-bottom: solid 1px ${({ theme }) => theme.grey3};
   display: grid;
@@ -13,14 +13,13 @@ export const SubHeader = styled.div`
 
   @media screen and (${({ theme }) => theme.tablet}) {
     grid-auto-flow: column;
-    height: 70px;
     justify-content: space-between;
-    padding: 15px 30px;
+    padding: 16px 32px;
   }
 `;
 
 export const ContextMenu = styled.div`
-  align-items: center;
+  align-content: center;
   display: grid;
   gap: 20px;
   grid-auto-flow: column;
@@ -29,7 +28,7 @@ export const ContextMenu = styled.div`
 
   & h1,
   & p {
-    align-items: center;
+    align-content: center;
     display: grid;
     font-weight: ${({ theme }) => theme.fontWeightBold};
     grid-auto-flow: column;

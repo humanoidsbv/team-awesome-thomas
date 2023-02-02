@@ -8,9 +8,7 @@ export const SubHeader = () => {
         <Styled.ContextHeading>Timesheets</Styled.ContextHeading>
         <Styled.ContextIndicator>12 Entries</Styled.ContextIndicator>
       </Styled.ContextMenu>
-      <Button variant="primary" icon="plus">
-        New time entry
-      </Button>
+      <Button icon="plus">New time entry</Button>
     </Styled.SubHeader>
   );
 };

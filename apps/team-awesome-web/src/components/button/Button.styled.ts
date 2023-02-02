@@ -5,15 +5,12 @@ type ButtonProps = {
 };
 
 export const ButtonBox = styled.button<ButtonProps>`
-  align-content: center;
-  background-color: ${({ theme }) => theme.green};
+  align-items: center;
   border-radius: 4px;
-  color: ${({ theme }) => theme.backgroundPrimary};
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
-  line-height: 0.8;
-  padding: 13px 30px;
+  padding: 14px 32px;
   transition: background-color 0.2s ease-in;
   white-space: nowrap;
   width: 100%;
@@ -28,15 +25,22 @@ export const ButtonBox = styled.button<ButtonProps>`
     fill: ${({ theme }) => theme.backgroundPrimary};
   }
 
-  &:hover,
-  &focus {
-    background-color: #1e990a;
-  }
+  ${({ variant }) =>
+    variant === "primary" &&
+    css`
+      background-color: ${({ theme }) => theme.green};
+      color: ${({ theme }) => theme.backgroundPrimary};
 
-  &:active {
-    background-color: #19770a;
-    transition: none;
-  }
+      &:hover,
+      &focus {
+        background-color: #1e990a;
+      }
+
+      &:active {
+        background-color: #19770a;
+        transition: none;
+      }
+    `}
 
   ${({ variant }) =>
     variant === "secondary" &&
@@ -56,6 +60,7 @@ export const ButtonBox = styled.button<ButtonProps>`
 
       &:active {
         background-color: #e9e9e9;
+        transition: none;
       }
     `}
 

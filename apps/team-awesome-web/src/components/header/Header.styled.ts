@@ -9,7 +9,7 @@ export const Header = styled.header`
   grid-template-columns: min-content 1fr min-content;
   grid-template-rows: 1fr;
   height: ${headerHeight};
-  padding: 0 30px;
+  padding: 0 32px;
   position: fixed;
   top: 0;
   width: 100%;
@@ -20,8 +20,8 @@ export const Logo = styled.a`
   color: ${({ theme }) => theme.backgroundPrimary};
   font-family: ${({ theme }) => theme.fontSecondary};
   font-size: ${({ theme }) => theme.fontSizeDefault};
+  margin-right: 32px;
   white-space: nowrap;
-  margin-right: 30px;
 `;
 
 export const RightMenu = styled.div`
@@ -29,8 +29,8 @@ export const RightMenu = styled.div`
 
   @media screen and (${({ theme }) => theme.tablet}) {
     display: grid;
-    grid-auto-flow: column;
     gap: 1rem;
+    grid-auto-flow: column;
   }
 `;
 
@@ -53,7 +53,7 @@ export const Profile = styled.div`
   width: 148px;
 
   & svg {
-    margin-left: 15px;
+    margin-left: 16px;
   }
 
   & img {
@@ -91,9 +91,8 @@ export const MenuList = styled.ul<{ isOpen: boolean }>`
 
   @media screen and (${({ theme }) => theme.tablet}) {
     display: grid;
-    grid-auto-flow: column;
     grid-auto-columns: min-content;
-    grid-template-rows: 1fr;
+    grid-auto-flow: column;
     margin-top: 0;
   }
 `;
@@ -103,7 +102,7 @@ export const ListItem = styled.li`
   font-size: ${({ theme }) => theme.fontSizeDefault};
   font-weight: ${({ theme }) => theme.fontWeightDefault};
   margin: 10px;
-  padding: 13px 20px 9px;
+  padding: 16px 20px 8px;
   text-align: center;
   white-space: nowrap;
 
