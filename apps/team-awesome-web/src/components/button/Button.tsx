@@ -7,10 +7,10 @@ interface ButtonProps {
   children: string;
   icon?: "plus" | "close";
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary";
 }
 
-export const Button = ({ children, icon, onClick, variant }: ButtonProps) => {
+export const Button = ({ children, icon, onClick, variant = "primary" }: ButtonProps) => {
   const getIcon = () => {
     switch (icon) {
       case "plus":
