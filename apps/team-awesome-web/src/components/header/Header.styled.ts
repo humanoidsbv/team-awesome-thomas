@@ -10,6 +10,7 @@ export const Header = styled.header`
   justify-content: space-between;
   padding: 0 30px;
   position: fixed;
+  top: 0;
   width: 100%;
   z-index: 10;
 `;

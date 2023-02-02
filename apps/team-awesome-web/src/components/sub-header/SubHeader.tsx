@@ -5,10 +5,10 @@ export const SubHeader = () => {
   return (
     <Styled.SubHeader>
       <Styled.ContextMenu>
-        <Styled.ContextHeading>Team members</Styled.ContextHeading>
-        <Styled.ContextIndicator>22 Humanoids</Styled.ContextIndicator>
+        <Styled.ContextHeading>Timesheets</Styled.ContextHeading>
+        <Styled.ContextIndicator>12 Entries</Styled.ContextIndicator>
       </Styled.ContextMenu>
-      <Button label="New Humanoid" href="treinen.online/" />
+      <Button label="New time entry" icon="plus" />
     </Styled.SubHeader>
   );
 };
