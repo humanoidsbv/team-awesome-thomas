@@ -14,7 +14,7 @@ export const ButtonBox = styled.button<ButtonProps>`
   font-weight: ${({ theme }) => theme.fontWeightBold};
   justify-content: center;
   line-height: 0.8;
-  padding: 13px 30px;
+  padding: 12px 30px;
   transition: background-color 0.2s ease-in;
   white-space: nowrap;
   width: 100%;
@@ -23,10 +23,10 @@ export const ButtonBox = styled.button<ButtonProps>`
     height: auto;
     margin-right: 16px;
     width: ${({ theme }) => theme.fontSizeMedium};
+    fill: ${({ theme }) => theme.backgroundPrimary};
   }
 
   & svg g {
-    fill: ${({ theme }) => theme.backgroundPrimary};
   }
 
   &:hover,
