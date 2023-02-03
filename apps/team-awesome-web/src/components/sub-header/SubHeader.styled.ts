@@ -50,7 +50,7 @@ export const ContextMenu = styled.div`
 export const ContextHeading = styled.h1`
   color: ${({ theme }) => theme.grey6};
   font-family: ${({ theme }) => theme.fontPrimary};
-  font-size: calc(${({ theme }) => theme.fontSizeMedium} * 1.3);
+  font-size: 18px;
 `;
 
 export const ContextIndicator = styled.p`

@@ -19,10 +19,10 @@ export const ButtonBox = styled.button<ButtonProps>`
     height: auto;
     margin-right: 16px;
     width: ${({ theme }) => theme.fontSizeMedium};
+    fill: ${({ theme }) => theme.backgroundPrimary};
   }
 
   & svg g {
-    fill: ${({ theme }) => theme.backgroundPrimary};
   }
 
   ${({ variant }) =>
