@@ -4,14 +4,13 @@ import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg"
 import { ReactComponent as CloseIcon } from "../../../public/icons/close.svg";
 
 interface ButtonProps {
-  label: string;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  variant?: "primary" | "secondary" | "outline";
+  children: string;
   icon?: "plus" | "close";
-  href?: string;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  variant?: "primary" | "secondary";
 }
 
-export const Button = ({ label, variant, href, icon, onClick }: ButtonProps) => {
+export const Button = ({ children, icon, onClick, variant = "primary" }: ButtonProps) => {
   const getIcon = () => {
     switch (icon) {
       case "plus":
@@ -28,7 +27,7 @@ export const Button = ({ label, variant, href, icon, onClick }: ButtonProps) => 
   return (
     <Styled.ButtonBox onClick={onClick} variant={variant}>
       {getIcon()}
-      {label}
+      {children}
     </Styled.ButtonBox>
   );
 };

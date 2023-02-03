@@ -1,34 +1,37 @@
 import styled from "styled-components";
 
 export const SubHeader = styled.div`
+  align-content: center;
   background-color: ${({ theme }) => theme.backgroundPrimary};
   border-bottom: solid 1px ${({ theme }) => theme.grey3};
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 20px;
-  height: auto;
+  grid-auto-flow: row;
   margin-top: 70px;
   padding: 20px;
-  position: fixed;
   width: 100%;
 
   @media screen and (${({ theme }) => theme.tablet}) {
-    flex-wrap: nowrap;
-    height: 70px;
+    grid-auto-flow: column;
     justify-content: space-between;
-    padding: 15px 30px;
+    padding: 16px 32px;
   }
 `;
 
 export const ContextMenu = styled.div`
-  align-items: center;
-  display: flex;
+  align-content: center;
+  display: grid;
   gap: 20px;
+  grid-auto-flow: column;
+  justify-content: space-between;
   width: 100%;
 
   & h1,
   & p {
+    align-content: center;
+    display: grid;
     font-weight: ${({ theme }) => theme.fontWeightBold};
+    grid-auto-flow: column;
     white-space: nowrap;
   }
 
@@ -38,10 +41,8 @@ export const ContextMenu = styled.div`
     & h1::after {
       border-left: solid 1px ${({ theme }) => theme.grey5};
       content: "";
-      display: inline-block;
       height: ${({ theme }) => theme.fontSizeMedium};
       margin-left: 20px;
-      vertical-align: middle;
     }
   }
 `;
