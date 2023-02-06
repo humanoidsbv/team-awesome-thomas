@@ -1,5 +1,6 @@
 import * as Styled from "./SubHeader.styled";
 import { Button } from "../button/";
+import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
 
 export const SubHeader = () => {
   return (
@@ -8,7 +9,10 @@ export const SubHeader = () => {
         <Styled.ContextHeading>Timesheets</Styled.ContextHeading>
         <Styled.ContextIndicator>12 Entries</Styled.ContextIndicator>
       </Styled.ContextMenu>
-      <Button icon="plus">New time entry</Button>
+      <Button>
+        <PlusIcon />
+        New time entry
+      </Button>
     </Styled.SubHeader>
   );
 };
