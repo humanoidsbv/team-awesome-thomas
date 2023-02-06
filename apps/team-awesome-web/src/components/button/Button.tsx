@@ -9,11 +9,9 @@ interface ButtonProps {
   variant?: "primary" | "secondary";
 }
 
-export const Button = ({ children, icon, onClick, variant = "primary" }: ButtonProps) => {
-  return (
-    <Styled.Button onClick={onClick} variant={variant}>
-      {icon}
-      {children}
-    </Styled.Button>
-  );
-};
+export const Button = ({ children, icon, onClick, variant = "primary" }: ButtonProps) => (
+  <Styled.Button onClick={onClick} variant={variant}>
+    {icon}
+    {children}
+  </Styled.Button>
+);

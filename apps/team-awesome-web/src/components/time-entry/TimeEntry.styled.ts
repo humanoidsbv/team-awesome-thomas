@@ -22,8 +22,6 @@ export const TimeEntry = styled.div`
   }
 `;
 
-export const Location = styled.div``;
-
 export const Times = styled.div`
   display: grid;
   gap: 10px;
