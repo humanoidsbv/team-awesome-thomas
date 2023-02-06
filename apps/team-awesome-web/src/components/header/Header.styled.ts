@@ -10,16 +10,20 @@ export const Header = styled.header`
   grid-template-rows: 1fr;
   height: ${headerHeight};
   padding: 0 32px;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 10;
+
+  @media screen and (${({ theme }) => theme.tablet}) {
+    position: relative;
+  }
 `;
 
 export const Logo = styled.a`
   color: ${({ theme }) => theme.backgroundPrimary};
   font-family: ${({ theme }) => theme.fontSecondary};
-  font-size: ${({ theme }) => theme.fontSizeDefault};
+  font-size: ${({ theme }) => theme.fontSizeLarge};
   margin-right: 32px;
   white-space: nowrap;
 `;
@@ -66,19 +70,17 @@ export const Profile = styled.div`
 export const Menu = styled.nav<{ isOpen: boolean }>`
   background-color: ${({ theme }) => theme.backgroundSecondary};
   height: ${(props) => (props.isOpen ? `calc(100vh - ${headerHeight})` : `0`)};
-  left: 0;
-  margin-top: ${headerHeight};
   overflow: hidden;
   position: absolute;
-  top: 0;
+  top: ${headerHeight};
   transition: height 0.8s;
-  width: 100vw;
+  width: 100%;
 
   @media screen and (${({ theme }) => theme.tablet}) {
     height: ${headerHeight};
-    margin-top: 0;
     overflow-x: hidden;
     position: relative;
+    top: unset;
     transition: none;
     width: 100%;
   }
@@ -87,7 +89,6 @@ export const Menu = styled.nav<{ isOpen: boolean }>`
 export const MenuList = styled.ul<{ isOpen: boolean }>`
   display: ${(props) => !props.isOpen && `none;`};
   list-style: none;
-  margin-top: calc(100px - ${headerHeight});
 
   @media screen and (${({ theme }) => theme.tablet}) {
     display: grid;
@@ -99,7 +100,7 @@ export const MenuList = styled.ul<{ isOpen: boolean }>`
 
 export const ListItem = styled.li`
   color: ${({ theme }) => theme.backgroundPrimary};
-  font-size: ${({ theme }) => theme.fontSizeDefault};
+  font-size: ${({ theme }) => theme.fontSizeLarge};
   font-weight: ${({ theme }) => theme.fontWeightDefault};
   margin: 10px;
   padding: 16px 20px 8px;

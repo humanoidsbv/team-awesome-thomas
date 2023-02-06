@@ -1,33 +1,17 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import * as Styled from "./Button.styled";
-import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
 import { ReactComponent as CloseIcon } from "../../../public/icons/close.svg";
 
 interface ButtonProps {
-  children: string;
-  icon?: "plus" | "close";
+  children: ReactNode;
+  icon?: ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   variant?: "primary" | "secondary";
 }
 
-export const Button = ({ children, icon, onClick, variant = "primary" }: ButtonProps) => {
-  const getIcon = () => {
-    switch (icon) {
-      case "plus":
-        return <PlusIcon />;
-        break;
-      case "close":
-        return <CloseIcon />;
-        break;
-      default:
-        return;
-    }
-  };
-
-  return (
-    <Styled.ButtonBox onClick={onClick} variant={variant}>
-      {getIcon()}
-      {children}
-    </Styled.ButtonBox>
-  );
-};
+export const Button = ({ children, icon, onClick, variant = "primary" }: ButtonProps) => (
+  <Styled.Button onClick={onClick} variant={variant}>
+    {icon}
+    {children}
+  </Styled.Button>
+);

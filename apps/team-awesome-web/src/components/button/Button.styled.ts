@@ -4,7 +4,7 @@ type ButtonProps = {
   variant?: string;
 };
 
-export const ButtonBox = styled.button<ButtonProps>`
+export const Button = styled.button<ButtonProps>`
   align-items: center;
   border-radius: 4px;
   display: grid;
@@ -19,10 +19,10 @@ export const ButtonBox = styled.button<ButtonProps>`
     height: auto;
     margin-right: 16px;
     width: ${({ theme }) => theme.fontSizeMedium};
-    fill: ${({ theme }) => theme.backgroundPrimary};
   }
 
   & svg g {
+    fill: ${({ theme }) => theme.backgroundPrimary};
   }
 
   ${({ variant }) =>

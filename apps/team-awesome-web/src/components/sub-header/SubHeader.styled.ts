@@ -7,7 +7,6 @@ export const SubHeader = styled.div`
   display: grid;
   gap: 20px;
   grid-auto-flow: row;
-  margin-top: 70px;
   padding: 20px;
   width: 100%;
 

@@ -7,6 +7,7 @@ export const theme = {
 
   // Colors
   green: "#37B047",
+  red: "#FFA2AD",
 
   grey1: "#ffffff",
   grey2: "#F5F7F9",
@@ -18,7 +19,8 @@ export const theme = {
   // Fonts
   fontPrimary: "Proxima Nova",
   fontSecondary: "Bello Script",
-  fontSizeDefault: "26px",
+  fontSizeLarge: "24px",
+  fontSizeDefault: "18px",
   fontSizeMedium: "14px",
   fontWeightDefault: "400",
   fontWeightBold: "600",
