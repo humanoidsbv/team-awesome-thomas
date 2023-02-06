@@ -11,8 +11,8 @@ export const TimeEntry = styled.div`
   gap: 16px;
   grid-template-columns: 4px 1fr repeat(2, min-content);
   height: 80px;
-  overflow: hidden;
   margin-bottom: 2px;
+  overflow: hidden;
 
   &::before {
     background-color: ${({ theme }) => theme.backgroundSecondary};
@@ -26,8 +26,8 @@ export const Location = styled.div``;
 
 export const Times = styled.div`
   display: grid;
-  grid-auto-flow: row;
   gap: 10px;
+  grid-auto-flow: row;
   white-space: nowrap;
 `;
 
@@ -36,9 +36,9 @@ export const TimeRange = styled.div`
 `;
 
 export const Duration = styled.div`
-  text-align: right;
-  font-size: ${({ theme }) => theme.fontSizeMedium};
   color: ${({ theme }) => theme.grey5};
+  font-size: ${({ theme }) => theme.fontSizeMedium};
+  text-align: right;
 `;
 
 export const DeleteIcon = styled(Bin)`

@@ -4,7 +4,7 @@ type ButtonProps = {
   variant?: string;
 };
 
-export const ButtonBox = styled.button<ButtonProps>`
+export const Button = styled.button<ButtonProps>`
   align-items: center;
   border-radius: 4px;
   display: grid;
