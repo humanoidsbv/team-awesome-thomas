@@ -19,29 +19,19 @@ export const TimeEntries = () => {
     ]);
   };
 
-  const currentDate = new Date();
-  const currentDayOfMonth = currentDate.getDate();
-  const currentDay = currentDate.getDay();
-  const currentMonth = currentDate.getMonth();
-
   return (
     <Styled.TimeEntries>
-      {timeEntries.map((timeEntry) => {
-        return (
-          <>
-            <TimeEntryHeader
-              startDate={timeEntry.startTimestamp}
-              endDate={timeEntry.stopTimestamp}
-            />
-            <TimeEntry
-              key={timeEntry.id}
-              client={timeEntry.client}
-              startDate={timeEntry.startTimestamp}
-              endDate={timeEntry.stopTimestamp}
-            />
-          </>
-        );
-      })}
+      {timeEntries.map((timeEntry) => (
+        <>
+          <TimeEntryHeader startDate={timeEntry.startTimestamp} endDate={timeEntry.stopTimestamp} />
+          <TimeEntry
+            key={timeEntry.id}
+            client={timeEntry.client}
+            startDate={timeEntry.startTimestamp}
+            endDate={timeEntry.stopTimestamp}
+          />
+        </>
+      ))}
       <Button onClick={handleClick}>Add time entry</Button>
     </Styled.TimeEntries>
   );

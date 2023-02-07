@@ -4,12 +4,11 @@ import { useState, ReactNode } from "react";
 interface EntryProps {
   client: string;
   endDate: string;
-  key: number;
-  startDate: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  startDate: string;
 }
 
-export const TimeEntry = ({ key, client, endDate, startDate }: EntryProps) => {
+export const TimeEntry = ({ client, endDate, startDate }: EntryProps) => {
   const dateStart = new Date(startDate);
   const dateEnd = new Date(endDate);
 
