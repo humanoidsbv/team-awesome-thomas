@@ -1,6 +1,5 @@
 import { useState, ReactNode } from "react";
 import * as Styled from "./Button.styled";
-import { ReactComponent as CloseIcon } from "../../../public/icons/close.svg";
 
 interface ButtonProps {
   children: ReactNode;

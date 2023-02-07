@@ -1,5 +1,7 @@
 import * as Styled from "./TimeEntries.styled";
 import { Button } from "../button/";
+import { Input } from "../forms/input/";
+import { Modal } from "../modal/";
 import { SubHeader } from "../sub-header";
 import { TimeEntry } from "../time-entry/";
 import { TimeEntryHeader } from "../time-entry-header/";
@@ -20,9 +22,11 @@ export const TimeEntries = () => {
     ]);
   };
 
+  const [isModalActive, setIsModalActive] = useState(false);
+
   return (
     <>
-      <SubHeader />
+      <SubHeader onClick={() => setIsModalActive(true)} />
       <Styled.TimeEntries>
         {timeEntries.map((timeEntry) => (
           <>
@@ -39,6 +43,13 @@ export const TimeEntries = () => {
           </>
         ))}
         <Button onClick={handleClick}>Add time entry</Button>
+        <Modal
+          isActive={isModalActive}
+          onClose={() => setIsModalActive(false)}
+          title="New time entry"
+        >
+          <p>Hi true believers🥸!</p>
+        </Modal>
       </Styled.TimeEntries>
     </>
   );
