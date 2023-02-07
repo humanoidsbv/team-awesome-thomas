@@ -2,7 +2,7 @@ const mockTimeEntries = [
   {
     id: 1,
     client: "Heineken",
-    startTimestamp: "2022-09-23T16:00:00.000Z",
+    startTimestamp: "2022-09-23T16:14:00.000Z",
     stopTimestamp: "2022-09-23T18:00:00.000Z",
   },
   {
