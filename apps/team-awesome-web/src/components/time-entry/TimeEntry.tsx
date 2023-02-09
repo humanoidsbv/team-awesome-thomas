@@ -1,5 +1,4 @@
 import * as Styled from "./TimeEntry.styled";
-import { useState, ReactNode } from "react";
 
 interface EntryProps {
   client: string;

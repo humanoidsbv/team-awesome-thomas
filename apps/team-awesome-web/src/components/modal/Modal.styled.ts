@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const ModalBackdrop = styled.div`
-  align-content: center;
+  align-content: top;
   background-color: rgba(0, 0, 0, 0.4);
   display: grid;
   grid-auto-flow: column;
-  height: 100vh;
+  height: 100%;
   justify-content: center;
   left: 0;
   position: fixed;
   top: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 10;
 `;
 
@@ -18,14 +18,17 @@ export const Modal = styled.div`
   background-color: ${({ theme }) => theme.grey1};
   border-radius: 4px;
   display: grid;
-  height: 100vh;
-  padding: 32px;
-  width: 100vw;
+  gap: 16px;
   grid-auto-rows: min-content;
+  height: 100vh;
+  padding: 32px 16px;
+  width: 100vw;
 
   @media screen and (${({ theme }) => theme.tablet}) {
+    height: min-content;
+    margin-top: 15%;
     max-width: 640px;
-    height: 200%;
+    padding: 32px;
   }
 `;
 
@@ -34,7 +37,6 @@ export const Header = styled.div`
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
-  margin-bottom: 32px;
 
   & h2 {
     font-weight: ${({ theme }) => theme.fontWeightDefault};

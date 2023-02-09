@@ -1,9 +1,21 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const InputWrapper = styled.div`
+type InputProps = {
+  width?: string;
+};
+
+export const InputWrapper = styled.div<InputProps>`
   display: grid;
   font-size: ${({ theme }) => theme.fontSizeMedium};
   grid-auto-flow: row;
+  ${({ width }) =>
+    width === "full"
+      ? css`
+          grid-column: 1 / -1;
+        `
+      : css`
+          grid-column: 1 / span ${width};
+        `}
 `;
 
 export const Label = styled.label`

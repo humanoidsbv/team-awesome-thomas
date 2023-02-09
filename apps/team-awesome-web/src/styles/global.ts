@@ -49,6 +49,9 @@ const GlobalStyle = createGlobalStyle`
         cursor: pointer;
         outline: inherit;
     }
+    form {
+        all: unset;
+    }
 
     input {
         all: unset;
