@@ -1,10 +1,11 @@
 import * as Styled from "./Modal.styled";
 import { useState, ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { ReactComponent as CloseIcon } from "../../../public/icons/close.svg";
 
 interface ModalProps {
   children: ReactNode;
+  isActive: boolean;
+  onClose: ReactNode;
   title: string;
 }
 

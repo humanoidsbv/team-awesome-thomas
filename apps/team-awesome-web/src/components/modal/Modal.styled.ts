@@ -30,10 +30,11 @@ export const Modal = styled.div`
 `;
 
 export const Header = styled.div`
-  display: grid;
-  justify-content: space-between;
-  grid-auto-flow: column;
   align-items: center;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  margin-bottom: 32px;
 
   & h2 {
     font-weight: ${({ theme }) => theme.fontWeightDefault};
