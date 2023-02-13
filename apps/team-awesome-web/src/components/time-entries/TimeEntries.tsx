@@ -40,27 +40,18 @@ export const TimeEntries = () => {
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setNewTimeEntry({ ...newTimeEntry, [target.name]: target.value });
-    // const dateToISOString = (dateTime: Date) => {
-    //   console.log(dateTime);
-    //   dateTime.toISOString();
-    // };
+    const dateToISOString = (dateTime: Date) => {
+      console.log(dateTime);
+      dateTime.toISOString();
+    };
     const startDateTime = new Date(`${[newTimeEntry.date]} ${newTimeEntry.to}`);
     const stopDateTime = new Date(`${[newTimeEntry.date]} ${newTimeEntry.from}`);
-
-    console.log(newTimeEntry);
-    // setNewTimeEntry({
-    //   ...newTimeEntry,
-    //   [newTimeEntry.startTimestamp]: dateToISOString(startDateTime),
-    //   [newTimeEntry.stopTimestamp]: dateToISOString(stopDateTime),
-    // });
-    // console.log(newTimeEntry);
   };
 
   function handleSubmit() {
     setIsModalActive(false);
-    const startTimeString = dateToISOString(newTimeEntry.to, newTimeEntry.date);
+
     console.log(newTimeEntry);
-    console.log(startTimeString);
 
     handleClick(newTimeEntry);
 
@@ -74,6 +65,7 @@ export const TimeEntries = () => {
         {timeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader
+              key={timeEntry.id}
               startDate={timeEntry.startTimestamp}
               endDate={timeEntry.stopTimestamp}
             />
