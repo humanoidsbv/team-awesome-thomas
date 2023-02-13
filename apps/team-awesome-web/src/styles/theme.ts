@@ -2,6 +2,7 @@ export const theme = {
   backgroundPrimary: "#ffffff",
   backgroundSecondary: "#4f88ef",
   backgroundTertiary: "#f5f7f9",
+  backgroundOverlay: "rgba(0, 0, 0, 0.4)",
   borderPrimary: "1px solid #e6eaee",
   colorPrimary: "#354052",
 

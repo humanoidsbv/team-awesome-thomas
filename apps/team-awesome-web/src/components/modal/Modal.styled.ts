@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ModalBackdrop = styled.div`
   align-content: top;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: ${({ theme }) => theme.backgroundOverlay};
   display: grid;
   grid-auto-flow: column;
   height: 100%;
@@ -20,7 +20,7 @@ export const Modal = styled.div`
   display: grid;
   gap: 16px;
   grid-auto-rows: min-content;
-  height: 100vh;
+  height: 100%;
   padding: 32px 16px;
   width: 100vw;
 

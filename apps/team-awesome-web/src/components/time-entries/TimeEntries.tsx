@@ -25,12 +25,12 @@ export const TimeEntries = () => {
   };
 
   const defaultEntry = {
-    id: 0,
     client: "",
-    startTimestamp: "2022-09-26T16:00:00.000Z",
-    stopTimestamp: "2022-09-26T18:00:00.000Z",
     date: "1970-01-01",
     from: "00:00",
+    id: 0,
+    startTimestamp: "2022-09-26T16:00:00.000Z",
+    stopTimestamp: "2022-09-26T18:00:00.000Z",
     to: "00:00",
   };
 
@@ -41,7 +41,6 @@ export const TimeEntries = () => {
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setNewTimeEntry({ ...newTimeEntry, [target.name]: target.value });
     const dateToISOString = (dateTime: Date) => {
-      console.log(dateTime);
       dateTime.toISOString();
     };
     const startDateTime = new Date(`${[newTimeEntry.date]} ${newTimeEntry.to}`);
@@ -50,8 +49,6 @@ export const TimeEntries = () => {
 
   function handleSubmit() {
     setIsModalActive(false);
-
-    console.log(newTimeEntry);
 
     handleClick(newTimeEntry);
 
@@ -65,9 +62,9 @@ export const TimeEntries = () => {
         {timeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader
+              endDate={timeEntry.stopTimestamp}
               key={timeEntry.id}
               startDate={timeEntry.startTimestamp}
-              endDate={timeEntry.stopTimestamp}
             />
             <TimeEntry
               key={timeEntry.id}

@@ -3,9 +3,9 @@ import { useState, ReactNode } from "react";
 
 interface InputProps {
   label?: string;
-  placeholder?: string;
   name: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void | ReactNode;
+  placeholder?: string;
   type: string;
   value?: ReactNode | string;
   width?: string;

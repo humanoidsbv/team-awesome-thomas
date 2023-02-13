@@ -12,47 +12,47 @@ interface FormProps {
 export const TimeEntryForm = ({ handleChange, newTimeEntry }: FormProps) => (
   <Styled.TimeEntryForm>
     <Input
-      width="full"
       label="Client"
       name="client"
       onChange={handleChange}
       placeholder="Client name"
-      value={newTimeEntry.client ?? ""}
       type="text"
+      value={newTimeEntry.client ?? ""}
+      width="full"
     />
     <Input
-      width="full"
       label="Activity"
       name="activity"
+      onChange={handleChange}
       placeholder="Activity description"
       type="text"
-      onChange={handleChange}
       value={newTimeEntry.activity ?? ""}
+      width="full"
     />
     <Input
-      width="3"
       label="Date"
       name="date"
+      onChange={handleChange}
       placeholder="1970-01-01"
       type="date"
       value={newTimeEntry.date ?? "1970-01-01"}
-      onChange={handleChange}
+      width="3"
     />
     <Input
       label="From"
       name="from"
+      onChange={handleChange}
       placeholder="00:00"
       type="time"
       value={newTimeEntry.from ?? "00:00"}
-      onChange={handleChange}
     />
     <Input
       label="To"
       name="to"
+      onChange={handleChange}
       placeholder="00:00"
       type="time"
       value={newTimeEntry.to ?? "00:00"}
-      onChange={handleChange}
     />
   </Styled.TimeEntryForm>
 );

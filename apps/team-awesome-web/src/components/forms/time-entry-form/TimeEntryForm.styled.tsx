@@ -4,5 +4,5 @@ export const TimeEntryForm = styled.form`
   display: grid;
   grid-auto-flow: row;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 16px;
+  gap: 16px;
 `;
