@@ -1,27 +1,47 @@
 import * as Styled from "./Input.styled";
-import { useState, ReactNode } from "react";
+import { useState, InputHTMLAttributes } from "react";
 
-interface InputProps {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  column?: string;
   label?: string;
-  name: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void | ReactNode;
-  placeholder?: string;
-  type: string;
-  value?: ReactNode | string;
-  width?: string;
+  errorMsg?: string;
 }
 
-export const Input = ({ name, label, onChange, placeholder, type, value, width }: InputProps) => {
+export const Input = ({
+  column,
+  errorMsg,
+  label,
+  maxLength,
+  minLength,
+  name,
+  onChange,
+  pattern,
+  placeholder,
+  required,
+  type,
+}: InputProps) => {
+  const [isValid, setIsValid] = useState(true);
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsValid(() => event.target.checkValidity());
+  };
+
   return (
-    <Styled.InputWrapper width={width}>
-      <Styled.Label>{label}</Styled.Label>
+    <Styled.InputWrapper width={column}>
+      <Styled.Label htmlFor={name}>{label}</Styled.Label>
       <Styled.Input
+        isValid={isValid}
+        maxLength={maxLength}
+        minLength={minLength}
         name={name}
-        type={type}
-        value={value}
         onChange={onChange}
+        onBlur={handleBlur}
+        pattern={pattern}
         placeholder={placeholder}
+        required={required}
+        type={type}
       />
+      {!isValid && <Styled.ErrorMsg>{errorMsg}</Styled.ErrorMsg>}
     </Styled.InputWrapper>
   );
 };

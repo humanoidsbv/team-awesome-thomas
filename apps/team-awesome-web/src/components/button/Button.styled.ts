@@ -64,6 +64,12 @@ export const Button = styled.button<ButtonProps>`
       }
     `}
 
+  &:disabled {
+    background-color: ${({ theme }) => theme.grey3};
+    color: ${({ theme }) => theme.grey4};
+    cursor: not-allowed;
+  }
+
   @media screen and (${({ theme }) => theme.tablet}) {
     width: auto;
   }

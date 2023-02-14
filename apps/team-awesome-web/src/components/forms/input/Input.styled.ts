@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 type InputProps = {
   width?: string;
+  isValid?: boolean;
 };
 
 export const InputWrapper = styled.div<InputProps>`
@@ -23,12 +24,19 @@ export const Label = styled.label`
   margin-bottom: 8px;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<InputProps>`
   background-color: ${({ theme }) => theme.grey1};
   border-radius: 4px;
-  border: solid 1px ${({ theme }) => theme.grey3};
+  ${({ isValid }) =>
+    !isValid
+      ? css`
+          border: solid 1px ${({ theme }) => theme.red};
+        `
+      : css`
+          border: solid 1px ${({ theme }) => theme.grey3};
+        `}
   color: ${({ theme }) => theme.grey6};
-  padding: 12px 14px;
+  padding: 16px 14px;
 
   &::placeholder {
     opacity: 0.5;
@@ -42,6 +50,16 @@ export const Input = styled.input`
   &:active,
   &:focus {
     border: solid 1px ${({ theme }) => theme.grey6};
-    cursor: unset;
+    cursor: initial;
   }
+`;
+
+export const ErrorMsg = styled.span`
+  height: 0;
+  transform: translateY(4px);
+  padding-bottom: 8px;
+  overflow: visible;
+  font-style: italic;
+  opacity: 0.5;
+  font-size: 0.8em;
 `;

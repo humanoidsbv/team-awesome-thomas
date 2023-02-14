@@ -1,10 +1,9 @@
 import { useState, ReactNode } from "react";
 import * as Styled from "./Button.styled";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   icon?: ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   variant?: "primary" | "secondary";
   type?: "button" | "submit";
 }
@@ -15,8 +14,9 @@ export const Button = ({
   onClick,
   variant = "primary",
   type = "button",
+  disabled,
 }: ButtonProps) => (
-  <Styled.Button onClick={onClick} variant={variant} type={type}>
+  <Styled.Button onClick={onClick} variant={variant} type={type} disabled={disabled}>
     {icon}
     {children}
   </Styled.Button>
