@@ -1,12 +1,12 @@
-import * as Styled from "./TimeEntries.styled";
+import React, { useState, useRef, FormEvent } from "react";
+
 import { Button } from "../button/";
-import { Input } from "../forms/input/";
 import { Modal } from "../modal/";
-import { TimeEntryForm } from "../forms/time-entry-form";
 import { SubHeader } from "../sub-header";
 import { TimeEntry } from "../time-entry/";
+import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header/";
-import React, { useState } from "react";
+import * as Styled from "./TimeEntries.styled";
 import * as Types from "../../types";
 import mockTimeEntries from "../../fixtures/mock-time-entries";
 
@@ -38,22 +38,19 @@ export const TimeEntries = () => {
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setNewTimeEntry({ ...newTimeEntry, [target.name]: target.value });
-    const dateToISOString = (dateTime: Date) => {
-      dateTime.toISOString();
-    };
-    const startDateTime = new Date(`${[newTimeEntry.date]} ${newTimeEntry.to}`);
-    const stopDateTime = new Date(`${[newTimeEntry.date]} ${newTimeEntry.from}`);
   };
 
-  function handleSubmit() {
-    setIsModalActive(false);
-
-    handleClick(newTimeEntry);
-
-    setNewTimeEntry(defaultEntry);
-  }
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    if (formRef.current?.checkValidity()) {
+      setIsModalActive(false);
+      handleClick(newTimeEntry);
+      setNewTimeEntry(defaultEntry);
+    }
+  };
 
   return (
     <>
@@ -63,7 +60,6 @@ export const TimeEntries = () => {
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader
               endDate={timeEntry.stopTimestamp}
-              key={timeEntry.id}
               startDate={timeEntry.startTimestamp}
             />
             <TimeEntry
@@ -75,7 +71,6 @@ export const TimeEntries = () => {
           </React.Fragment>
         ))}
 
-        <Button onClick={() => handleClick(newTimeEntry)}>Add time entry</Button>
         <Modal
           isActive={isModalActive}
           onClose={() => {
@@ -84,8 +79,16 @@ export const TimeEntries = () => {
           }}
           title="New time entry"
         >
-          <TimeEntryForm handleChange={handleChange} newTimeEntry={newTimeEntry} />
-          <Button onClick={handleSubmit}>Submit</Button>
+          <TimeEntryForm
+            handleClose={() => {
+              setIsModalActive(false);
+              setNewTimeEntry(defaultEntry);
+            }}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            newTimeEntry={newTimeEntry}
+            formRef={formRef}
+          />
         </Modal>
       </Styled.TimeEntries>
     </>

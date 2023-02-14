@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { ReactComponent as Bin } from "../../../public/icons/bin.svg";
 
 export const TimeEntry = styled.div`
