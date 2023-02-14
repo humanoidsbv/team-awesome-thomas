@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
 type InputProps = {
-  width?: string;
   isValid?: boolean;
+  width?: string;
 };
 
 export const InputWrapper = styled.div<InputProps>`
@@ -55,11 +55,11 @@ export const Input = styled.input<InputProps>`
 `;
 
 export const ErrorMsg = styled.span`
-  height: 0;
-  transform: translateY(4px);
-  padding-bottom: 8px;
-  overflow: visible;
-  font-style: italic;
-  opacity: 0.5;
   font-size: 0.8em;
+  font-style: italic;
+  height: 0;
+  opacity: 0.5;
+  overflow: visible;
+  padding-bottom: 8px;
+  transform: translateY(4px);
 `;

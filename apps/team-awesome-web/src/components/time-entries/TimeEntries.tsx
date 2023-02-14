@@ -1,11 +1,12 @@
-import * as Styled from "./TimeEntries.styled";
+import React, { useState, useRef, FormEvent } from "react";
+
 import { Button } from "../button/";
 import { Modal } from "../modal/";
-import { TimeEntryForm } from "../forms/time-entry-form";
 import { SubHeader } from "../sub-header";
 import { TimeEntry } from "../time-entry/";
+import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header/";
-import React, { useState, useRef, FormEvent } from "react";
+import * as Styled from "./TimeEntries.styled";
 import * as Types from "../../types";
 import mockTimeEntries from "../../fixtures/mock-time-entries";
 
@@ -45,7 +46,6 @@ export const TimeEntries = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     if (formRef.current?.checkValidity()) {
-      console.log(formRef.current?.checkValidity());
       setIsModalActive(false);
       handleClick(newTimeEntry);
       setNewTimeEntry(defaultEntry);
