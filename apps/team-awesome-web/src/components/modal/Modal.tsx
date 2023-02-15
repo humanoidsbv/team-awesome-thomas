@@ -1,7 +1,7 @@
-import * as Styled from "./Modal.styled";
-import { useState, ReactNode } from "react";
+/* eslint-disable react/jsx-indent */
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { ReactComponent as CloseIcon } from "../../../public/icons/close.svg";
+import * as Styled from "./Modal.styled";
 
 interface ModalProps {
   children: ReactNode;

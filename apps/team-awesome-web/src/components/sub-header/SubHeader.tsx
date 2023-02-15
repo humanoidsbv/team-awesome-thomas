@@ -1,5 +1,5 @@
-import * as Styled from "./SubHeader.styled";
 import { ReactNode } from "react";
+import * as Styled from "./SubHeader.styled";
 
 interface SubHeaderProps {
   children?: ReactNode;

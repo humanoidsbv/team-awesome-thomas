@@ -14,7 +14,7 @@ export const Header = () => {
   return (
     <Styled.Header>
       <Styled.Logo>team awesome</Styled.Logo>
-      <Styled.DrawerIcon onClick={handleToggle}></Styled.DrawerIcon>
+      <Styled.DrawerIcon onClick={handleToggle} />
       <Styled.Menu isOpen={isOpen}>
         <Styled.MenuList isOpen={isOpen}>
           <Styled.ListItem>

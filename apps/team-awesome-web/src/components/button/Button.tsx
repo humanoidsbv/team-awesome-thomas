@@ -1,7 +1,7 @@
-import { useState, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import * as Styled from "./Button.styled";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   icon?: ReactNode;
   variant?: "primary" | "secondary";

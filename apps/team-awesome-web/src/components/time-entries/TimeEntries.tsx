@@ -1,46 +1,26 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, FormEvent, useEffect } from "react";
 
-import { Button } from "../button/";
-import { Modal } from "../modal/";
+import { Button } from "../button";
+import { Modal } from "../modal";
 import { NotFoundError, ServerError } from "../../classes/errors";
 import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
 import { SubHeader } from "../sub-header";
-import { TimeEntry } from "../time-entry/";
+import { TimeEntry } from "../time-entry";
 import { TimeEntryForm } from "../forms/time-entry-form";
-import { TimeEntryHeader } from "../time-entry-header/";
+import { TimeEntryHeader } from "../time-entry-header";
 import * as Styled from "./TimeEntries.styled";
 import * as SubheaderStyles from "../sub-header/SubHeader.styled";
 import * as Types from "../../types";
+import { getTimeEntries } from "../../services/getTimeEntries";
 
 export const TimeEntries = () => {
   // External handling
-  const baseUrl = "http://localhost:3004/time-entries";
+  const baseUrl = "http://localhost:3004";
 
   const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>([]);
 
-  const getTimeEntries = async (endpoint: string): Promise<Types.TimeEntry[]> => {
-    return fetch(endpoint, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.status === 404) {
-          throw new NotFoundError();
-        }
-        if (response.status === 500) {
-          throw new ServerError();
-        }
-        return response;
-      })
-      .then((response) => response.json())
-      .catch((error) => error);
-  };
-
   const fetchTimeEntries = async () => {
-    const fetchedTimeEntries = await getTimeEntries(baseUrl);
+    const fetchedTimeEntries = await getTimeEntries(`${baseUrl}/time-entries`);
     if (fetchedTimeEntries instanceof NotFoundError) {
       console.log("The time entries could not be found.");
       return;
@@ -49,7 +29,7 @@ export const TimeEntries = () => {
       console.log("The server is not responding appropriately.");
       return;
     }
-    return setTimeEntries(fetchedTimeEntries);
+    setTimeEntries(fetchedTimeEntries);
   };
 
   useEffect(() => {
@@ -68,8 +48,8 @@ export const TimeEntries = () => {
     activity: "",
   };
 
-  const postTimeEntry = async (data: string): Promise<Types.TimeEntry> => {
-    return fetch(baseUrl, {
+  const postTimeEntry = async (endpoint: string, data: string): Promise<Types.TimeEntry> => {
+    return fetch(`${baseUrl}/time-entries`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,11 +79,11 @@ export const TimeEntries = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formRef.current?.checkValidity()) {
-      const response = await postTimeEntry(JSON.stringify(newTimeEntry));
+      const response = await postTimeEntry(`${baseUrl}/time-entries`, JSON.stringify(newTimeEntry));
 
       if (response instanceof Error) {
-        console.log(response);
-        return console.log("Something went wrong.");
+        console.log("Something went wrong.");
+        return;
       }
       setTimeEntries([...timeEntries, response]);
       setIsModalActive(false);

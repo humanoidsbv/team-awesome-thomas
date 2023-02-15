@@ -3,7 +3,6 @@ import * as Styled from "./TimeEntry.styled";
 interface EntryProps {
   client: string;
   endDate: string;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   startDate: string;
 }
 
@@ -12,9 +11,9 @@ export const TimeEntry = ({ client, endDate, startDate }: EntryProps) => {
   const dateEnd = new Date(endDate);
 
   const timeDuration = dateEnd.getTime() - dateStart.getTime();
-  const durationString = `${("0" + Math.floor(timeDuration / 1000 / 3600).toString()).slice(-2)}:${(
-    "0" + ((timeDuration / 1000 / 60) % 60).toString()
-  ).slice(-2)}`;
+  const durationString = `${`0${Math.floor(timeDuration / 1000 / 3600).toString()}`.slice(
+    -2,
+  )}:${`0${((timeDuration / 1000 / 60) % 60).toString()}`.slice(-2)}`;
 
   const dateTimestamp = (inputDate: Date) =>
     inputDate.toLocaleTimeString("en-GB", {
