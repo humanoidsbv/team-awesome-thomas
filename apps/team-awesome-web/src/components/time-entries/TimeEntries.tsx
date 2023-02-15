@@ -15,6 +15,8 @@ import * as Types from "../../types";
 
 export const TimeEntries = () => {
   // External handling
+  const baseUrl = "http://localhost:3004/time-entries";
+
   const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>([]);
 
   const getTimeEntries = async (endpoint: string): Promise<Types.TimeEntry[]> => {
@@ -38,7 +40,7 @@ export const TimeEntries = () => {
   };
 
   const fetchTimeEntries = async () => {
-    const fetchedTimeEntries = await getTimeEntries("http://localhost:3004/time-entries");
+    const fetchedTimeEntries = await getTimeEntries(baseUrl);
     if (fetchedTimeEntries instanceof NotFoundError) {
       console.log("The time entries could not be found.");
       return;
@@ -55,19 +57,6 @@ export const TimeEntries = () => {
   }, []);
 
   // Local handling
-  const handleClick = (input: Types.TimeEntry) => {
-    setTimeEntries([
-      ...timeEntries,
-      {
-        id: Math.random() + 2,
-        client: input.client ?? defaultEntry.client,
-        startTimestamp: input.startTimestamp || defaultEntry.startTimestamp,
-        stopTimestamp: input.stopTimestamp || defaultEntry.stopTimestamp,
-        activity: input.activity || defaultEntry.activity,
-      },
-    ]);
-  };
-
   const defaultEntry = {
     client: "",
     date: "1970-01-01",
@@ -79,9 +68,27 @@ export const TimeEntries = () => {
     activity: "",
   };
 
-  const [isModalActive, setIsModalActive] = useState(false);
+  const postTimeEntry = async (data: string): Promise<Types.TimeEntry> => {
+    return fetch(baseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: data,
+    })
+      .then((response) => {
+        if (response.status === 404) {
+          throw new Error();
+        }
+        return response;
+      })
+      .then((response) => response.json())
+      .catch((error) => error);
+  };
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
+
+  const [isModalActive, setIsModalActive] = useState(false);
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -89,10 +96,17 @@ export const TimeEntries = () => {
     setNewTimeEntry({ ...newTimeEntry, [target.name]: target.value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (formRef.current?.checkValidity()) {
+      const response = await postTimeEntry(JSON.stringify(newTimeEntry));
+
+      if (response instanceof Error) {
+        console.log(response);
+        return console.log("Something went wrong.");
+      }
+      setTimeEntries([...timeEntries, response]);
       setIsModalActive(false);
-      handleClick(newTimeEntry);
       setNewTimeEntry(defaultEntry);
     }
   };
