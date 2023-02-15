@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "pretty": "prettier --write \"*.js*\"",
-    "dev": "nx serve team-awesome-web"
+    "json-server": "json-server --watch db.json --port 3004",
+    "dev": "npm run json-server & npx nx serve team-awesome-web"
   },
   "private": true,
   "dependencies": {
