@@ -17,42 +17,38 @@ export const TimeEntries = () => {
   // External handling
   const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>([]);
 
-  async function getTimeEntries(endpoint: string): Promise<Types.TimeEntry[]> {
-    return (
-      fetch(endpoint, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+  const getTimeEntries = async (endpoint: string): Promise<Types.TimeEntry[]> => {
+    return fetch(endpoint, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.status === 404) {
+          throw new NotFoundError();
+        }
+        if (response.status === 500) {
+          throw new ServerError();
+        }
+        return response;
       })
-        .then((response) => {
-          if (response.status === 404) {
-            throw new NotFoundError();
-          }
-          if (response.status === 500) {
-            throw new ServerError();
-          }
-          return response;
-        })
-        // returns the Time Entry Array
-        .then((response) => response.json())
-        // returns the Error as an object
-        .catch((error) => error)
-    );
-  }
+      .then((response) => response.json())
+      .catch((error) => error);
+  };
 
-  async function fetchTimeEntries() {
+  const fetchTimeEntries = async () => {
     const fetchedTimeEntries = await getTimeEntries("http://localhost:3004/time-entries");
     if (fetchedTimeEntries instanceof NotFoundError) {
-      console.log("The timeentries could not be found.");
+      console.log("The time entries could not be found.");
       return;
     }
     if (fetchedTimeEntries instanceof ServerError) {
-      console.log("The server was being a bitch.");
+      console.log("The server is not responding appropriately.");
       return;
     }
     return setTimeEntries(fetchedTimeEntries);
-  }
+  };
 
   useEffect(() => {
     fetchTimeEntries();
