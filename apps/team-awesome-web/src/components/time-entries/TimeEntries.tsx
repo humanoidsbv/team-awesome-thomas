@@ -1,17 +1,64 @@
-import React, { useState, useRef, FormEvent } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useRef, FormEvent, useEffect } from "react";
 
 import { Button } from "../button/";
 import { Modal } from "../modal/";
+import { NotFoundError, ServerError } from "../../classes/errors";
+import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
 import { SubHeader } from "../sub-header";
 import { TimeEntry } from "../time-entry/";
 import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header/";
 import * as Styled from "./TimeEntries.styled";
+import * as SubheaderStyles from "../sub-header/SubHeader.styled";
 import * as Types from "../../types";
-import mockTimeEntries from "../../fixtures/mock-time-entries";
 
 export const TimeEntries = () => {
-  const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>(mockTimeEntries || []);
+  // External handling
+  const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>([]);
+
+  async function getTimeEntries(endpoint: string): Promise<Types.TimeEntry[]> {
+    return (
+      fetch(endpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.status === 404) {
+            throw new NotFoundError();
+          }
+          if (response.status === 500) {
+            throw new ServerError();
+          }
+          return response;
+        })
+        // returns the Time Entry Array
+        .then((response) => response.json())
+        // returns the Error as an object
+        .catch((error) => error)
+    );
+  }
+
+  async function fetchTimeEntries() {
+    const fetchedTimeEntries = await getTimeEntries("http://localhost:3004/time-entries");
+    if (fetchedTimeEntries instanceof NotFoundError) {
+      console.log("The timeentries could not be found.");
+      return;
+    }
+    if (fetchedTimeEntries instanceof ServerError) {
+      console.log("The server was being a bitch.");
+      return;
+    }
+    return setTimeEntries(fetchedTimeEntries);
+  }
+
+  useEffect(() => {
+    fetchTimeEntries();
+  }, []);
+
+  // Local handling
   const handleClick = (input: Types.TimeEntry) => {
     setTimeEntries([
       ...timeEntries,
@@ -20,6 +67,7 @@ export const TimeEntries = () => {
         client: input.client ?? defaultEntry.client,
         startTimestamp: input.startTimestamp || defaultEntry.startTimestamp,
         stopTimestamp: input.stopTimestamp || defaultEntry.stopTimestamp,
+        activity: input.activity || defaultEntry.activity,
       },
     ]);
   };
@@ -32,6 +80,7 @@ export const TimeEntries = () => {
     startTimestamp: "2022-09-26T16:00:00.000Z",
     stopTimestamp: "2022-09-26T18:00:00.000Z",
     to: "00:00",
+    activity: "",
   };
 
   const [isModalActive, setIsModalActive] = useState(false);
@@ -54,7 +103,18 @@ export const TimeEntries = () => {
 
   return (
     <>
-      <SubHeader onClick={() => setIsModalActive(true)} />
+      <SubHeader>
+        <SubheaderStyles.ContextMenu>
+          <SubheaderStyles.ContextHeading>Timesheets</SubheaderStyles.ContextHeading>
+          <SubheaderStyles.ContextIndicator>
+            {timeEntries.length} Entr{timeEntries.length > 1 ? "ies" : "y"}
+          </SubheaderStyles.ContextIndicator>
+        </SubheaderStyles.ContextMenu>
+        <Button onClick={() => setIsModalActive(true)}>
+          <PlusIcon />
+          New time entry
+        </Button>
+      </SubHeader>
       <Styled.TimeEntries>
         {timeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
