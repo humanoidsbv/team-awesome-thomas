@@ -25,10 +25,14 @@ const defaultEntry = {
   activity: "",
 };
 
-export const TimeEntries = () => {
+interface TimeEntriesProps {
+  initTimeEntries: Types.TimeEntry[];
+}
+
+export const TimeEntries = ({ initTimeEntries }: TimeEntriesProps) => {
   const baseUrl = "http://localhost:3004";
 
-  const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>([]);
+  const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>(initTimeEntries);
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
@@ -109,7 +113,6 @@ export const TimeEntries = () => {
               startDate={timeEntry.startTimestamp}
             />
             <TimeEntry
-              key={timeEntry.id}
               client={timeEntry.client}
               startDate={timeEntry.startTimestamp}
               endDate={timeEntry.stopTimestamp}
