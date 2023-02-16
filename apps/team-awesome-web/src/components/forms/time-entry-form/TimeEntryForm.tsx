@@ -1,4 +1,4 @@
-import { ReactNode, RefObject, useState } from "react";
+import { ChangeEvent, RefObject } from "react";
 
 import { Button } from "../../button";
 import { Input } from "../input";
@@ -6,9 +6,8 @@ import * as Styled from "./TimeEntryForm.styled";
 import * as Types from "../../../types";
 
 interface FormProps {
-  children?: ReactNode;
   handleSubmit: () => void;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleClose: () => void;
   newTimeEntry: Types.TimeEntry;
   formRef: RefObject<HTMLFormElement>;

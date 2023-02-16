@@ -1,99 +1,86 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, FormEvent, useEffect } from "react";
 
-import { Button } from "../button/";
-import { Modal } from "../modal/";
+import { Button } from "../button";
+import { Modal } from "../modal";
 import { NotFoundError, ServerError } from "../../classes/errors";
 import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
 import { SubHeader } from "../sub-header";
-import { TimeEntry } from "../time-entry/";
+import { TimeEntry } from "../time-entry";
 import { TimeEntryForm } from "../forms/time-entry-form";
-import { TimeEntryHeader } from "../time-entry-header/";
+import { TimeEntryHeader } from "../time-entry-header";
 import * as Styled from "./TimeEntries.styled";
 import * as SubheaderStyles from "../sub-header/SubHeader.styled";
 import * as Types from "../../types";
+import { getTimeEntries, postTimeEntry, deleteTimeEntry } from "../../services";
+
+// Local handling
+const defaultEntry = {
+  client: "",
+  date: "1970-01-01",
+  from: "00:00",
+  id: 0,
+  startTimestamp: "2022-09-26T16:00:00.000Z",
+  stopTimestamp: "2022-09-26T18:00:00.000Z",
+  to: "00:00",
+  activity: "",
+};
 
 export const TimeEntries = () => {
-  // External handling
+  const baseUrl = "http://localhost:3004";
+
   const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>([]);
 
-  const getTimeEntries = async (endpoint: string): Promise<Types.TimeEntry[]> => {
-    return fetch(endpoint, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.status === 404) {
-          throw new NotFoundError();
-        }
-        if (response.status === 500) {
-          throw new ServerError();
-        }
-        return response;
-      })
-      .then((response) => response.json())
-      .catch((error) => error);
-  };
+  const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
+
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+
+  const [isModalActive, setIsModalActive] = useState(false);
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   const fetchTimeEntries = async () => {
-    const fetchedTimeEntries = await getTimeEntries("http://localhost:3004/time-entries");
+    const fetchedTimeEntries = await getTimeEntries(`${baseUrl}/time-entries`);
     if (fetchedTimeEntries instanceof NotFoundError) {
-      console.log("The time entries could not be found.");
+      setErrorMessages([...errorMessages, "The time entries could not be found."]);
       return;
     }
     if (fetchedTimeEntries instanceof ServerError) {
-      console.log("The server is not responding appropriately.");
+      console.error("The server is not responding appropriately.");
       return;
     }
-    return setTimeEntries(fetchedTimeEntries);
+    setTimeEntries(fetchedTimeEntries);
+  };
+
+  const handleRemoval = async (id: number) => {
+    const request = await deleteTimeEntry(`${baseUrl}/time-entries`, id);
+    if (request instanceof Error) {
+      console.warn(`Deletion of entry with id ${id} failed.`);
+      return;
+    }
+    setTimeEntries(timeEntries.filter((timeEntry) => timeEntry.id !== id));
   };
 
   useEffect(() => {
     fetchTimeEntries();
   }, []);
 
-  // Local handling
-  const handleClick = (input: Types.TimeEntry) => {
-    setTimeEntries([
-      ...timeEntries,
-      {
-        id: Math.random() + 2,
-        client: input.client ?? defaultEntry.client,
-        startTimestamp: input.startTimestamp || defaultEntry.startTimestamp,
-        stopTimestamp: input.stopTimestamp || defaultEntry.stopTimestamp,
-        activity: input.activity || defaultEntry.activity,
-      },
-    ]);
-  };
-
-  const defaultEntry = {
-    client: "",
-    date: "1970-01-01",
-    from: "00:00",
-    id: 0,
-    startTimestamp: "2022-09-26T16:00:00.000Z",
-    stopTimestamp: "2022-09-26T18:00:00.000Z",
-    to: "00:00",
-    activity: "",
-  };
-
-  const [isModalActive, setIsModalActive] = useState(false);
-
-  const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
-
-  const formRef = useRef<HTMLFormElement>(null);
-
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setNewTimeEntry({ ...newTimeEntry, [target.name]: target.value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (formRef.current?.checkValidity()) {
+      const response = await postTimeEntry(`${baseUrl}/time-entries`, JSON.stringify(newTimeEntry));
+
+      if (response instanceof Error) {
+        console.error("Something went wrong.");
+        return;
+      }
+      setTimeEntries([...timeEntries, response]);
       setIsModalActive(false);
-      handleClick(newTimeEntry);
       setNewTimeEntry(defaultEntry);
+      setErrorMessages([]);
     }
   };
 
@@ -111,8 +98,11 @@ export const TimeEntries = () => {
           New time entry
         </Button>
       </SubHeader>
+      {errorMessages?.map((m) => (
+        <span>{m}</span>
+      ))}
       <Styled.TimeEntries>
-        {timeEntries.map((timeEntry) => (
+        {timeEntries.map((timeEntry, index) => (
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader
               endDate={timeEntry.stopTimestamp}
@@ -123,6 +113,7 @@ export const TimeEntries = () => {
               client={timeEntry.client}
               startDate={timeEntry.startTimestamp}
               endDate={timeEntry.stopTimestamp}
+              onDelete={() => handleRemoval(timeEntry.id)}
             />
           </React.Fragment>
         ))}

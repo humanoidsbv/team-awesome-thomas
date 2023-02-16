@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { ReactComponent as Bin } from "../../../public/icons/bin.svg";
-
 export const TimeEntry = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.backgroundPrimary};
@@ -40,7 +38,7 @@ export const Duration = styled.div`
   text-align: right;
 `;
 
-export const DeleteIcon = styled(Bin)`
+export const DeleteIcon = styled.button`
   fill: ${({ theme }) => theme.grey5};
   margin: 16px;
 

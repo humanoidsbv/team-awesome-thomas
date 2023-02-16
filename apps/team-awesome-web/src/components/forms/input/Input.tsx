@@ -1,5 +1,5 @@
+import { FocusEvent, InputHTMLAttributes, useState } from "react";
 import * as Styled from "./Input.styled";
-import { useState, InputHTMLAttributes } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   column?: string;
@@ -22,7 +22,7 @@ export const Input = ({
 }: InputProps) => {
   const [isValid, setIsValid] = useState(true);
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
     setIsValid(() => event.target.checkValidity());
   };
 
