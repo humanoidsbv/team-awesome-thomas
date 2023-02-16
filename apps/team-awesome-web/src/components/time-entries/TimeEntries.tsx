@@ -48,7 +48,7 @@ export const TimeEntries = () => {
       return;
     }
     if (fetchedTimeEntries instanceof ServerError) {
-      console.log("The server is not responding appropriately.");
+      console.error("The server is not responding appropriately.");
       return;
     }
     setTimeEntries(fetchedTimeEntries);
@@ -73,7 +73,7 @@ export const TimeEntries = () => {
       const response = await postTimeEntry(`${baseUrl}/time-entries`, JSON.stringify(newTimeEntry));
 
       if (response instanceof Error) {
-        console.log("Something went wrong.");
+        console.error("Something went wrong.");
         return;
       }
       setTimeEntries([...timeEntries, response]);
