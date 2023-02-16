@@ -1,6 +1,6 @@
 import * as Types from "../types";
 
-export const deleteTimeEntry = async (endpoint: string, id: string): Promise<Types.TimeEntry> => {
+export const deleteTimeEntry = async (endpoint: string, id: number): Promise<Types.TimeEntry> => {
   return fetch(`${endpoint}/${id}`, {
     method: "DELETE",
     headers: {
@@ -8,7 +8,7 @@ export const deleteTimeEntry = async (endpoint: string, id: string): Promise<Typ
     },
   })
     .then((response) => {
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error();
       }
       return response;

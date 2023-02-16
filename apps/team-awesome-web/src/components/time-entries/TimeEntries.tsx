@@ -26,20 +26,17 @@ const defaultEntry = {
 };
 
 export const TimeEntries = () => {
-  // External handling
   const baseUrl = "http://localhost:3004";
 
   const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>([]);
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
-  const [isModalActive, setIsModalActive] = useState(false);
-
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const [isModalActive, setIsModalActive] = useState(false);
 
-  // const [removeEntry, setRemoveEntry] = useState<Types.TimeEntry>();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const fetchTimeEntries = async () => {
     const fetchedTimeEntries = await getTimeEntries(`${baseUrl}/time-entries`);
@@ -54,9 +51,13 @@ export const TimeEntries = () => {
     setTimeEntries(fetchedTimeEntries);
   };
 
-  const handleRemoval = (toRemove: number) => {
-    setTimeEntries(timeEntries.filter((timeEntry) => timeEntry.id !== toRemove));
-    deleteTimeEntry(`${baseUrl}/time-entries`, toRemove);
+  const handleRemoval = async (id: number) => {
+    const request = await deleteTimeEntry(`${baseUrl}/time-entries`, id);
+    if (request instanceof Error) {
+      console.warn(`Deletion of entry with id ${id} failed.`);
+      return;
+    }
+    setTimeEntries(timeEntries.filter((timeEntry) => timeEntry.id !== id));
   };
 
   useEffect(() => {
