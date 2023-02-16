@@ -27,33 +27,23 @@ const defaultEntry = {
 
 interface TimeEntriesProps {
   initTimeEntries: Types.TimeEntry[];
+  initErrorMessage?: string;
 }
 
-export const TimeEntries = ({ initTimeEntries }: TimeEntriesProps) => {
+export const TimeEntries = ({ initTimeEntries, initErrorMessage }: TimeEntriesProps) => {
   const baseUrl = "http://localhost:3004";
 
   const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>(initTimeEntries);
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
-  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [errorMessages, setErrorMessages] = useState<string[]>(
+    initErrorMessage ? [initErrorMessage] : [],
+  );
 
   const [isModalActive, setIsModalActive] = useState(false);
 
   const formRef = useRef<HTMLFormElement>(null);
-
-  const fetchTimeEntries = async () => {
-    const fetchedTimeEntries = await getTimeEntries(`${baseUrl}/time-entries`);
-    if (fetchedTimeEntries instanceof NotFoundError) {
-      setErrorMessages([...errorMessages, "The time entries could not be found."]);
-      return;
-    }
-    if (fetchedTimeEntries instanceof ServerError) {
-      console.error("The server is not responding appropriately.");
-      return;
-    }
-    setTimeEntries(fetchedTimeEntries);
-  };
 
   const handleRemoval = async (id: number) => {
     const request = await deleteTimeEntry(`${baseUrl}/time-entries`, id);
@@ -63,10 +53,6 @@ export const TimeEntries = ({ initTimeEntries }: TimeEntriesProps) => {
     }
     setTimeEntries(timeEntries.filter((timeEntry) => timeEntry.id !== id));
   };
-
-  useEffect(() => {
-    fetchTimeEntries();
-  }, []);
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setNewTimeEntry({ ...newTimeEntry, [target.name]: target.value });
@@ -106,7 +92,7 @@ export const TimeEntries = ({ initTimeEntries }: TimeEntriesProps) => {
         <span>{m}</span>
       ))}
       <Styled.TimeEntries>
-        {timeEntries.map((timeEntry, index) => (
+        {timeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader
               endDate={timeEntry.stopTimestamp}
@@ -120,7 +106,6 @@ export const TimeEntries = ({ initTimeEntries }: TimeEntriesProps) => {
             />
           </React.Fragment>
         ))}
-
         <Modal
           isActive={isModalActive}
           onClose={() => {
