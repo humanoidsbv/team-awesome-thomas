@@ -3,8 +3,8 @@ import * as Styled from "./Input.styled";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   column?: string;
-  label?: string;
   errorMessage?: string;
+  label?: string;
 }
 
 export const Input = ({

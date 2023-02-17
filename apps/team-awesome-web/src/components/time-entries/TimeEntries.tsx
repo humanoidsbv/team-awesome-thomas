@@ -112,8 +112,8 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
         title="New time entry"
       >
         <TimeEntryForm
-          handleChange={handleChange}
           formRef={formRef}
+          handleChange={handleChange}
           handleClose={() => {
             setIsModalActive(false);
             setNewTimeEntry(defaultEntry);
