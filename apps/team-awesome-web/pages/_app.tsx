@@ -10,7 +10,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
     <>
       <GlobalStyle />
       <Head>
-        <title>Welcome to team-awesome-web!</title>
+        <title>Team Awesome webapp</title>
       </Head>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />

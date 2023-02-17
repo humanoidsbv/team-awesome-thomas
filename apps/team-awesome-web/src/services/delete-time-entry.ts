@@ -1,7 +1,7 @@
 import * as Types from "../types";
 
-export const deleteTimeEntry = async (endpoint: string, id: number): Promise<Types.TimeEntry> => {
-  return fetch(`${endpoint}/${id}`, {
+export const deleteTimeEntry = async (id: number): Promise<Types.TimeEntry> => {
+  return fetch(`http://localhost:3004/time-entries/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

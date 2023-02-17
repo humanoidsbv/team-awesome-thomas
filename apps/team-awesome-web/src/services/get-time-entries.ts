@@ -1,8 +1,8 @@
 import * as Types from "../types";
 import { NotFoundError, ServerError } from "../classes/errors";
 
-export const getTimeEntries = async (endpoint: string): Promise<Types.TimeEntry[]> => {
-  return fetch(endpoint, {
+export const getTimeEntries = async (): Promise<Types.TimeEntry[]> => {
+  return fetch("http://localhost:3004/time-entries", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

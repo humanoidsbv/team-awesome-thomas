@@ -24,7 +24,7 @@ export const TimeEntryForm = ({
     <Styled.TimeEntryForm ref={formRef} onSubmit={handleSubmit}>
       <Input
         column="full"
-        errorMsg="Please fill in a valid name"
+        errorMessage="Please fill in a valid name"
         label="Client"
         minLength={4}
         name="client"
@@ -36,7 +36,7 @@ export const TimeEntryForm = ({
       />
       <Input
         column="full"
-        errorMsg="Please fill in a valid activity description"
+        errorMessage="Please fill in a valid activity description"
         label="Activity"
         minLength={4}
         name="activity"
@@ -48,7 +48,7 @@ export const TimeEntryForm = ({
       />
       <Input
         column="3"
-        errorMsg="Please enter a valid date"
+        errorMessage="Please enter a valid date"
         label="Date"
         name="date"
         onChange={handleChange}
@@ -58,7 +58,7 @@ export const TimeEntryForm = ({
         value={newTimeEntry.date ?? "1970-01-01"}
       />
       <Input
-        errorMsg="Please enter a valid time"
+        errorMessage="Please enter a valid time"
         label="From"
         name="from"
         onChange={handleChange}
@@ -68,7 +68,7 @@ export const TimeEntryForm = ({
         value={newTimeEntry.from ?? "00:00"}
       />
       <Input
-        errorMsg="Please enter a valid time"
+        errorMessage="Please enter a valid time"
         label="To"
         name="to"
         onChange={handleChange}

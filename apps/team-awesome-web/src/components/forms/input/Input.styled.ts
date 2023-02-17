@@ -54,7 +54,7 @@ export const Input = styled.input<InputProps>`
   }
 `;
 
-export const ErrorMsg = styled.span`
+export const ErrorMessage = styled.span`
   font-size: 0.8em;
   font-style: italic;
   height: 0;
