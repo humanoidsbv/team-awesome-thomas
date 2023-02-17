@@ -1,7 +1,7 @@
 import * as Types from "../types";
 
-export const postTimeEntry = async (endpoint: string, data: string): Promise<Types.TimeEntry> => {
-  return fetch(endpoint, {
+export const postTimeEntry = async (data: string): Promise<Types.TimeEntry> => {
+  return fetch("http://localhost:3004/time-entries", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
