@@ -4,12 +4,12 @@ import * as Styled from "./Input.styled";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   column?: string;
   label?: string;
-  errorMsg?: string;
+  errorMessage?: string;
 }
 
 export const Input = ({
   column,
-  errorMsg,
+  errorMessage,
   label,
   maxLength,
   minLength,
@@ -41,7 +41,7 @@ export const Input = ({
         required={required}
         type={type}
       />
-      {!isValid && <Styled.ErrorMsg>{errorMsg}</Styled.ErrorMsg>}
+      {!isValid && <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>}
     </Styled.InputWrapper>
   );
 };

@@ -1,8 +1,8 @@
-import React, { useState, useRef, FormEvent } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 
 import { Button } from "../button";
-import { postTimeEntry, deleteTimeEntry } from "../../services";
 import { Modal } from "../modal";
+import { deleteTimeEntry, postTimeEntry } from "../../services";
 import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
 import { SubHeader } from "../sub-header";
 import { TimeEntry } from "../time-entry";
@@ -24,8 +24,8 @@ const defaultEntry = {
 };
 
 interface TimeEntriesProps {
-  timeEntries: Types.TimeEntry[];
   errorMessage?: string;
+  timeEntries: Types.TimeEntry[];
 }
 
 export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
@@ -42,9 +42,9 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleRemoval = async (id: number) => {
-    const request = await deleteTimeEntry(id);
+    const response = await deleteTimeEntry(id);
 
-    if (request instanceof Error) {
+    if (response instanceof Error) {
       console.warn(`Deletion of entry with id ${id} failed.`);
       return;
     }
@@ -96,9 +96,9 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
             />
             <TimeEntry
               client={timeEntry.client}
-              startDate={timeEntry.startTimestamp}
               endDate={timeEntry.stopTimestamp}
               onDelete={() => handleRemoval(timeEntry.id)}
+              startDate={timeEntry.startTimestamp}
             />
           </React.Fragment>
         ))}
@@ -112,14 +112,14 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
         title="New time entry"
       >
         <TimeEntryForm
+          handleChange={handleChange}
+          formRef={formRef}
           handleClose={() => {
             setIsModalActive(false);
             setNewTimeEntry(defaultEntry);
           }}
           handleSubmit={handleSubmit}
-          handleChange={handleChange}
           newTimeEntry={newTimeEntry}
-          formRef={formRef}
         />
       </Modal>
     </>

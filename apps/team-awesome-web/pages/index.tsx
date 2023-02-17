@@ -1,4 +1,4 @@
-import { getTimeEntries } from "../src/services/getTimeEntries";
+import { getTimeEntries } from "../src/services/get-time-entries";
 import { Header } from "../src/components/header";
 import { TimeEntries } from "../src/components/time-entries";
 import Types from "../src/types";
@@ -9,8 +9,8 @@ export const getServerSideProps = async () => {
   if (response instanceof Error) {
     return {
       props: {
+        errorMessage: "There was an error fetching entries",
         timeEntries: [],
-        errorMsg: "There was an error fetching entries",
       },
     };
   }
@@ -22,15 +22,15 @@ export const getServerSideProps = async () => {
 };
 
 interface TimeEntriesPageProps {
-  timeEntries: Types.TimeEntry[];
   errorMessage?: string;
+  timeEntries: Types.TimeEntry[];
 }
 
-const TimeEntriesPage = ({ timeEntries, errorMessage }: TimeEntriesPageProps) => {
+const TimeEntriesPage = ({ errorMessage, timeEntries }: TimeEntriesPageProps) => {
   return (
     <>
       <Header />
-      <TimeEntries timeEntries={timeEntries} errorMessage={errorMessage} />
+      <TimeEntries errorMessage={errorMessage} timeEntries={timeEntries} />
     </>
   );
 };

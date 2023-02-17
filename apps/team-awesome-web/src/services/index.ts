@@ -1,3 +1,3 @@
-export * from "./getTimeEntries";
-export * from "./postTimeEntry";
-export * from "./deleteTimeEntry";
+export * from "./get-time-entries";
+export * from "./post-time-entry";
+export * from "./delete-time-entry";
