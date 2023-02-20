@@ -20,6 +20,15 @@ export const TimeEntryForm = ({
   newTimeEntry,
   formRef,
 }: FormProps) => {
+  const durationString =
+    new Date(newTimeEntry.stopTimestamp).getTime() -
+    new Date(newTimeEntry.startTimestamp).getTime();
+
+  const duration = new Date(durationString - 3600000).toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   return (
     <Styled.TimeEntryForm ref={formRef} onSubmit={handleSubmit}>
       <Input
@@ -77,6 +86,10 @@ export const TimeEntryForm = ({
         type="time"
         value={newTimeEntry.to ?? "00:00"}
       />
+      <Styled.TimeWrapper>
+        <Styled.TimeLabel>Total</Styled.TimeLabel>
+        <Styled.Time>{duration}</Styled.Time>
+      </Styled.TimeWrapper>
       <Styled.FormActions>
         <Button variant="secondary" onClick={handleClose}>
           Cancel
