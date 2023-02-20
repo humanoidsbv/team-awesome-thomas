@@ -1,9 +1,10 @@
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useContext, useState } from "react";
 
 import { Button } from "../button";
-import { Modal } from "../modal";
 import { deleteTimeEntry, postTimeEntry } from "../../services";
+import { Modal } from "../modal";
 import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
+import { StoreContext } from "../store-context";
 import { SubHeader } from "../sub-header";
 import { TimeEntry } from "../time-entry";
 import { TimeEntryForm } from "../forms/time-entry-form";
@@ -29,7 +30,11 @@ interface TimeEntriesProps {
 }
 
 export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
-  const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>(props.timeEntries);
+  const { timeEntries, setTimeEntries } = useContext(StoreContext);
+
+  useEffect(() => {
+    setTimeEntries(props.timeEntries);
+  }, []);
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
