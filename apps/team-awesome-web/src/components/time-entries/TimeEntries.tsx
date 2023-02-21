@@ -57,6 +57,16 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   };
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    if (target.name === "from") {
+      const newStartTimestamp = new Date(`${newTimeEntry.date}T${target.value}:00`);
+      setNewTimeEntry({ ...newTimeEntry, startTimestamp: newStartTimestamp.toISOString() });
+      return;
+    }
+    if (target.name === "to") {
+      const newStopTimestamp = new Date(`${newTimeEntry.date}T${target.value}`);
+      setNewTimeEntry({ ...newTimeEntry, stopTimestamp: newStopTimestamp.toISOString() });
+      return;
+    }
     setNewTimeEntry({ ...newTimeEntry, [target.name]: target.value });
   };
 
@@ -99,12 +109,7 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
               endDate={timeEntry.stopTimestamp}
               startDate={timeEntry.startTimestamp}
             />
-            <TimeEntry
-              client={timeEntry.client}
-              endDate={timeEntry.stopTimestamp}
-              onDelete={() => handleRemoval(timeEntry.id)}
-              startDate={timeEntry.startTimestamp}
-            />
+            <TimeEntry timeEntry={timeEntry} onDelete={() => handleRemoval(timeEntry.id)} />
           </React.Fragment>
         ))}
       </Styled.TimeEntries>

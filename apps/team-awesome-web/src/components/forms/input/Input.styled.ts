@@ -9,6 +9,7 @@ export const InputWrapper = styled.div<InputProps>`
   display: grid;
   font-size: ${({ theme }) => theme.fontSizeMedium};
   grid-auto-flow: row;
+
   ${({ width }) =>
     width === "full"
       ? css`
