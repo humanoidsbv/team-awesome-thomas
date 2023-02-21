@@ -109,7 +109,7 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
               endDate={timeEntry.stopTimestamp}
               startDate={timeEntry.startTimestamp}
             />
-            <TimeEntry object={timeEntry} onDelete={() => handleRemoval(timeEntry.id)} />
+            <TimeEntry timeEntry={timeEntry} onDelete={() => handleRemoval(timeEntry.id)} />
           </React.Fragment>
         ))}
       </Styled.TimeEntries>

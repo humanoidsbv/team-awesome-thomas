@@ -5,13 +5,13 @@ import * as Types from "../../types";
 import { calcDuration } from "../../services/calculate-duration";
 
 interface EntryProps {
-  object: Types.TimeEntry;
+  timeEntry: Types.TimeEntry;
   onDelete: (toRemove: number) => void;
 }
 
-export const TimeEntry = ({ object, onDelete }: EntryProps) => {
-  const dateStart = new Date(object.startTimestamp);
-  const dateEnd = new Date(object.stopTimestamp);
+export const TimeEntry = ({ timeEntry, onDelete }: EntryProps) => {
+  const dateStart = new Date(timeEntry.startTimestamp);
+  const dateEnd = new Date(timeEntry.stopTimestamp);
 
   const dateTimestamp = (inputDate: Date) =>
     inputDate.toLocaleTimeString("en-GB", {
@@ -19,14 +19,16 @@ export const TimeEntry = ({ object, onDelete }: EntryProps) => {
       minute: "2-digit",
     });
 
+  const durationString = calcDuration(timeEntry);
+
   return (
     <Styled.TimeEntry>
-      <div>{object.client}</div>
+      <div>{timeEntry.client}</div>
       <Styled.Times>
         <Styled.TimeRange>
           {dateTimestamp(dateStart)} - {dateTimestamp(dateEnd)}
         </Styled.TimeRange>
-        <Styled.Duration>{calcDuration(object)}</Styled.Duration>
+        <Styled.Duration>{durationString}</Styled.Duration>
       </Styled.Times>
       <Styled.DeleteIcon onClick={onDelete}>
         <Bin />
