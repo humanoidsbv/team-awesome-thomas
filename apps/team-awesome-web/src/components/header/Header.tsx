@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import * as Styled from "./Header.styled";
 import { ReactComponent as ArrowDown } from "../../../public/icons/arrow-down.svg";
 import { ReactComponent as HumanoidsLogo } from "../../../public/img/humanoids.svg";
@@ -13,24 +14,30 @@ export const Header = () => {
 
   return (
     <Styled.Header>
-      <Styled.Logo>team awesome</Styled.Logo>
+      <Link href="/" passHref legacyBehavior>
+        <Styled.Logo>team awesome</Styled.Logo>
+      </Link>
       <Styled.DrawerIcon onClick={handleToggle} />
       <Styled.Menu isOpen={isOpen}>
         <Styled.MenuList isOpen={isOpen}>
           <Styled.ListItem>
-            <Styled.ListLink href="#">Timesheets</Styled.ListLink>
+            <Link href="/timesheets" passHref legacyBehavior>
+              <Styled.ListLink>Timesheets</Styled.ListLink>
+            </Link>
           </Styled.ListItem>
           <Styled.ListItem>
-            <Styled.ListLink href="#">Team members</Styled.ListLink>
+            <Link href="/team-members" passHref legacyBehavior>
+              <Styled.ListLink>Team members</Styled.ListLink>
+            </Link>
           </Styled.ListItem>
           <Styled.ListItem>
-            <Styled.ListLink href="#">Projects</Styled.ListLink>
+            <Styled.ListLink>Projects</Styled.ListLink>
           </Styled.ListItem>
           <Styled.ListItem>
-            <Styled.ListLink href="#">Clients</Styled.ListLink>
+            <Styled.ListLink>Clients</Styled.ListLink>
           </Styled.ListItem>
           <Styled.ListItem>
-            <Styled.ListLink href="#">Documents</Styled.ListLink>
+            <Styled.ListLink>Documents</Styled.ListLink>
           </Styled.ListItem>
         </Styled.MenuList>
       </Styled.Menu>
