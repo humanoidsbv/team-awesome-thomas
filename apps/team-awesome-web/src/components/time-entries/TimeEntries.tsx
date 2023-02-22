@@ -10,7 +10,6 @@ import { TimeEntry } from "../time-entry";
 import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header";
 import * as Styled from "./TimeEntries.styled";
-import * as SubheaderStyles from "../sub-header/SubHeader.styled";
 import * as Types from "../../types";
 
 const title = "Timesheets";
@@ -99,7 +98,6 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
           New time entry
         </Button>
       </SubHeader>
-
       <Styled.TimeEntries>
         {timeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
