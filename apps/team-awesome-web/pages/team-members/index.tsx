@@ -18,7 +18,7 @@ const TeamMembersPage = () => {
     <>
       <Header />
       <SubHeader title={pageTitle} count="22 Humanoids">
-        <Button>
+        <Button onClick={() => setIsModalActive(true)}>
           <PlusIcon />
           New Humanoid
         </Button>
@@ -28,9 +28,8 @@ const TeamMembersPage = () => {
         isActive={isModalActive}
         onClose={() => {
           setIsModalActive(false);
-          setNewTimeEntry(defaultEntry);
         }}
-        title="New time entry"
+        title="New Humanoid"
       >
         <TeamMemberForm />
       </Modal>

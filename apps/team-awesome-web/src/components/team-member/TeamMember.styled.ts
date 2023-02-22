@@ -7,9 +7,8 @@ export const TeamMember = styled.div`
   display: grid;
   font-size: ${({ theme }) => theme.fontSizeDefault};
   font-weight: ${({ theme }) => theme.fontWeightBold};
-  grid-template-columns: 4px 1fr;
+  grid-template-columns: min-content 1fr;
   grid-template-rows: repeat(2, max-content);
-  overflow: hidden;
 
   &::before {
     background-color: ${({ theme }) => theme.backgroundSecondary};
