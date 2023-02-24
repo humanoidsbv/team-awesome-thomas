@@ -38,8 +38,7 @@ const GlobalStyle = createGlobalStyle`
     }
     
     html {
-        overflow: scroll;
-        width: 100vw;
+        overflow-y: scroll;
     }
 
     textarea {

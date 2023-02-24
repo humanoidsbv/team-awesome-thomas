@@ -1,46 +1,102 @@
-import { ChangeEvent, RefObject } from "react";
+import { ChangeEvent, FormEvent, RefObject, useContext, useRef, useState } from "react";
 
 import { Button } from "../../button";
 import { Input } from "../input";
-import * as Styled from "./TeamMemberForm.styled";
 import * as Types from "../../../types";
+import { postTeamMember } from "../../../services/post-team-member";
+import { StoreContext } from "../../store-context";
+import * as Styled from "./TeamMemberForm.styled";
 
 interface FormProps {
   // handleSubmit: () => void;
   // handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  // handleClose: () => void;
+  handleClose: () => void;
   // formRef: RefObject<HTMLFormElement>;
 }
 
-export const TeamMemberForm = ({}: // handleSubmit,
-// handleChange,
-// handleClose,
-// formRef,
-FormProps) => {
+// const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+//   e.preventDefault();
+
+//   if (formRef.current?.checkValidity()) {
+//     const response = await postTimeEntry(JSON.stringify(newTeamMember));
+
+//     if (response instanceof Error) {
+//       console.error("Something went wrong.");
+//       return;
+//     }
+//     setTimeEntries([...timeEntries, response]);
+//     setIsModalActive(false);
+//     setNewTeamMember(defaultEntry);
+//     setErrorMessages([]);
+//   }
+// };
+
+export const TeamMemberForm = ({ handleClose }: FormProps) => {
+  const defaultMember: Types.TeamMember = {
+    avatar: "",
+    client: "",
+    emailAddress: "",
+    firstName: "",
+    id: 0,
+    lastName: "",
+    role: "",
+    startTimestamp: "1970-01-01T00:00:00.000Z",
+  };
+
+  const { teamMembers, setTeamMembers } = useContext(StoreContext);
+
+  const [newTeamMember, setNewTeamMember] = useState<Types.TeamMember>(defaultMember);
+
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    setNewTeamMember({ ...newTeamMember, [target.name]: target.value });
+  };
+
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (formRef.current?.checkValidity()) {
+      const response = await postTeamMember(JSON.stringify(newTeamMember));
+
+      if (response instanceof Error) {
+        console.error("Something went wrong.");
+        return;
+      }
+      // setTimeEntries([...timeEntries, response]);
+      setTeamMembers([...teamMembers, response]);
+      handleClose();
+      // setNewTimeEntry(defaultEntry);
+      // setErrorMessages([]);
+
+      console.log("Memberdata:", newTeamMember);
+    }
+  };
+
   return (
-    <Styled.TeamMemberForm>
+    <Styled.TeamMemberForm ref={formRef} onSubmit={handleSubmit}>
       <Styled.Avatar src="img/avatars/amijs.png" />
       <Input
         errorMessage="Please fill in a valid name"
         label="First name"
         minLength={2}
         name="firstName"
-        onChange={false}
+        onChange={handleChange}
         placeholder="First name"
         required
         type="text"
-        value={false}
+        value={newTeamMember.firstName ?? ""}
       />
       <Input
         errorMessage="Please fill in a valid name"
         label="Last name"
         minLength={2}
         name="lastName"
-        onChange={false}
+        onChange={handleChange}
         placeholder="Last name"
         required
         type="text"
-        value={false}
+        value={newTeamMember.lastName ?? ""}
       />
       <Input
         column="full"
@@ -48,20 +104,20 @@ FormProps) => {
         label="Email address"
         minLength={6}
         name="emailAddress"
-        onChange={false}
+        onChange={handleChange}
         placeholder="Email address"
         required
         type="email"
-        value={false}
+        value={newTeamMember.emailAddress ?? ""}
       />
       <Input
         column="full"
         label="Short description"
         name="description"
-        onChange={false}
+        onChange={handleChange}
         placeholder="Enter a short description (optional)"
         type="textarea"
-        value={false}
+        value={newTeamMember.description ?? ""}
       />
       <Input
         column="full"
@@ -69,15 +125,19 @@ FormProps) => {
         label="Current client"
         minLength={2}
         name="client"
-        onChange={false}
+        onChange={handleChange}
         placeholder="Current client"
         required
         type="text"
-        value={false}
+        value={newTeamMember.client ?? ""}
       />
       <Styled.FormActions>
-        <Button variant="secondary">Cancel</Button>
-        <Button type="submit">Add Humanoid</Button>
+        <Button onClick={handleClose} variant="secondary">
+          Cancel
+        </Button>
+        <Button type="submit" disabled={!formRef.current?.checkValidity()}>
+          Add Humanoid
+        </Button>
       </Styled.FormActions>
     </Styled.TeamMemberForm>
   );

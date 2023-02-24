@@ -41,7 +41,7 @@ export const TimeEntryForm = ({
         placeholder="Client name"
         required
         type="text"
-        value={newTimeEntry.activity ?? ""}
+        value={newTimeEntry.name ?? ""}
       />
       <Input
         column="full"

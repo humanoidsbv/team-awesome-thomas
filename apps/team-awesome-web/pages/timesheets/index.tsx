@@ -6,6 +6,11 @@ import Types from "../../src/types";
 export const getServerSideProps = async () => {
   const response = await getTimeEntries();
 
+  interface TeamMembersProps {
+    errorMessage?: string;
+    teamMembers: Types.TeamMember[];
+  }
+
   if (response instanceof Error) {
     return {
       props: {

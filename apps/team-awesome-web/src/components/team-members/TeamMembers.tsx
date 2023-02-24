@@ -1,17 +1,28 @@
+import { useContext, useEffect, useState } from "react";
+
 import * as Styled from "./TeamMembers.styled";
 import { TeamMember } from "../team-member";
-import { Modal } from "../modal";
-import { TeamMemberForm } from "../forms/team-member-form";
+import * as Types from "../../types";
+import { StoreContext } from "../store-context";
 
-export const TeamMembers = () => {
+interface TeamMembersProps {
+  errorMessage?: string;
+  teamMembers: Types.TeamMember[];
+}
+
+export const TeamMembers = ({ ...props }: TeamMembersProps) => {
+  const { teamMembers, setTeamMembers } = useContext(StoreContext);
+
+  useEffect(() => {
+    setTeamMembers(props.teamMembers);
+  }, []);
+
   return (
     <>
       <Styled.TeamMembers>
-        <TeamMember />
-        <TeamMember />
-        <TeamMember />
-        <TeamMember />
-        <TeamMember />
+        {teamMembers.map((teamMember) => (
+          <TeamMember key={teamMember.id} teamMember={teamMember} />
+        ))}
       </Styled.TeamMembers>
     </>
   );

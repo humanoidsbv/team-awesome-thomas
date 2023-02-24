@@ -2,27 +2,25 @@ import styled from "styled-components";
 
 export const TeamMemberForm = styled.form`
   display: grid;
+  gap: 16px;
   grid-auto-flow: row;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-
-  @media screen and (${({ theme }) => theme.tablet}) {
-  }
 `;
 
 export const Avatar = styled.img`
-  grid-column: 1 / -1;
-  justify-self: center;
   border-radius: 50%;
-  width: 96px;
+  grid-column: 1 / -1;
   height: 96px;
+  justify-self: center;
   margin: 16px 0;
+  width: 96px;
 `;
 
 export const FormActions = styled.div`
   display: grid;
-  grid-auto-flow: column;
-  margin-top: 16px;
   gap: 32px;
+  grid-auto-flow: column;
   grid-column: 1 / -1;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 24px;
 `;

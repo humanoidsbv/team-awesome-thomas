@@ -6,24 +6,50 @@ import { TeamMembers } from "../../src/components/team-members";
 import { Button } from "../../src/components/button";
 import { ReactComponent as PlusIcon } from "../../public/icons/plus-icon.svg";
 import { TeamMemberForm } from "../../src/components/forms/team-member-form";
+import { getTeamMembers } from "../../src/services";
 
 import Types from "../../src/types";
 
 const pageTitle = "Team members";
 
-const TeamMembersPage = () => {
+interface TeamMembersProps {
+  errorMessage?: string;
+  teamMembers: Types.TeamMember[];
+}
+
+export const getServerSideProps = async () => {
+  const response = await getTeamMembers();
+
+  if (response instanceof Error) {
+    return {
+      props: {
+        errorMessage: "There was an error fetching entries",
+        teamMembers: [],
+      },
+    };
+  }
+  return {
+    props: {
+      teamMembers: response,
+    },
+  };
+};
+
+const TeamMembersPage = ({ errorMessage, teamMembers }: TeamMembersProps) => {
   const [isModalActive, setIsModalActive] = useState(false);
+
+  const subheaderCount = `${teamMembers.length} Humanoid${teamMembers.length > 1 && "s"}`;
 
   return (
     <>
       <Header />
-      <SubHeader title={pageTitle} count="22 Humanoids">
+      <SubHeader title={pageTitle} count={subheaderCount}>
         <Button onClick={() => setIsModalActive(true)}>
           <PlusIcon />
           New Humanoid
         </Button>
       </SubHeader>
-      <TeamMembers />
+      <TeamMembers errorMessage={errorMessage} teamMembers={teamMembers} />
       <Modal
         isActive={isModalActive}
         onClose={() => {
@@ -31,7 +57,11 @@ const TeamMembersPage = () => {
         }}
         title="New Humanoid"
       >
-        <TeamMemberForm />
+        <TeamMemberForm
+          handleClose={() => {
+            setIsModalActive(false);
+          }}
+        />
       </Modal>
     </>
   );
