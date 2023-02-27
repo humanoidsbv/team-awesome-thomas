@@ -8,28 +8,8 @@ import { StoreContext } from "../../store-context";
 import * as Styled from "./TeamMemberForm.styled";
 
 interface FormProps {
-  // handleSubmit: () => void;
-  // handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleClose: () => void;
-  // formRef: RefObject<HTMLFormElement>;
 }
-
-// const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-//   e.preventDefault();
-
-//   if (formRef.current?.checkValidity()) {
-//     const response = await postTimeEntry(JSON.stringify(newTeamMember));
-
-//     if (response instanceof Error) {
-//       console.error("Something went wrong.");
-//       return;
-//     }
-//     setTimeEntries([...timeEntries, response]);
-//     setIsModalActive(false);
-//     setNewTeamMember(defaultEntry);
-//     setErrorMessages([]);
-//   }
-// };
 
 export const TeamMemberForm = ({ handleClose }: FormProps) => {
   const defaultMember: Types.TeamMember = {
@@ -63,11 +43,8 @@ export const TeamMemberForm = ({ handleClose }: FormProps) => {
         console.error("Something went wrong.");
         return;
       }
-      // setTimeEntries([...timeEntries, response]);
       setTeamMembers([...teamMembers, response]);
       handleClose();
-      // setNewTimeEntry(defaultEntry);
-      // setErrorMessages([]);
 
       console.log("Memberdata:", newTeamMember);
     }
