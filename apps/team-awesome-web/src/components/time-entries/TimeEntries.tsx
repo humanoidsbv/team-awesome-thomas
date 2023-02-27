@@ -32,6 +32,8 @@ interface TimeEntriesProps {
 export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   const { timeEntries, setTimeEntries } = useContext(StoreContext);
 
+  const { sortKey, setSortKey } = useContext(StoreContext);
+
   useEffect(() => {
     setTimeEntries(props.timeEntries);
   }, []);
