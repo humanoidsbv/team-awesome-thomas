@@ -5,10 +5,18 @@ export const TeamMembers = styled.div`
   grid-auto-flow: row;
   grid-template-columns: 1fr;
   justify-content: center;
-  margin: 40px 16px;
+  margin: 0 16px;
   row-gap: 20px;
 
   @media screen and (${({ theme }) => theme.tablet}) {
     grid-template-columns: minmax(375px, 1080px);
   }
+`;
+
+export const Actions = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: end;
+  column-gap: 16px;
+  margin: 16px 0 0;
 `;

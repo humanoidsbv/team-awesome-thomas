@@ -103,7 +103,7 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
       </SubHeader>
       <Styled.TimeEntries>
         <Styled.Actions>
-          <Select sortableObjects={timeEntries} direction />
+          <Select sortList="timesheets" direction />
         </Styled.Actions>
         {timeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>

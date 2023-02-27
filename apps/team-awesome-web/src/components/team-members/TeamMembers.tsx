@@ -4,6 +4,7 @@ import * as Styled from "./TeamMembers.styled";
 import { TeamMember } from "../team-member";
 import * as Types from "../../types";
 import { StoreContext } from "../store-context";
+import { Select } from "../forms/select";
 
 interface TeamMembersProps {
   errorMessage?: string;
@@ -18,12 +19,13 @@ export const TeamMembers = ({ ...props }: TeamMembersProps) => {
   }, []);
 
   return (
-    <>
-      <Styled.TeamMembers>
-        {teamMembers.map((teamMember) => (
-          <TeamMember key={teamMember.id} teamMember={teamMember} />
-        ))}
-      </Styled.TeamMembers>
-    </>
+    <Styled.TeamMembers>
+      <Styled.Actions>
+        <Select sortList="teamMembers" direction />
+      </Styled.Actions>
+      {teamMembers.map((teamMember) => (
+        <TeamMember key={teamMember.id} teamMember={teamMember} />
+      ))}
+    </Styled.TeamMembers>
   );
 };
