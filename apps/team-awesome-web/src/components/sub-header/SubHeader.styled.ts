@@ -18,7 +18,6 @@ export const SubHeader = styled.div`
 `;
 
 export const ContextMenu = styled.div`
-  align-content: center;
   display: grid;
   gap: 20px;
   grid-auto-flow: column;
@@ -38,6 +37,7 @@ export const ContextMenu = styled.div`
     width: auto;
 
     & h1::after {
+      align-self: center;
       border-left: solid 1px ${({ theme }) => theme.grey5};
       content: "";
       height: ${({ theme }) => theme.fontSizeMedium};
@@ -52,7 +52,7 @@ export const ContextHeading = styled.h1`
   font-size: 18px;
 `;
 
-export const ContextIndicator = styled.p`
+export const ContextCount = styled.p`
   color: ${({ theme }) => theme.grey5};
   font-family: ${({ theme }) => theme.fontPrimary};
   font-size: ${({ theme }) => theme.fontSizeMedium};

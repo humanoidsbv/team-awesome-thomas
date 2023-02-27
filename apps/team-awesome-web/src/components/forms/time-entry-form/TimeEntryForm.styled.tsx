@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const TimeEntryForm = styled.form`
   display: grid;
+  gap: 16px;
   grid-auto-flow: row;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
 
   @media screen and (${({ theme }) => theme.tablet}) {
     grid-template-columns: repeat(3, 1fr) repeat(3, 2fr);
@@ -13,10 +13,11 @@ export const TimeEntryForm = styled.form`
 
 export const FormActions = styled.div`
   display: grid;
-  grid-auto-flow: column;
-  margin-top: 16px;
   gap: 32px;
+  grid-auto-flow: column;
   grid-column: 1 / -1;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 24px;
 `;
 
 export const TimeWrapper = styled.div`

@@ -1,18 +1,55 @@
 {
   "time-entries": [
     {
-      "id": 1,
-      "client": "Heineken",
-      "startTimestamp": "2022-09-23T16:14:00.000Z",
-      "stopTimestamp": "2022-09-23T18:00:00.000Z",
-      "activity": "Bier drinken"
-    },
-    {
       "id": 2,
       "client": "Port of Rotterdam",
       "startTimestamp": "2022-09-24T16:00:00.000Z",
       "stopTimestamp": "2022-09-25T18:00:00.000Z",
       "activity": "Boten sturen"
+    },
+    {
+      "client": "Mario",
+      "date": "1980-01-01",
+      "from": "00:00",
+      "id": 3,
+      "startTimestamp": "1980-01-01T11:00:00.000Z",
+      "stopTimestamp": "1980-01-01T20:00:00.000Z",
+      "to": "00:00",
+      "activity": "Jumping"
+    },
+    {
+      "client": "Link",
+      "date": "2023-02-23",
+      "from": "00:00",
+      "id": 4,
+      "startTimestamp": "2023-02-23T11:12:00.000Z",
+      "stopTimestamp": "2023-02-23T22:23:00.000Z",
+      "to": "00:00",
+      "activity": "Gardening"
+    }
+  ],
+  "team-members": [
+    {
+      "avatar": "",
+      "client": "Nintendo",
+      "emailAddress": "mario@nintendo.com",
+      "firstName": "Mario",
+      "id": 1,
+      "lastName": "Mario",
+      "role": "",
+      "startTimestamp": "1970-01-01T00:00:00.000Z",
+      "description": "Bing bing wahoo!"
+    },
+    {
+      "avatar": "",
+      "client": "Nintendo",
+      "emailAddress": "link@nintendo.com",
+      "firstName": "Link",
+      "id": 2,
+      "lastName": "teh Champion",
+      "role": "",
+      "startTimestamp": "1970-01-01T00:00:00.000Z",
+      "description": "Hi-YAA!"
     }
   ]
 }

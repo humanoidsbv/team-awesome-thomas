@@ -115,8 +115,14 @@ export const ListItem = styled.li`
   }
 `;
 
-export const ListLink = styled.a`
+export const ListLink = styled.a<{ isActive: boolean }>`
   cursor: pointer;
+  ${(props) =>
+    props.isActive === true &&
+    `
+    text-decoration: solid underline 2px;
+    text-underline-offset: 0.4rem;
+    `};
 
   &:hover {
     text-decoration: solid underline 2px;

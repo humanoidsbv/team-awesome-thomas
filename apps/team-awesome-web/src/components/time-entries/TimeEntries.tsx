@@ -10,8 +10,9 @@ import { TimeEntry } from "../time-entry";
 import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header";
 import * as Styled from "./TimeEntries.styled";
-import * as SubheaderStyles from "../sub-header/SubHeader.styled";
 import * as Types from "../../types";
+
+const title = "Timesheets";
 
 const defaultEntry = {
   client: "",
@@ -35,6 +36,8 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   useEffect(() => {
     setTimeEntries(props.timeEntries);
   }, []);
+
+  const subheaderCount = `${timeEntries.length} Entr${timeEntries.length > 1 ? "ies" : "y"}`;
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
@@ -89,19 +92,12 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
 
   return (
     <>
-      <SubHeader>
-        <SubheaderStyles.ContextMenu>
-          <SubheaderStyles.ContextHeading>Timesheets</SubheaderStyles.ContextHeading>
-          <SubheaderStyles.ContextIndicator>
-            {timeEntries.length} Entr{timeEntries.length > 1 ? "ies" : "y"}
-          </SubheaderStyles.ContextIndicator>
-        </SubheaderStyles.ContextMenu>
+      <SubHeader count={subheaderCount} title={title}>
         <Button onClick={() => setIsModalActive(true)}>
           <PlusIcon />
           New time entry
         </Button>
       </SubHeader>
-
       <Styled.TimeEntries>
         {timeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
