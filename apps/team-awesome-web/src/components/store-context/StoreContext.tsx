@@ -21,7 +21,9 @@ export const StoreContext = createContext<StoreContextProps>({} as StoreContextP
 export const StoreProvider = ({ children }: StoreProviderProps) => {
   const [timeEntries, setTimeEntries] = useState<Types.TimeEntry[]>([]);
 
-  const [sortKey, setSortKey] = useState<string>();
+  const standardKey: Types.SortKey = { key: "", direction: "" };
+
+  const [sortKey, setSortKey] = useState<Types.SortKey>(standardKey);
 
   const [teamMembers, setTeamMembers] = useState<Types.TeamMember[]>([]);
 

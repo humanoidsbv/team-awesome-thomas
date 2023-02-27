@@ -11,3 +11,11 @@ export const TimeEntries = styled.div`
     grid-template-columns: minmax(375px, 1080px);
   }
 `;
+
+export const Actions = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: end;
+  column-gap: 16px;
+  margin: 16px 0 0;
+`;

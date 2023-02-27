@@ -11,6 +11,7 @@ import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header";
 import * as Styled from "./TimeEntries.styled";
 import * as Types from "../../types";
+import { Select } from "../forms/select";
 
 const title = "Timesheets";
 
@@ -101,6 +102,9 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
         </Button>
       </SubHeader>
       <Styled.TimeEntries>
+        <Styled.Actions>
+          <Select sortableObjects={timeEntries} direction />
+        </Styled.Actions>
         {timeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader

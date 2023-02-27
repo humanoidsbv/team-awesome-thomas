@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
         overflow-y: scroll;
     }
 
-    textarea {
+   form, input, select, textarea {
         all: unset;
     }
 
@@ -56,13 +56,6 @@ const GlobalStyle = createGlobalStyle`
         color: inherit;
         cursor: pointer;
         outline: inherit;
-    }
-    form {
-        all: unset;
-    }
-
-    input {
-        all: unset;
     }
 `;
 
