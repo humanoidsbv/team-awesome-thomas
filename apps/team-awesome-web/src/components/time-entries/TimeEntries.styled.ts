@@ -5,7 +5,6 @@ export const TimeEntries = styled.div`
   grid-auto-flow: row;
   grid-template-columns: 1fr;
   justify-content: center;
-  margin-top: 32px;
   margin: 0 16px;
 
   @media screen and (${({ theme }) => theme.tablet}) {
