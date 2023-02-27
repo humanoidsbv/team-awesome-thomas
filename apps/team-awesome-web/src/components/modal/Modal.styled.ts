@@ -4,9 +4,9 @@ export const ModalBackdrop = styled.div`
   align-content: top;
   background-color: ${({ theme }) => theme.backgroundOverlay};
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: 1fr;
   height: 100%;
-  justify-content: center;
+  justify-items: center;
   left: 0;
   position: fixed;
   top: 0;
@@ -19,15 +19,15 @@ export const Modal = styled.div`
   border-radius: 4px;
   display: grid;
   gap: 16px;
+  grid-auto-flow: row;
   grid-auto-rows: min-content;
-  height: 100%;
   padding: 32px 16px;
-  width: 100vw;
+  width: 100%;
 
   @media screen and (${({ theme }) => theme.tablet}) {
     height: min-content;
-    margin-top: 15%;
-    max-width: 640px;
+    align-self: center;
+    max-width: 560px;
     padding: 32px;
   }
 `;

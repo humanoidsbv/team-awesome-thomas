@@ -11,6 +11,9 @@ interface StoreContextProps {
   setTimeEntries: Dispatch<SetStateAction<Types.TimeEntry[]>>;
   sortKey: string;
   setSortKey: Dispatch<SetStateAction<string>>;
+  teamMembers: Types.TeamMember[];
+  setTeamMembers: Dispatch<SetStateAction<Types.TeamMember[]>>;
+  defaultMember: Types.TimeEntry[];
 }
 
 export const StoreContext = createContext<StoreContextProps>({} as StoreContextProps);
@@ -20,9 +23,13 @@ export const StoreProvider = ({ children }: StoreProviderProps) => {
 
   const [sortKey, setSortKey] = useState<string>();
 
+  const [teamMembers, setTeamMembers] = useState<Types.TeamMember[]>([]);
+
   const store = {
     timeEntries,
     setTimeEntries,
+    teamMembers,
+    setTeamMembers,
     sortKey,
     setSortKey,
   };

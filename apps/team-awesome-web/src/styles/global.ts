@@ -37,6 +37,14 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Proxima Nova', Arial, Helvetica, sans-serif;
     }
     
+    html {
+        overflow-y: scroll;
+    }
+
+    textarea {
+        all: unset;
+    }
+
     a {
         color: inherit;
         text-decoration: none;
