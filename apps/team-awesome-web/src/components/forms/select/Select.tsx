@@ -1,4 +1,11 @@
-import { ChangeEvent, SelectHTMLAttributes, useContext, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SelectHTMLAttributes,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import { StoreContext } from "../../store-context";
 import * as Styled from "./Select.styled";
@@ -6,10 +13,12 @@ import * as Types from "../../../types";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   sortList: "timesheets" | "teamMembers";
+  sortArray: Types.TimeEntry[];
   direction: boolean;
+  setSortedResults: Dispatch<Types.TimeEntry[]>;
 }
 
-export const Select = ({ sortList, direction }: SelectProps) => {
+export const Select = ({ sortList, direction, setSortedResults, sortArray }: SelectProps) => {
   const { teamMembers, timeEntries, sortKey, setSortKey } = useContext(StoreContext);
 
   const sortOptions = {
@@ -59,14 +68,9 @@ export const Select = ({ sortList, direction }: SelectProps) => {
       }
       return 0;
     };
+    const sortedResults = sortArray.sort(compareSort);
 
-    if (sortList === "timesheets") {
-      timeEntries.sort(compareSort);
-      return;
-    }
-    if (sortList === "teamMembers") {
-      teamMembers.sort(compareSort);
-    }
+    setSortedResults(sortedResults);
   };
 
   useEffect(() => {

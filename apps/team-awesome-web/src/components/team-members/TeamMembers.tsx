@@ -27,7 +27,12 @@ export const TeamMembers = ({ ...props }: TeamMembersProps) => {
   return (
     <Styled.TeamMembers>
       <Styled.Actions>
-        <Select sortList="teamMembers" direction />
+        <Select
+          sortList="teamMembers"
+          sortArray={teamMembers}
+          setSortedResults={setSortedTeamMembers}
+          direction
+        />
       </Styled.Actions>
       {sortedTeamMembers.map((teamMember) => (
         <TeamMember key={teamMember.id} teamMember={teamMember} />
