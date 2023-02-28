@@ -1,6 +1,4 @@
-import styled, { css } from "styled-components";
-
-type SelectProps = {};
+import styled from "styled-components";
 
 export const Select = styled.select`
   background-color: ${({ theme }) => theme.grey1};
@@ -8,6 +6,7 @@ export const Select = styled.select`
   border: solid 1px ${({ theme }) => theme.grey3};
   color: ${({ theme }) => theme.grey6};
   display: grid;
+  min-width: 120px;
   grid-auto-flow: row;
   justify-self: end;
   padding: 16px 14px;

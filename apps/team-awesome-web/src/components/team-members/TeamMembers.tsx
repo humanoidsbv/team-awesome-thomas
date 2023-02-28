@@ -14,16 +14,22 @@ interface TeamMembersProps {
 export const TeamMembers = ({ ...props }: TeamMembersProps) => {
   const { teamMembers, setTeamMembers } = useContext(StoreContext);
 
+  const [sortedTeamMembers, setSortedTeamMembers] = useState(props.teamMembers);
+
   useEffect(() => {
     setTeamMembers(props.teamMembers);
   }, []);
+
+  useEffect(() => {
+    setSortedTeamMembers(teamMembers);
+  }, [teamMembers]);
 
   return (
     <Styled.TeamMembers>
       <Styled.Actions>
         <Select sortList="teamMembers" direction />
       </Styled.Actions>
-      {teamMembers.map((teamMember) => (
+      {sortedTeamMembers.map((teamMember) => (
         <TeamMember key={teamMember.id} teamMember={teamMember} />
       ))}
     </Styled.TeamMembers>

@@ -36,9 +36,17 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
 
   const { sortKey, setSortKey } = useContext(StoreContext);
 
+  const [sortedTimeEntries, setSortedTimeEntries] = useState(props.timeEntries);
+
+  // Inital load
   useEffect(() => {
     setTimeEntries(props.timeEntries);
   }, []);
+
+  // Sorted list rerender
+  useEffect(() => {
+    setSortedTimeEntries(timeEntries);
+  }, [timeEntries]);
 
   const subheaderCount = `${timeEntries.length} Entr${timeEntries.length > 1 ? "ies" : "y"}`;
 
@@ -105,11 +113,12 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
         <Styled.Actions>
           <Select sortList="timesheets" direction />
         </Styled.Actions>
-        {timeEntries.map((timeEntry) => (
+        {sortedTimeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader
               endDate={timeEntry.stopTimestamp}
               startDate={timeEntry.startTimestamp}
+              key={timeEntry.id}
             />
             <TimeEntry timeEntry={timeEntry} onDelete={() => handleRemoval(timeEntry.id)} />
           </React.Fragment>
