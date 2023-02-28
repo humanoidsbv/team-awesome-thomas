@@ -45,8 +45,6 @@ export const TeamMemberForm = ({ handleClose }: FormProps) => {
       }
       setTeamMembers([...teamMembers, response]);
       handleClose();
-
-      console.log("Memberdata:", newTeamMember);
     }
   };
 

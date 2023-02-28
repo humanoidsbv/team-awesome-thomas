@@ -4,6 +4,7 @@ import * as Styled from "./TeamMembers.styled";
 import { TeamMember } from "../team-member";
 import * as Types from "../../types";
 import { StoreContext } from "../store-context";
+import { Select } from "../forms/select";
 
 interface TeamMembersProps {
   errorMessage?: string;
@@ -13,17 +14,24 @@ interface TeamMembersProps {
 export const TeamMembers = ({ ...props }: TeamMembersProps) => {
   const { teamMembers, setTeamMembers } = useContext(StoreContext);
 
+  const [sortedTeamMembers, setSortedTeamMembers] = useState(props.teamMembers);
+
   useEffect(() => {
     setTeamMembers(props.teamMembers);
   }, []);
 
+  useEffect(() => {
+    setSortedTeamMembers(teamMembers);
+  }, [teamMembers]);
+
   return (
-    <>
-      <Styled.TeamMembers>
-        {teamMembers.map((teamMember) => (
-          <TeamMember key={teamMember.id} teamMember={teamMember} />
-        ))}
-      </Styled.TeamMembers>
-    </>
+    <Styled.TeamMembers>
+      <Styled.Actions>
+        <Select sortList="teamMembers" direction />
+      </Styled.Actions>
+      {sortedTeamMembers.map((teamMember) => (
+        <TeamMember key={teamMember.id} teamMember={teamMember} />
+      ))}
+    </Styled.TeamMembers>
   );
 };

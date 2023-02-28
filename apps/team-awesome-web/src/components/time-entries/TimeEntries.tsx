@@ -11,6 +11,7 @@ import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header";
 import * as Styled from "./TimeEntries.styled";
 import * as Types from "../../types";
+import { Select } from "../forms/select";
 
 const title = "Timesheets";
 
@@ -33,9 +34,19 @@ interface TimeEntriesProps {
 export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   const { timeEntries, setTimeEntries } = useContext(StoreContext);
 
+  const { sortKey, setSortKey } = useContext(StoreContext);
+
+  const [sortedTimeEntries, setSortedTimeEntries] = useState(props.timeEntries);
+
+  // Inital load
   useEffect(() => {
     setTimeEntries(props.timeEntries);
   }, []);
+
+  // Sorted list rerender
+  useEffect(() => {
+    setSortedTimeEntries(timeEntries);
+  }, [timeEntries]);
 
   const subheaderCount = `${timeEntries.length} Entr${timeEntries.length > 1 ? "ies" : "y"}`;
 
@@ -99,11 +110,15 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
         </Button>
       </SubHeader>
       <Styled.TimeEntries>
-        {timeEntries.map((timeEntry) => (
+        <Styled.Actions>
+          <Select sortList="timesheets" direction />
+        </Styled.Actions>
+        {sortedTimeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader
               endDate={timeEntry.stopTimestamp}
               startDate={timeEntry.startTimestamp}
+              key={timeEntry.id}
             />
             <TimeEntry timeEntry={timeEntry} onDelete={() => handleRemoval(timeEntry.id)} />
           </React.Fragment>
