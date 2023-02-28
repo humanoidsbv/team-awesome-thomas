@@ -14,9 +14,9 @@ export const TeamMembers = styled.div`
 `;
 
 export const Actions = styled.div`
+  column-gap: 16px;
   display: grid;
   grid-auto-flow: column;
   justify-content: end;
-  column-gap: 16px;
   margin: 16px 0 0;
 `;

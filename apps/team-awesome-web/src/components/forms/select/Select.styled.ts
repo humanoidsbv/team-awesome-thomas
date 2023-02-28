@@ -6,9 +6,9 @@ export const Select = styled.select`
   border: solid 1px ${({ theme }) => theme.grey3};
   color: ${({ theme }) => theme.grey6};
   display: grid;
-  min-width: 120px;
   grid-auto-flow: row;
   justify-self: end;
+  min-width: 120px;
   padding: 16px 14px;
 
   &::placeholder {
