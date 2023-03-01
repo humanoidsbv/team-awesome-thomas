@@ -1,9 +1,8 @@
 import {
   ChangeEvent,
   Dispatch,
-  ReactNode,
   SelectHTMLAttributes,
-  useContext,
+  SetStateAction,
   useEffect,
   useState,
 } from "react";
@@ -13,7 +12,7 @@ import * as Types from "../../../types";
 
 interface FilterProps extends SelectHTMLAttributes<HTMLSelectElement> {
   filterArray: Types.TimeEntry[];
-  setFilteredResults: Dispatch<Types.TimeEntry>;
+  setFilteredResults: Dispatch<SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>>;
 }
 
 export const Filter = ({ filterArray, setFilteredResults }: FilterProps) => {
@@ -36,7 +35,11 @@ export const Filter = ({ filterArray, setFilteredResults }: FilterProps) => {
   const handleFilter = (key: string) => {
     const filteredResults = filterArray.filter((a) => a[filterCategory] === key);
 
-    filterSet.has(key) ? setFilteredResults(filteredResults) : setFilteredResults(filterArray);
+    if (filterSet.has(key)) {
+      setFilteredResults(filteredResults);
+    } else {
+      setFilteredResults(filterArray);
+    }
   };
 
   useEffect(() => {

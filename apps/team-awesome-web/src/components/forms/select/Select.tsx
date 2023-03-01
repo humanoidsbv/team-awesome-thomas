@@ -2,9 +2,9 @@ import {
   ChangeEvent,
   Dispatch,
   SelectHTMLAttributes,
+  SetStateAction,
   useContext,
   useEffect,
-  useState,
 } from "react";
 
 import { StoreContext } from "../../store-context";
@@ -12,10 +12,10 @@ import * as Styled from "./Select.styled";
 import * as Types from "../../../types";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  sortList: "timesheets" | "teamMembers";
-  sortArray: Types.TimeEntry[];
   direction: boolean;
-  setSortedResults: Dispatch<Types.TimeEntry[]>;
+  setSortedResults: Dispatch<SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>>;
+  sortArray: Types.TimeEntry[] | Types.TeamMember[];
+  sortList: "timesheets" | "teamMembers";
 }
 
 export const Select = ({ sortList, direction, setSortedResults, sortArray }: SelectProps) => {
@@ -51,8 +51,10 @@ export const Select = ({ sortList, direction, setSortedResults, sortArray }: Sel
     handleSort(updatedSortKey);
   };
 
+  type SortOptions = keyof Pick<Types.TimeEntry, "client" | "startTimestamp">;
+
   const handleSort = (updatedSortKey: Types.SortKey) => {
-    const currentKey = updatedSortKey.key;
+    const currentKey: SortOptions = updatedSortKey.key as SortOptions;
 
     const sortDirection = updatedSortKey.direction;
 
@@ -68,7 +70,7 @@ export const Select = ({ sortList, direction, setSortedResults, sortArray }: Sel
       }
       return 0;
     };
-    const sortedResults = sortArray.sort(compareSort);
+    const sortedResults: Types.TimeEntry[] | Types.TeamMember[] = sortArray.sort(compareSort);
 
     setSortedResults(sortedResults);
   };

@@ -1,4 +1,12 @@
-import React, { FormEvent, useEffect, useRef, useContext, useState } from "react";
+import React, {
+  FormEvent,
+  useEffect,
+  useRef,
+  useContext,
+  useState,
+  SetStateAction,
+  Dispatch,
+} from "react";
 
 import { Button } from "../button";
 import { deleteTimeEntry, postTimeEntry } from "../../services";
@@ -35,7 +43,7 @@ interface TimeEntriesProps {
 export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   const { timeEntries, setTimeEntries } = useContext(StoreContext);
 
-  const [sortedTimeEntries, setSortedTimeEntries] = useState(timeEntries);
+  const [sortedTimeEntries, setSortedTimeEntries] = useState<Types.TimeEntry[]>(timeEntries);
 
   const subheaderCount = `${sortedTimeEntries.length} Entr${
     sortedTimeEntries.length > 1 ? "ies" : "y"
@@ -43,9 +51,7 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
-  const [errorMessages, setErrorMessages] = useState<string[]>(
-    props.errorMessage ? [props.errorMessage] : [],
-  );
+  const [, setErrorMessages] = useState<string[]>(props.errorMessage ? [props.errorMessage] : []);
 
   const [isModalActive, setIsModalActive] = useState(false);
 
@@ -112,10 +118,21 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
       </SubHeader>
       <Styled.TimeEntries>
         <Styled.Actions>
-          <Filter filterArray={timeEntries} setFilteredResults={setSortedTimeEntries} />
+          <Filter
+            filterArray={timeEntries}
+            setFilteredResults={
+              setSortedTimeEntries as Dispatch<
+                SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>
+              >
+            }
+          />
           <Select
             direction
-            setSortedResults={setSortedTimeEntries}
+            setSortedResults={
+              setSortedTimeEntries as Dispatch<
+                SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>
+              >
+            }
             sortArray={sortedTimeEntries}
             sortList="timesheets"
           />

@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 type InputProps = {
   isValid?: boolean;
   width?: string;
+  type?: string;
 };
 
 export const InputWrapper = styled.div<InputProps>`
