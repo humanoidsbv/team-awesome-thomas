@@ -11,13 +11,13 @@ import {
 import * as Styled from "./Filter.styled";
 import * as Types from "../../../types";
 
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  filterArray: Types.TimeEntry;
+interface FilterProps extends SelectHTMLAttributes<HTMLSelectElement> {
+  filterArray: Types.TimeEntry[];
   setFilteredResults: Dispatch<Types.TimeEntry>;
 }
 
-export const Filter = ({ filterArray, setFilteredResults }: SelectProps) => {
-  const [filterKey, setFilterKey] = useState([]);
+export const Filter = ({ filterArray, setFilteredResults }: FilterProps) => {
+  const [filterKey, setFilterKey] = useState<string>("");
 
   const filterCategory = "client";
 
@@ -33,12 +33,10 @@ export const Filter = ({ filterArray, setFilteredResults }: SelectProps) => {
     handleFilter(updatedFilterKey);
   };
 
-  const handleFilter = (updatedFilterKey) => {
-    const filteredResults = filterArray.filter((a) => a[filterCategory] === updatedFilterKey);
+  const handleFilter = (key: string) => {
+    const filteredResults = filterArray.filter((a) => a[filterCategory] === key);
 
-    filterSet.has(updatedFilterKey)
-      ? setFilteredResults(filteredResults)
-      : setFilteredResults(filterArray);
+    filterSet.has(key) ? setFilteredResults(filteredResults) : setFilteredResults(filterArray);
   };
 
   useEffect(() => {
@@ -48,7 +46,9 @@ export const Filter = ({ filterArray, setFilteredResults }: SelectProps) => {
   return (
     <Styled.Select name="filter" onChange={onChange}>
       {filterOptions.map((option) => (
-        <Styled.Option value={option}>{option}</Styled.Option>
+        <Styled.Option key={option} value={option}>
+          {option.toString()}
+        </Styled.Option>
       ))}
     </Styled.Select>
   );

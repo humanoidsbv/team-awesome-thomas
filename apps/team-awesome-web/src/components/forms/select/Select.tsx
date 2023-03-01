@@ -80,14 +80,18 @@ export const Select = ({ sortList, direction, setSortedResults, sortArray }: Sel
   return (
     <>
       <Styled.Select name="key" onChange={onChange}>
-        {sortOptions[sortList].map((option) => {
-          return <Styled.Option value={option[1]}>{option[0]}</Styled.Option>;
-        })}
+        {sortOptions[sortList].map((option) => (
+          <Styled.Option key={option[1]} value={option[1]}>
+            {option[0]}
+          </Styled.Option>
+        ))}
       </Styled.Select>
       {direction && (
         <Styled.Select name="direction" onChange={onChange}>
           {sortOrders.map((option) => (
-            <Styled.Option value={option[1]}>{option[0]}</Styled.Option>
+            <Styled.Option key={option[1]} value={option[1]}>
+              {option[0]}
+            </Styled.Option>
           ))}
         </Styled.Select>
       )}
