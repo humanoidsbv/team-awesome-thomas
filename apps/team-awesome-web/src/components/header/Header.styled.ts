@@ -59,12 +59,12 @@ export const Profile = styled.div`
   & svg {
     margin-left: 16px;
   }
+`;
 
-  & img {
-    border-radius: 18px;
-    height: 36px;
-    width: 36px;
-  }
+export const Avatar = styled.img`
+  border-radius: 18px;
+  height: 36px;
+  width: 36px;
 `;
 
 export const Menu = styled.nav<{ isOpen: boolean }>`

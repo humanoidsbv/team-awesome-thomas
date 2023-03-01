@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as Styled from "./Header.styled";
@@ -53,7 +52,7 @@ export const Header = () => {
       <Styled.RightMenu>
         <Styled.Profile>
           <HumanoidsLogo />
-          <Image src="/img/profile.jpg" alt="Avatar image" width={36} height={36} />
+          <Styled.Avatar src="img/avatars/amijs.png" alt="Avatar image" width={36} height={36} />
         </Styled.Profile>
         <Styled.ChevronButton>
           <ArrowDown />
