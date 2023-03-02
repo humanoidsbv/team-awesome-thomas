@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import * as Styled from "./TimeEntry.styled";
 import { ReactComponent as Bin } from "../../../public/icons/bin.svg";
 import * as Types from "../../types";
@@ -6,7 +7,7 @@ import { calcDuration } from "../../services/calculate-duration";
 
 interface EntryProps {
   timeEntry: Types.TimeEntry;
-  onDelete: (toRemove: number) => void;
+  onDelete: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const TimeEntry = ({ timeEntry, onDelete }: EntryProps) => {

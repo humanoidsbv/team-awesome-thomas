@@ -5,7 +5,9 @@
   "scripts": {
     "pretty": "prettier --write \"*.js*\"",
     "json-server": "json-server --watch db.json --port 3004",
-    "dev": "npm run json-server & npx nx serve team-awesome-web"
+    "dev": "npm run json-server & npx nx serve team-awesome-web",
+    "build": "npx nx build team-awesome-web",
+    "lint": "npx nx lint team-awesome-web"
   },
   "private": true,
   "dependencies": {
