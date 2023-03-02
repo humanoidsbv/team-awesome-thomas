@@ -6,7 +6,7 @@ import * as Types from "../../../types";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   sortList: "timesheets" | "teamMembers";
-  direction: boolean;
+  direction?: boolean;
 }
 
 export const Select = ({ sortList, direction }: SelectProps) => {
@@ -18,6 +18,7 @@ export const Select = ({ sortList, direction }: SelectProps) => {
       ["Date", "startTimestamp"],
     ],
     teamMembers: [
+      ["Show all", "show all"],
       ["Client", "client"],
       ["Email address", "emailAddress"],
       ["First name", "firstName"],
@@ -69,6 +70,8 @@ export const Select = ({ sortList, direction }: SelectProps) => {
     }
   };
 
+  const currentSortOptions: string[][] = sortOptions[sortList];
+
   useEffect(() => {
     handleSort(sortKey);
   }, [timeEntries, teamMembers]);
@@ -76,8 +79,12 @@ export const Select = ({ sortList, direction }: SelectProps) => {
   return (
     <>
       <Styled.Select name="key" onChange={onChange}>
-        {sortOptions[sortList].map((option) => {
-          return <Styled.Option value={option[1]}>{option[0]}</Styled.Option>;
+        {currentSortOptions.map((option) => {
+          return (
+            <Styled.Option key={Math.random()} value={option[1]}>
+              {option[0]}
+            </Styled.Option>
+          );
         })}
       </Styled.Select>
       {direction && (
