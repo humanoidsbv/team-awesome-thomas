@@ -28,12 +28,14 @@ export const Header = () => {
         <Styled.MenuList isOpen={isOpen}>
           <Styled.ListItem>
             <Link href="/timesheets" passHref legacyBehavior>
-              <Styled.ListLink isActive={checkActive("/timesheets")}>Timesheets</Styled.ListLink>
+              <Styled.ListLink data-cy="nav-timesheets" isActive={checkActive("/timesheets")}>
+                Timesheets
+              </Styled.ListLink>
             </Link>
           </Styled.ListItem>
           <Styled.ListItem>
             <Link href="/team-members" passHref legacyBehavior>
-              <Styled.ListLink isActive={checkActive("/team-members")}>
+              <Styled.ListLink data-cy="team members" isActive={checkActive("/team-members")}>
                 Team members
               </Styled.ListLink>
             </Link>

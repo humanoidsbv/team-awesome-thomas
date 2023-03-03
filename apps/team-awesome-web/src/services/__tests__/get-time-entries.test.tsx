@@ -1,5 +1,3 @@
-import { waitFor } from "@testing-library/react";
-
 import { getTimeEntries } from "../get-time-entries";
 
 const mockedTimeEntries = [
@@ -12,18 +10,23 @@ const mockedTimeEntries = [
   },
 ];
 
+const mockFetchResponse = Promise.resolve({
+  json: () => Promise.resolve(mockedTimeEntries),
+});
+
+global.fetch = jest.fn().mockImplementationOnce(() => mockFetchResponse);
+
 it("If the time entries are fetched from the server", async () => {
-  const mockFetchResponse = Promise.resolve({
-    json: () => Promise.resolve(mockedTimeEntries),
-  });
-
-  global.fetch = jest.fn().mockImplementationOnce(() => mockFetchResponse);
-
   const response = getTimeEntries();
 
   expect(response).toEqual(mockFetchResponse);
+
   expect(global.fetch).toHaveBeenCalledTimes(1);
-  waitFor(() =>
-    expect(global.fetch).toHaveBeenCalledWith(`${process.env.NEXT_PUBLIC_DB_HOST}/time-entries`),
+});
+
+it("If the time entries are fetched using an environment variable", async () => {
+  expect(global.fetch).toHaveBeenCalledWith(
+    `${process.env.NEXT_PUBLIC_DB_HOST}/time-entries`,
+    expect.anything(),
   );
 });
