@@ -76,8 +76,6 @@ export const Select = ({ sortList, direction, setSortedResults, sortArray }: Sel
     setSortedResults(sortedResults);
   };
 
-  const currentSortOptions: string[][] = sortOptions[sortList];
-
   useEffect(() => {
     handleSort(sortKey);
   }, [timeEntries, teamMembers]);
