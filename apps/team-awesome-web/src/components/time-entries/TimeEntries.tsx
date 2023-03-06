@@ -43,7 +43,7 @@ interface TimeEntriesProps {
 export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   const { timeEntries, setTimeEntries } = useContext(StoreContext);
 
-  const [sortedTimeEntries, setSortedTimeEntries] = useState<Types.TimeEntry[]>(timeEntries);
+  const [sortedTimeEntries, setSortedTimeEntries] = useState<Types.TimeEntry[]>(props.timeEntries);
 
   const subheaderCount = `${sortedTimeEntries.length} Entr${
     sortedTimeEntries.length > 1 ? "ies" : "y"
