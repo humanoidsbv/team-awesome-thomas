@@ -13,9 +13,26 @@ describe("team-awesome-web", () => {
 });
 
 describe("Routing", () => {
-  it("Navigates to other pages", () => {
-    cy.visit("http://localhost:4200");
+  beforeEach(() => cy.visit("/"));
 
-    cy.get("[data-cy=nav-timesheets]").click();
+  it("Navigates to other pages", () => {
+    const headerNav = cy.get("header");
+
+    headerNav.get('[href="/team-members"]').click();
+
+    headerNav.get('[href="/timesheets"]').click();
+  });
+
+  it("Navigates to other pages, but on mobile", () => {
+    cy.viewport(375, 815);
+
+    const headerNav = cy.get("header");
+    const navButtonClick = () => headerNav.get('[data-cy="nav-button"]').click({ timeout: 1000 });
+
+    navButtonClick();
+    headerNav.get('[href="/team-members"]').click();
+
+    navButtonClick();
+    headerNav.get('[href="/timesheets"]').click();
   });
 });

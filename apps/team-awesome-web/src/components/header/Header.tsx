@@ -23,19 +23,17 @@ export const Header = () => {
       <Link href="/" passHref legacyBehavior>
         <Styled.Logo>team awesome</Styled.Logo>
       </Link>
-      <Styled.DrawerIcon onClick={handleToggle} />
+      <Styled.DrawerIcon data-cy="nav-button" onClick={handleToggle} />
       <Styled.Menu isOpen={isOpen}>
         <Styled.MenuList isOpen={isOpen}>
           <Styled.ListItem>
             <Link href="/timesheets" passHref legacyBehavior>
-              <Styled.ListLink data-cy="nav-timesheets" isActive={checkActive("/timesheets")}>
-                Timesheets
-              </Styled.ListLink>
+              <Styled.ListLink isActive={checkActive("/timesheets")}>Timesheets</Styled.ListLink>
             </Link>
           </Styled.ListItem>
           <Styled.ListItem>
             <Link href="/team-members" passHref legacyBehavior>
-              <Styled.ListLink data-cy="team members" isActive={checkActive("/team-members")}>
+              <Styled.ListLink isActive={checkActive("/team-members")}>
                 Team members
               </Styled.ListLink>
             </Link>
