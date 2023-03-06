@@ -47,7 +47,6 @@ export const Input = ({
       ) : (
         <Styled.Input
           name={name}
-          rows={rows}
           isValid={isValid}
           maxLength={maxLength}
           minLength={minLength}
@@ -57,7 +56,6 @@ export const Input = ({
           placeholder={placeholder}
           required={required}
           type={type}
-          as="textarea"
         />
       )}
       {!isValid && <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>}

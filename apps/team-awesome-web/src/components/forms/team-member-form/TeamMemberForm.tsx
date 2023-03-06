@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, RefObject, useContext, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useRef, useState } from "react";
 
 import { Button } from "../../button";
 import { Input } from "../input";

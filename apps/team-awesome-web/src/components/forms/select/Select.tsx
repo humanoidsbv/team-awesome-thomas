@@ -1,37 +1,48 @@
-import { ChangeEvent, SelectHTMLAttributes, useContext, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SelectHTMLAttributes,
+  SetStateAction,
+  useContext,
+  useEffect,
+} from "react";
 
 import { StoreContext } from "../../store-context";
 import * as Styled from "./Select.styled";
 import * as Types from "../../../types";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  sortList: "timesheets" | "teamMembers";
   direction: boolean;
+  setSortedResults:
+    | Dispatch<SetStateAction<Types.TimeEntry[]>>
+    | Dispatch<SetStateAction<Types.TeamMember[]>>;
+  sortArray: Types.TimeEntry[] | Types.TeamMember[];
+  sortList: "timesheets" | "teamMembers";
 }
 
-export const Select = ({ sortList, direction }: SelectProps) => {
+export const Select = ({ sortList, direction, setSortedResults, sortArray }: SelectProps) => {
   const { teamMembers, timeEntries, sortKey, setSortKey } = useContext(StoreContext);
 
   const sortOptions = {
     timesheets: [
-      ["Client", "client"],
-      ["Date", "startTimestamp"],
+      { name: "Client", value: "client" },
+      { name: "Date", value: "startTimestamp" },
     ],
     teamMembers: [
-      ["Client", "client"],
-      ["Email address", "emailAddress"],
-      ["First name", "firstName"],
-      ["Role", "role"],
+      { name: "Client", value: "client" },
+      { name: "Email address", value: "emailAddress" },
+      { name: "First name", value: "firstName" },
+      { name: "Role", value: "role" },
     ],
   };
 
   const sortOrders = [
-    ["Ascending", "ascending"],
-    ["Descending", "descending"],
+    { name: "Ascending", value: "ascending" },
+    { name: "Descending", value: "descending" },
   ];
 
   useEffect(() => {
-    setSortKey({ ...sortKey, key: sortOptions[sortList][0][1] });
+    setSortKey({ ...sortKey, key: sortOptions[sortList][0].value });
   }, []);
 
   const onChange = ({ target }: ChangeEvent<HTMLSelectElement>) => {
@@ -42,8 +53,10 @@ export const Select = ({ sortList, direction }: SelectProps) => {
     handleSort(updatedSortKey);
   };
 
+  type SortOptions = keyof Pick<Types.TimeEntry, "client" | "startTimestamp">;
+
   const handleSort = (updatedSortKey: Types.SortKey) => {
-    const currentKey = updatedSortKey.key;
+    const currentKey: SortOptions = updatedSortKey.key as SortOptions;
 
     const sortDirection = updatedSortKey.direction;
 
@@ -59,14 +72,9 @@ export const Select = ({ sortList, direction }: SelectProps) => {
       }
       return 0;
     };
+    const sortedResults: Types.TimeEntry[] | Types.TeamMember[] = sortArray.sort(compareSort);
 
-    if (sortList === "timesheets") {
-      timeEntries.sort(compareSort);
-      return;
-    }
-    if (sortList === "teamMembers") {
-      teamMembers.sort(compareSort);
-    }
+    setSortedResults(sortedResults);
   };
 
   useEffect(() => {
@@ -76,14 +84,18 @@ export const Select = ({ sortList, direction }: SelectProps) => {
   return (
     <>
       <Styled.Select name="key" onChange={onChange}>
-        {sortOptions[sortList].map((option) => {
-          return <Styled.Option value={option[1]}>{option[0]}</Styled.Option>;
-        })}
+        {sortOptions[sortList].map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.name}
+          </option>
+        ))}
       </Styled.Select>
       {direction && (
         <Styled.Select name="direction" onChange={onChange}>
           {sortOrders.map((option) => (
-            <Styled.Option value={option[1]}>{option[0]}</Styled.Option>
+            <option key={option.value} value={option.value}>
+              {option.name}
+            </option>
           ))}
         </Styled.Select>
       )}

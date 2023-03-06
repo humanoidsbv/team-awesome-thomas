@@ -2,8 +2,10 @@ import React, { FormEvent, useEffect, useRef, useContext, useState } from "react
 
 import { Button } from "../button";
 import { deleteTimeEntry, postTimeEntry } from "../../services";
+import { Filter } from "../forms/filter";
 import { Modal } from "../modal";
 import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
+import { Select } from "../forms/select";
 import { StoreContext } from "../store-context";
 import { SubHeader } from "../sub-header";
 import { TimeEntry } from "../time-entry";
@@ -11,7 +13,6 @@ import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header";
 import * as Styled from "./TimeEntries.styled";
 import * as Types from "../../types";
-import { Select } from "../forms/select";
 
 const title = "Timesheets";
 
@@ -34,27 +35,15 @@ interface TimeEntriesProps {
 export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   const { timeEntries, setTimeEntries } = useContext(StoreContext);
 
-  const { sortKey, setSortKey } = useContext(StoreContext);
+  const [sortedTimeEntries, setSortedTimeEntries] = useState<Types.TimeEntry[]>(timeEntries);
 
-  const [sortedTimeEntries, setSortedTimeEntries] = useState(props.timeEntries);
-
-  // Inital load
-  useEffect(() => {
-    setTimeEntries(props.timeEntries);
-  }, []);
-
-  // Sorted list rerender
-  useEffect(() => {
-    setSortedTimeEntries(timeEntries);
-  }, [timeEntries]);
-
-  const subheaderCount = `${timeEntries.length} Entr${timeEntries.length > 1 ? "ies" : "y"}`;
+  const subheaderCount = `${sortedTimeEntries.length} Entr${
+    sortedTimeEntries.length > 1 ? "ies" : "y"
+  }`;
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
-  const [errorMessages, setErrorMessages] = useState<string[]>(
-    props.errorMessage ? [props.errorMessage] : [],
-  );
+  const [, setErrorMessages] = useState<string[]>(props.errorMessage ? [props.errorMessage] : []);
 
   const [isModalActive, setIsModalActive] = useState(false);
 
@@ -101,6 +90,16 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
     }
   };
 
+  // Inital load
+  useEffect(() => {
+    setTimeEntries(props.timeEntries);
+  }, []);
+
+  // Sorted list rerender
+  useEffect(() => {
+    setSortedTimeEntries(timeEntries);
+  }, [timeEntries]);
+
   return (
     <>
       <SubHeader count={subheaderCount} title={title}>
@@ -111,14 +110,20 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
       </SubHeader>
       <Styled.TimeEntries>
         <Styled.Actions>
-          <Select sortList="timesheets" direction />
+          <Filter filterArray={timeEntries} setFilteredResults={setSortedTimeEntries} />
+          <Select
+            direction
+            setSortedResults={setSortedTimeEntries}
+            sortArray={sortedTimeEntries}
+            sortList="timesheets"
+          />
         </Styled.Actions>
         {sortedTimeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader
               endDate={timeEntry.stopTimestamp}
-              startDate={timeEntry.startTimestamp}
               key={timeEntry.id}
+              startDate={timeEntry.startTimestamp}
             />
             <TimeEntry timeEntry={timeEntry} onDelete={() => handleRemoval(timeEntry.id)} />
           </React.Fragment>

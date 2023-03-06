@@ -1,6 +1,5 @@
-import React, { FormEvent, useEffect, useRef, useContext, useState } from "react";
+import React, { useState } from "react";
 
-import { Select } from "apps/team-awesome-web/src/components/forms/select";
 import { Modal } from "../../src/components/modal";
 import { Header } from "../../src/components/header";
 import { SubHeader } from "../../src/components/sub-header";
@@ -9,7 +8,6 @@ import { Button } from "../../src/components/button";
 import { ReactComponent as PlusIcon } from "../../public/icons/plus-icon.svg";
 import { TeamMemberForm } from "../../src/components/forms/team-member-form";
 import { getTeamMembers } from "../../src/services";
-import * as Styled from "./TeamMembers.styled";
 
 import Types from "../../src/types";
 

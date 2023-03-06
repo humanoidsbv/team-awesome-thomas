@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 type InputProps = {
   isValid?: boolean;
+  type?: string;
   width?: string;
 };
 
