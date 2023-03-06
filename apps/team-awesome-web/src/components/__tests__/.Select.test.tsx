@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext } from "react";
 
 import { render, fireEvent } from "@testing-library/react";
 import { StoreContext, StoreProvider } from "../store-context";
