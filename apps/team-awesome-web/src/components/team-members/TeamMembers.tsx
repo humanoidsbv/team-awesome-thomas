@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import * as Styled from "./TeamMembers.styled";
 import { TeamMember } from "../team-member";
@@ -30,9 +30,7 @@ export const TeamMembers = ({ ...props }: TeamMembersProps) => {
         <Select
           sortList="teamMembers"
           sortArray={teamMembers}
-          setSortedResults={
-            setSortedTeamMembers as Dispatch<SetStateAction<Types.TeamMember[] | Types.TimeEntry[]>>
-          }
+          setSortedResults={setSortedTeamMembers}
           direction
         />
       </Styled.Actions>

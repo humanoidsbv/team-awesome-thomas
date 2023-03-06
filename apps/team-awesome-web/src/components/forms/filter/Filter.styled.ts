@@ -27,8 +27,6 @@ export const Select = styled.select`
   }
 `;
 
-export const Option = styled.option``;
-
 export const ErrorMessage = styled.span`
   font-size: 0.8em;
   font-style: italic;

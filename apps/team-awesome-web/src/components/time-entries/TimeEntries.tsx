@@ -1,12 +1,4 @@
-import React, {
-  FormEvent,
-  useEffect,
-  useRef,
-  useContext,
-  useState,
-  SetStateAction,
-  Dispatch,
-} from "react";
+import React, { FormEvent, useEffect, useRef, useContext, useState } from "react";
 
 import { Button } from "../button";
 import { deleteTimeEntry, postTimeEntry } from "../../services";
@@ -118,21 +110,10 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
       </SubHeader>
       <Styled.TimeEntries>
         <Styled.Actions>
-          <Filter
-            filterArray={timeEntries}
-            setFilteredResults={
-              setSortedTimeEntries as Dispatch<
-                SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>
-              >
-            }
-          />
+          <Filter filterArray={timeEntries} setFilteredResults={setSortedTimeEntries} />
           <Select
             direction
-            setSortedResults={
-              setSortedTimeEntries as Dispatch<
-                SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>
-              >
-            }
+            setSortedResults={setSortedTimeEntries}
             sortArray={sortedTimeEntries}
             sortList="timesheets"
           />

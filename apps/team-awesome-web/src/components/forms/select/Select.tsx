@@ -13,7 +13,9 @@ import * as Types from "../../../types";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   direction: boolean;
-  setSortedResults: Dispatch<SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>>;
+  setSortedResults:
+    | Dispatch<SetStateAction<Types.TimeEntry[]>>
+    | Dispatch<SetStateAction<Types.TeamMember[]>>;
   sortArray: Types.TimeEntry[] | Types.TeamMember[];
   sortList: "timesheets" | "teamMembers";
 }
@@ -23,24 +25,24 @@ export const Select = ({ sortList, direction, setSortedResults, sortArray }: Sel
 
   const sortOptions = {
     timesheets: [
-      ["Client", "client"],
-      ["Date", "startTimestamp"],
+      { name: "Client", value: "client" },
+      { name: "Date", value: "startTimestamp" },
     ],
     teamMembers: [
-      ["Client", "client"],
-      ["Email address", "emailAddress"],
-      ["First name", "firstName"],
-      ["Role", "role"],
+      { name: "Client", value: "client" },
+      { name: "Email address", value: "emailAddress" },
+      { name: "First name", value: "firstName" },
+      { name: "Role", value: "role" },
     ],
   };
 
   const sortOrders = [
-    ["Ascending", "ascending"],
-    ["Descending", "descending"],
+    { name: "Ascending", value: "ascending" },
+    { name: "Descending", value: "descending" },
   ];
 
   useEffect(() => {
-    setSortKey({ ...sortKey, key: sortOptions[sortList][0][1] });
+    setSortKey({ ...sortKey, key: sortOptions[sortList][0].value });
   }, []);
 
   const onChange = ({ target }: ChangeEvent<HTMLSelectElement>) => {
@@ -83,17 +85,17 @@ export const Select = ({ sortList, direction, setSortedResults, sortArray }: Sel
     <>
       <Styled.Select name="key" onChange={onChange}>
         {sortOptions[sortList].map((option) => (
-          <Styled.Option key={option[1]} value={option[1]}>
-            {option[0]}
-          </Styled.Option>
+          <option key={option.value} value={option.value}>
+            {option.name}
+          </option>
         ))}
       </Styled.Select>
       {direction && (
         <Styled.Select name="direction" onChange={onChange}>
           {sortOrders.map((option) => (
-            <Styled.Option key={option[1]} value={option[1]}>
-              {option[0]}
-            </Styled.Option>
+            <option key={option.value} value={option.value}>
+              {option.name}
+            </option>
           ))}
         </Styled.Select>
       )}
