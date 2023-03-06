@@ -1,5 +1,4 @@
-import { ChangeEvent, MouseEventHandler, ReactNode, useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as Styled from "./Header.styled";
@@ -24,7 +23,7 @@ export const Header = () => {
       <Link href="/" passHref legacyBehavior>
         <Styled.Logo>team awesome</Styled.Logo>
       </Link>
-      <Styled.DrawerIcon onClick={handleToggle} />
+      <Styled.DrawerIcon data-cy="nav-button" onClick={handleToggle} />
       <Styled.Menu isOpen={isOpen}>
         <Styled.MenuList isOpen={isOpen}>
           <Styled.ListItem>
@@ -53,7 +52,7 @@ export const Header = () => {
       <Styled.RightMenu>
         <Styled.Profile>
           <HumanoidsLogo />
-          <Image src="/img/profile.jpg" alt="Avatar image" width={36} height={36} />
+          <Styled.Avatar src="img/avatars/amijs.png" alt="Avatar image" width={36} height={36} />
         </Styled.Profile>
         <Styled.ChevronButton>
           <ArrowDown />

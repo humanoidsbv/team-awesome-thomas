@@ -7,7 +7,6 @@ interface StoreProviderProps {
 }
 
 interface StoreContextProps {
-  defaultMember: Types.TimeEntry[];
   setSortedArray: Dispatch<SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>>;
   setSortKey: Dispatch<SetStateAction<Types.SortKey>>;
   setTeamMembers: Dispatch<SetStateAction<Types.TeamMember[]>>;

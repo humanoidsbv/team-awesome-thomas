@@ -5,11 +5,15 @@
   "scripts": {
     "pretty": "prettier --write \"*.js*\"",
     "json-server": "json-server --watch db.json --port 3004",
-    "dev": "npm run json-server & npx nx serve team-awesome-web"
+    "dev": "npm run json-server & npx nx serve team-awesome-web",
+    "build": "npx nx build team-awesome-web",
+    "lint": "npx nx lint team-awesome-web",
+    "e2e": "npx nx run team-awesome-web-e2e:e2e --watch"
   },
   "private": true,
   "dependencies": {
     "@nrwl/next": "15.6.2",
+    "@testing-library/react": "13.4.0",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -28,7 +32,6 @@
     "@nrwl/linter": "15.6.2",
     "@nrwl/react": "15.6.2",
     "@nrwl/workspace": "15.6.2",
-    "@testing-library/react": "13.4.0",
     "@types/jest": "^28.1.1",
     "@types/node": "^16.11.7",
     "@types/react": "^18.0.25",

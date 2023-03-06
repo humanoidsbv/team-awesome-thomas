@@ -44,3 +44,6 @@ Thumbs.db
 # WIP
 drawer-icon
 drawer-icon/*
+
+# Environment variables
+.env.local

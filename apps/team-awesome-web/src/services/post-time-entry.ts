@@ -1,7 +1,9 @@
 import * as Types from "../types";
 
 export const postTimeEntry = async (data: string): Promise<Types.TimeEntry> => {
-  return fetch("http://localhost:3004/time-entries", {
+  const baseUrl = process.env.NEXT_PUBLIC_DB_HOST;
+
+  return fetch(`${baseUrl}/time-entries`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

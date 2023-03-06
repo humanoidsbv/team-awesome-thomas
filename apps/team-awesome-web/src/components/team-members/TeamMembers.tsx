@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 
 import * as Styled from "./TeamMembers.styled";
 import { TeamMember } from "../team-member";
@@ -14,7 +14,7 @@ interface TeamMembersProps {
 export const TeamMembers = ({ ...props }: TeamMembersProps) => {
   const { teamMembers, setTeamMembers } = useContext(StoreContext);
 
-  const [sortedTeamMembers, setSortedTeamMembers] = useState(props.teamMembers);
+  const [sortedTeamMembers, setSortedTeamMembers] = useState<Types.TeamMember[]>(props.teamMembers);
 
   useEffect(() => {
     setTeamMembers(props.teamMembers);
@@ -27,7 +27,14 @@ export const TeamMembers = ({ ...props }: TeamMembersProps) => {
   return (
     <Styled.TeamMembers>
       <Styled.Actions>
-        <Select sortList="teamMembers" direction />
+        <Select
+          sortList="teamMembers"
+          sortArray={teamMembers}
+          setSortedResults={
+            setSortedTeamMembers as Dispatch<SetStateAction<Types.TeamMember[] | Types.TimeEntry[]>>
+          }
+          direction
+        />
       </Styled.Actions>
       {sortedTeamMembers.map((teamMember) => (
         <TeamMember key={teamMember.id} teamMember={teamMember} />
