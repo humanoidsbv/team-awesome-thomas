@@ -52,7 +52,7 @@ export const Header = () => {
       <Styled.RightMenu>
         <Styled.Profile>
           <HumanoidsLogo />
-          <Styled.Avatar src="img/avatars/amijs.png" alt="Avatar image" width={36} height={36} />
+          <Styled.Avatar src="img/avatars/amijs.png" alt="Avatar image" />
         </Styled.Profile>
         <Styled.ChevronButton>
           <ArrowDown />
