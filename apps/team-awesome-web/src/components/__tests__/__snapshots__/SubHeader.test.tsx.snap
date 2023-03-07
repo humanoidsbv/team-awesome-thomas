@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subheader renders correctly 1`] = `
+<div
+  className="sc-bcXHqe fGUCmM"
+>
+  <div
+    className="sc-gswNZR jxYIvT"
+  >
+    <h1
+      className="sc-dkrFOg ftkZir"
+    >
+      test
+    </h1>
+    <p
+      className="sc-hLBbgP dNcsSF"
+    >
+      420
+    </p>
+  </div>
+</div>
+`;

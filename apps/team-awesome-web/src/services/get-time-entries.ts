@@ -2,7 +2,8 @@ import * as Types from "../types";
 import { NotFoundError, ServerError } from "../classes/errors";
 
 export const getTimeEntries = async (): Promise<Types.TimeEntry[]> => {
-  return fetch("http://localhost:3004/time-entries", {
+  const baseUrl = process.env.NEXT_PUBLIC_DB_HOST;
+  return fetch(`${baseUrl}/time-entries`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

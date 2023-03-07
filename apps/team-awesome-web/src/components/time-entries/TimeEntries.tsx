@@ -40,10 +40,10 @@ interface TimeEntriesProps {
   timeEntries: Types.TimeEntry[];
 }
 
-export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
+export const TimeEntries = ({ errorMessage, ...props }: TimeEntriesProps) => {
   const { timeEntries, setTimeEntries } = useContext(StoreContext);
 
-  const [sortedTimeEntries, setSortedTimeEntries] = useState<Types.TimeEntry[]>(timeEntries);
+  const [sortedTimeEntries, setSortedTimeEntries] = useState<Types.TimeEntry[]>(props.timeEntries);
 
   const subheaderCount = `${sortedTimeEntries.length} Entr${
     sortedTimeEntries.length > 1 ? "ies" : "y"
@@ -51,7 +51,7 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
-  const [, setErrorMessages] = useState<string[]>(props.errorMessage ? [props.errorMessage] : []);
+  const [, setErrorMessages] = useState<string[]>(errorMessage ? [errorMessage] : []);
 
   const [isModalActive, setIsModalActive] = useState(false);
 

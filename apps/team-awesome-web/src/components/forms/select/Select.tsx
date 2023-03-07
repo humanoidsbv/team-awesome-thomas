@@ -27,6 +27,7 @@ export const Select = ({ sortList, direction, setSortedResults, sortArray }: Sel
       ["Date", "startTimestamp"],
     ],
     teamMembers: [
+      ["Show all", "showAll"],
       ["Client", "client"],
       ["Email address", "emailAddress"],
       ["First name", "firstName"],
