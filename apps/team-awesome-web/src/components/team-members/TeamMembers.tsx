@@ -11,7 +11,7 @@ interface TeamMembersProps {
   teamMembers: Types.TeamMember[];
 }
 
-export const TeamMembers = ({ ...props }: TeamMembersProps) => {
+export const TeamMembers = ({ errorMessage, ...props }: TeamMembersProps) => {
   const { teamMembers, setTeamMembers } = useContext(StoreContext);
 
   const [sortedTeamMembers, setSortedTeamMembers] = useState<Types.TeamMember[]>(props.teamMembers);
