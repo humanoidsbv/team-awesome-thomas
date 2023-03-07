@@ -90,12 +90,10 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
     }
   };
 
-  // Inital load
   useEffect(() => {
     setTimeEntries(props.timeEntries);
   }, []);
 
-  // Sorted list rerender
   useEffect(() => {
     setSortedTimeEntries(timeEntries);
   }, [timeEntries]);
