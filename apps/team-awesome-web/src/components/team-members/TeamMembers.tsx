@@ -38,7 +38,9 @@ export const TeamMembers = ({ errorMessage, ...props }: TeamMembersProps) => {
 
   return (
     <Styled.TeamMembers>
-      <Styled.Actions>{/* <Select sortList="teamMembers" direction /> */}</Styled.Actions>
+      <Styled.Actions>
+        <Select sortList="teamMembers" direction />
+      </Styled.Actions>
       {sortedTeamMembers.map((teamMember) => (
         <TeamMember key={teamMember?.id} teamMember={teamMember} />
       ))}
