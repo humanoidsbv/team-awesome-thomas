@@ -13,7 +13,9 @@ import * as Types from "../../../types";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   direction?: boolean;
-  setSortedResults: Dispatch<SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>>;
+  setSortedResults:
+    | Dispatch<SetStateAction<Types.TimeEntry[]>>
+    | Dispatch<SetStateAction<Types.TeamMember[]>>;
   sortArray: Types.TimeEntry[] | Types.TeamMember[];
   sortList: "timesheets" | "teamMembers";
 }

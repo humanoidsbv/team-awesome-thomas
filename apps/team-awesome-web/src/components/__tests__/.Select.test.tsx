@@ -1,9 +1,8 @@
-import React, { Dispatch, SetStateAction, useContext } from "react";
+import React, { useContext } from "react";
 
 import { render, fireEvent } from "@testing-library/react";
 import { StoreContext, StoreProvider } from "../store-context";
 import { Select } from "../forms/select";
-import * as Types from "../../types";
 
 it("If the select updates its options", async () => {
   const { setTimeEntries } = useContext(StoreContext);
@@ -24,13 +23,7 @@ it("If the select updates its options", async () => {
 
   const utils = render(
     <StoreProvider>
-      <Select
-        sortList={sortList}
-        setSortedResults={
-          setTimeEntries as Dispatch<SetStateAction<Types.TimeEntry[] | Types.TeamMember[]>>
-        }
-        sortArray={mockTimeEntries}
-      />
+      <Select sortList={sortList} setSortedResults={setTimeEntries} sortArray={mockTimeEntries} />
     </StoreProvider>,
   );
 
