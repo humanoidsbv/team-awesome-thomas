@@ -15,25 +15,22 @@ interface TeamMembersProps {
   teamMembers: Types.TeamMember[];
 }
 
-export const TeamMembers = ({ ...props }: TeamMembersProps) => {
-  const { data } = {};
-
-  // GraphQL shenanigans
-  const { data: teamMemberData } = useQuery(GET_TEAM_MEMBERS, {
-    pollInterval: 2000,
-  });
-
-  const { allTeamMembers = {} } = teamMemberData;
-
-  console.log(allTeamMembers);
-
+export const TeamMembers = ({ errorMessage, ...props }: TeamMembersProps) => {
   const { teamMembers, setTeamMembers } = useContext(StoreContext);
 
-  const [sortedTeamMembers, setSortedTeamMembers] = useState<Types.TeamMember[]>(props.teamMembers);
+  // GraphQL shenanigans
+  const { loading, data: teamMemberData } = useQuery(GET_TEAM_MEMBERS, {
+    pollInterval: 5000,
+  });
+  if (loading) {
+    console.log("Loading data...");
+  } else {
+    const { allTeamMembers = {} } = teamMemberData;
+    console.log("Members fetched!");
+    setTeamMembers(allTeamMembers);
+  }
 
-  useEffect(() => {
-    setTeamMembers(props.teamMembers);
-  }, []);
+  const [sortedTeamMembers, setSortedTeamMembers] = useState(teamMembers);
 
   useEffect(() => {
     setSortedTeamMembers(teamMembers);
@@ -43,7 +40,7 @@ export const TeamMembers = ({ ...props }: TeamMembersProps) => {
     <Styled.TeamMembers>
       <Styled.Actions>{/* <Select sortList="teamMembers" direction /> */}</Styled.Actions>
       {sortedTeamMembers.map((teamMember) => (
-        <TeamMember key={teamMember.id} teamMember={teamMember} />
+        <TeamMember key={teamMember?.id} teamMember={teamMember} />
       ))}
     </Styled.TeamMembers>
   );

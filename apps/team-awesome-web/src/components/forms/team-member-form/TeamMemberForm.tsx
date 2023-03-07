@@ -1,11 +1,14 @@
 import { ChangeEvent, FormEvent, useContext, useRef, useState } from "react";
 
+import { useMutation } from "@apollo/client";
 import { Button } from "../../button";
 import { Input } from "../input";
 import * as Types from "../../../types";
-import { postTeamMember } from "../../../services/post-team-member";
 import { StoreContext } from "../../store-context";
 import * as Styled from "./TeamMemberForm.styled";
+
+// GraphQL import
+import { ADD_TEAM_MEMBER } from "../../../graphql/team-members/mutations";
 
 interface FormProps {
   handleClose: () => void;
@@ -33,19 +36,15 @@ export const TeamMemberForm = ({ handleClose }: FormProps) => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
+  const [addNewTeamMember, { data, error, loading }] = useMutation(ADD_TEAM_MEMBER);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (formRef.current?.checkValidity()) {
-      const response = await postTeamMember(JSON.stringify(newTeamMember));
-
-      if (response instanceof Error) {
-        console.error("Something went wrong.");
-        return;
-      }
-      setTeamMembers([...teamMembers, response]);
-      handleClose();
-    }
+    addNewTeamMember({ variables: { ...newTeamMember } });
+    console.log(data);
+    // setTeamMembers([...teamMembers, newTeamMember]);
+    handleClose();
   };
 
   return (
