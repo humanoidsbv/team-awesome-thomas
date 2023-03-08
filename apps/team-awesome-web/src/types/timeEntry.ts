@@ -1,4 +1,5 @@
 export type TimeEntry = {
+  __typename?: string;
   id: number;
   client: string;
   activity?: string;

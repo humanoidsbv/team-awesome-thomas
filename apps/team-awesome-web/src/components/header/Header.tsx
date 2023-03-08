@@ -52,11 +52,7 @@ export const Header = () => {
       <Styled.RightMenu>
         <Styled.Profile>
           <HumanoidsLogo />
-<<<<<<< HEAD
-          <Styled.Avatar src="img/avatars/amijs.png" alt="Avatar image" width={36} height={36} />
-=======
           <Styled.Avatar src="img/avatars/profile.jpg" alt="Avatar image" />
->>>>>>> 20377f0 (Add mutation implementation for team members, fix header avatar image)
         </Styled.Profile>
         <Styled.ChevronButton>
           <ArrowDown />

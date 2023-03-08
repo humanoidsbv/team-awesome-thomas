@@ -2,11 +2,10 @@ import React, { FormEvent, useEffect, useRef, useContext, useState } from "react
 
 import { useMutation, useQuery } from "@apollo/client";
 import { Button } from "../button";
-import { deleteTimeEntry, postTimeEntry } from "../../services";
 import { Filter } from "../forms/filter";
 import { Modal } from "../modal";
 import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
-import { Select, Select } from "../forms/select";
+import { Select } from "../forms/select";
 import { StoreContext } from "../store-context";
 import { SubHeader } from "../sub-header";
 import { TimeEntry } from "../time-entry";
@@ -14,8 +13,6 @@ import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header";
 import * as Styled from "./TimeEntries.styled";
 import * as Types from "../../types";
-
-// GraphQL import
 import { GET_TIME_ENTRIES } from "../../graphql/time-entries/queries";
 import { ADD_TIME_ENTRY, DELETE_TIME_ENTRY } from "../../graphql/time-entries/mutations";
 
@@ -40,31 +37,12 @@ interface TimeEntriesProps {
 export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   const { timeEntries, setTimeEntries } = useContext(StoreContext);
 
-  // GraphQL queries
   const { loading: timeEntryLoad, data: timeEntryData } = useQuery(GET_TIME_ENTRIES, {
     pollInterval: 5000,
   });
 
-  if (timeEntryLoad) {
-    console.log("Loading data...");
-  } else {
+  if (!timeEntryLoad) {
     const { allTimeEntries = {} } = timeEntryData;
-    console.log("Entries fetched!");
-    console.log(allTimeEntries);
-    setTimeEntries(allTimeEntries);
-  }
-
-  // GraphQL queries
-  const { loading: timeEntryLoad, data: timeEntryData } = useQuery(GET_TIME_ENTRIES, {
-    pollInterval: 5000,
-  });
-
-  if (timeEntryLoad) {
-    console.log("Loading data...");
-  } else {
-    const { allTimeEntries = {} } = timeEntryData;
-    console.log("Entries fetched!");
-    console.log(allTimeEntries);
     setTimeEntries(allTimeEntries);
   }
 
@@ -87,12 +65,6 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   const [removeTimeEntries] = useMutation(DELETE_TIME_ENTRY);
 
   const handleRemoval = async (id: number) => {
-    // const response = await deleteTimeEntry(id);
-    // if (response instanceof Error) {
-    //   console.warn(`Deletion of entry with id ${id} failed.`);
-    //   return;
-    // }
-    // setTimeEntries(timeEntries.filter((timeEntry) => timeEntry.id !== id));
     removeTimeEntries({ variables: { id } });
   };
 
@@ -123,12 +95,10 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
     }
   };
 
-  // Inital load
   useEffect(() => {
     setTimeEntries(props.timeEntries);
   }, []);
 
-  // Sorted list rerender
   useEffect(() => {
     setSortedTimeEntries(timeEntries);
   }, [timeEntries]);
@@ -142,7 +112,15 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
         </Button>
       </SubHeader>
       <Styled.TimeEntries>
-        <Styled.Actions>{/* <Select sortList="timesheets" direction /> */}</Styled.Actions>
+        <Styled.Actions>
+          <Filter filterArray={timeEntries} setFilteredResults={setSortedTimeEntries} />
+          <Select
+            setSortedResults={setSortedTimeEntries}
+            sortArray={sortedTimeEntries}
+            sortList="timesheets"
+            direction
+          />
+        </Styled.Actions>
         {sortedTimeEntries.map((timeEntry) => (
           <React.Fragment key={timeEntry.id}>
             <TimeEntryHeader

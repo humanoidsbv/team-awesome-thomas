@@ -1,14 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 
-import * as Styled from "./TeamMembers.styled";
-import { TeamMember } from "../team-member";
-import * as Types from "../../types";
-import { StoreContext } from "../store-context";
-import { Select } from "../forms/select";
-
-// GraphQL import
+import { Filter } from "../forms/filter";
 import { GET_TEAM_MEMBERS } from "../../graphql/team-members/queries";
+import { Select } from "../forms/select";
+import { StoreContext } from "../store-context";
+import { TeamMember } from "../team-member";
+import * as Styled from "./TeamMembers.styled";
+import * as Types from "../../types";
 
 interface TeamMembersProps {
   errorMessage?: string;
@@ -18,15 +17,12 @@ interface TeamMembersProps {
 export const TeamMembers = ({ errorMessage, ...props }: TeamMembersProps) => {
   const { teamMembers, setTeamMembers } = useContext(StoreContext);
 
-  // GraphQL shenanigans
   const { loading, data: teamMemberData } = useQuery(GET_TEAM_MEMBERS, {
-    pollInterval: 5000,
+    pollInterval: 0,
+    fetchPolicy: "network-only",
   });
-  if (loading) {
-    console.log("Loading data...");
-  } else {
+  if (!loading) {
     const { allTeamMembers = {} } = teamMemberData;
-    console.log("Members fetched!");
     setTeamMembers(allTeamMembers);
   }
 
@@ -39,7 +35,13 @@ export const TeamMembers = ({ errorMessage, ...props }: TeamMembersProps) => {
   return (
     <Styled.TeamMembers>
       <Styled.Actions>
-        <Select sortList="teamMembers" direction />
+        <Filter filterArray={teamMembers} setFilteredResults={setSortedTeamMembers} />
+        <Select
+          setSortedResults={setSortedTeamMembers}
+          sortArray={teamMembers}
+          sortList="teamMembers"
+          direction
+        />
       </Styled.Actions>
       {sortedTeamMembers.map((teamMember) => (
         <TeamMember key={teamMember?.id} teamMember={teamMember} />

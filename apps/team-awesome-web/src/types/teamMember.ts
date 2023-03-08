@@ -1,4 +1,5 @@
 export type TeamMember = {
+  __typename?: string;
   avatar: string;
   client: string;
   description?: string;

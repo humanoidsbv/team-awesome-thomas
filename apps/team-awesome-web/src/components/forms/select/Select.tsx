@@ -72,7 +72,9 @@ export const Select = ({ sortList, direction, setSortedResults, sortArray }: Sel
       }
       return 0;
     };
-    const sortedResults: Types.TimeEntry[] | Types.TeamMember[] = sortArray.sort(compareSort);
+    const newSortArray = [...sortArray];
+
+    const sortedResults = newSortArray.sort(compareSort) as Types.TimeEntry[] | Types.TeamMember[];
 
     setSortedResults(sortedResults);
   };
