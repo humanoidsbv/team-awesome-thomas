@@ -8,6 +8,7 @@ module.exports = {
     "@nrwl/react/plugins/storybook",
 
     "storybook-addon-swc",
+    "storybook-addon-designs",
     {
       name: "storybook-addon-next",
       options: {
