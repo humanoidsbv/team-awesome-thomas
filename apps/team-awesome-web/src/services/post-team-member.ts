@@ -3,7 +3,7 @@ import * as Types from "../types";
 export const postTeamMember = async (data: string): Promise<Types.TeamMember> => {
   const baseUrl = process.env.NEXT_PUBLIC_DB_HOST;
 
-  return fetch(`${baseUrl}/team-members`, {
+  return fetch(`${baseUrl}/teamMembers`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

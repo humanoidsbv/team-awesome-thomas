@@ -13,10 +13,8 @@ import * as Types from "../../../types";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   direction: boolean;
-  setSortedResults:
-    | Dispatch<SetStateAction<Types.TimeEntry[]>>
-    | Dispatch<SetStateAction<Types.TeamMember[]>>;
-  sortArray: Types.TimeEntry[] | Types.TeamMember[];
+  setSortedResults: Dispatch<SetStateAction<(Types.TimeEntry | Types.TeamMember)[]>>;
+  sortArray: (Types.TimeEntry | Types.TeamMember)[];
   sortList: "timesheets" | "teamMembers";
 }
 
@@ -72,7 +70,9 @@ export const Select = ({ sortList, direction, setSortedResults, sortArray }: Sel
       }
       return 0;
     };
-    const sortedResults: Types.TimeEntry[] | Types.TeamMember[] = sortArray.sort(compareSort);
+    const newSortArray = [...sortArray];
+
+    const sortedResults = newSortArray.sort(compareSort) as (Types.TimeEntry | Types.TeamMember)[];
 
     setSortedResults(sortedResults);
   };
