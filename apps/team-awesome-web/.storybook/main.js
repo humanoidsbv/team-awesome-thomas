@@ -15,6 +15,7 @@ module.exports = {
       },
     },
   ],
+  preview: "./preview.js",
 };
 
 // To customize your webpack configuration you can use the webpackFinal field.

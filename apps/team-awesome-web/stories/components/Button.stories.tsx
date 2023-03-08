@@ -3,8 +3,8 @@ import { action } from "@storybook/addon-actions";
 
 import { Button } from "../../src/components/button";
 
-export const Primary = () => (
-  <Button onClick={action("clicked")} variant="primary">
+export const Primary = (args) => (
+  <Button onClick={action("clicked")} {...args}>
     Primary button
   </Button>
 );

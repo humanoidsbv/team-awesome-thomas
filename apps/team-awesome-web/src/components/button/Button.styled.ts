@@ -6,10 +6,15 @@ type ButtonProps = {
 
 export const Button = styled.button<ButtonProps>`
   align-items: center;
+  background: none;
   border-radius: 4px;
+  border: none;
+  color: inherit;
+  cursor: pointer;
   display: grid;
   grid-auto-flow: column;
   justify-content: center;
+  outline: inherit;
   padding: 14px 32px;
   transition: background-color 0.2s ease-in;
   white-space: nowrap;
