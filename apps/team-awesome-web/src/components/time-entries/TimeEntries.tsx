@@ -48,9 +48,9 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
 
   const [sortedTimeEntries, setSortedTimeEntries] = useState(timeEntries);
 
-  useEffect(() => {
-    setSortedTimeEntries(timeEntries);
-  }, [timeEntries]);
+  // useEffect(() => {
+  //   setSortedTimeEntries(timeEntries);
+  // }, [timeEntries]);
 
   const subheaderCount = `${timeEntries.length} Entr${timeEntries.length > 1 ? "ies" : "y"}`;
 

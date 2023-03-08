@@ -18,8 +18,7 @@ export const TeamMembers = ({ errorMessage, ...props }: TeamMembersProps) => {
   const { teamMembers, setTeamMembers } = useContext(StoreContext);
 
   const { loading, data: teamMemberData } = useQuery(GET_TEAM_MEMBERS, {
-    pollInterval: 0,
-    fetchPolicy: "network-only",
+    pollInterval: 5000,
   });
   if (!loading) {
     const { allTeamMembers = {} } = teamMemberData;
@@ -27,10 +26,6 @@ export const TeamMembers = ({ errorMessage, ...props }: TeamMembersProps) => {
   }
 
   const [sortedTeamMembers, setSortedTeamMembers] = useState(teamMembers);
-
-  useEffect(() => {
-    setSortedTeamMembers(teamMembers);
-  }, [teamMembers]);
 
   return (
     <Styled.TeamMembers>
