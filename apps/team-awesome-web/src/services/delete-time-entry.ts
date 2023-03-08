@@ -2,7 +2,7 @@ import * as Types from "../types";
 
 export const deleteTimeEntry = async (id: number): Promise<Types.TimeEntry> => {
   const baseUrl = process.env.NEXT_PUBLIC_DB_HOST;
-  return fetch(`${baseUrl}/time-entries/${id}`, {
+  return fetch(`${baseUrl}/timeEntries/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

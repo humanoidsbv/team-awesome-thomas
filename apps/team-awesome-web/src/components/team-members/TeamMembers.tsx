@@ -1,41 +1,45 @@
-import { useContext, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { useQuery } from "@apollo/client";
 
-import * as Styled from "./TeamMembers.styled";
-import { TeamMember } from "../team-member";
-import * as Types from "../../types";
-import { StoreContext } from "../store-context";
+import { GET_TEAM_MEMBERS } from "../../graphql/team-members/queries";
 import { Select } from "../forms/select";
+import { StoreContext } from "../store-context";
+import { TeamMember } from "../team-member";
+import * as Styled from "./TeamMembers.styled";
+import * as Types from "../../types";
 
 interface TeamMembersProps {
   errorMessage?: string;
   teamMembers: Types.TeamMember[];
 }
 
-export const TeamMembers = ({ ...props }: TeamMembersProps) => {
+export const TeamMembers = ({ errorMessage, ...props }: TeamMembersProps) => {
   const { teamMembers, setTeamMembers } = useContext(StoreContext);
 
-  const [sortedTeamMembers, setSortedTeamMembers] = useState<Types.TeamMember[]>(props.teamMembers);
+  const { loading, data: teamMemberData } = useQuery(GET_TEAM_MEMBERS, {
+    pollInterval: 5000,
+  });
+  if (!loading) {
+    const { allTeamMembers = {} } = teamMemberData;
+    setTeamMembers(allTeamMembers);
+  }
 
-  useEffect(() => {
-    setTeamMembers(props.teamMembers);
-  }, []);
-
-  useEffect(() => {
-    setSortedTeamMembers(teamMembers);
-  }, [teamMembers]);
+  const [sortedTeamMembers, setSortedTeamMembers] = useState(teamMembers);
 
   return (
     <Styled.TeamMembers>
       <Styled.Actions>
         <Select
-          sortList="teamMembers"
+          setSortedResults={
+            setSortedTeamMembers as Dispatch<SetStateAction<(Types.TimeEntry | Types.TeamMember)[]>>
+          }
           sortArray={teamMembers}
-          setSortedResults={setSortedTeamMembers}
+          sortList="teamMembers"
           direction
         />
       </Styled.Actions>
       {sortedTeamMembers.map((teamMember) => (
-        <TeamMember key={teamMember.id} teamMember={teamMember} />
+        <TeamMember key={teamMember?.id} teamMember={teamMember} />
       ))}
     </Styled.TeamMembers>
   );

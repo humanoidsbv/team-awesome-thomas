@@ -1,31 +1,44 @@
 {
   "time-entries": [
     {
-      "id": 2,
-      "client": "Port of Rotterdam",
-      "startTimestamp": "2022-09-24T16:00:00.000Z",
-      "stopTimestamp": "2022-09-25T18:00:00.000Z",
-      "activity": "Boten sturen"
-    },
-    {
-      "client": "Mario",
-      "date": "1980-01-01",
+      "client": "Samus Aran",
+      "date": "2023-12-01",
       "from": "00:00",
-      "id": 3,
-      "startTimestamp": "1980-01-01T11:00:00.000Z",
-      "stopTimestamp": "1980-01-01T20:00:00.000Z",
+      "id": 1,
+      "startTimestamp": "2023-12-01T11:12:00.000Z",
+      "stopTimestamp": "2023-12-01T22:23:00.000Z",
       "to": "00:00",
-      "activity": "Jumping"
+      "activity": "Shooting"
     },
     {
       "client": "Link",
-      "date": "2023-02-23",
+      "date": "2023-07-01",
       "from": "00:00",
-      "id": 1,
-      "startTimestamp": "2023-02-23T11:12:00.000Z",
-      "stopTimestamp": "2023-02-23T22:23:00.000Z",
+      "id": 3,
+      "startTimestamp": "2023-07-01T10:12:00.000Z",
+      "stopTimestamp": "2023-07-01T21:23:00.000Z",
       "to": "00:00",
       "activity": "Gardening"
+    },
+    {
+      "client": "Wario",
+      "date": "2023-02-01",
+      "from": "00:00",
+      "id": 4,
+      "startTimestamp": "2023-02-01T11:12:00.000Z",
+      "stopTimestamp": "2023-02-01T22:23:00.000Z",
+      "to": "00:00",
+      "activity": "Minigames"
+    },
+    {
+      "client": "Kirby",
+      "date": "2023-08-01",
+      "from": "00:00",
+      "id": 5,
+      "startTimestamp": "2023-08-01T10:12:00.000Z",
+      "stopTimestamp": "2023-08-01T21:23:00.000Z",
+      "to": "00:00",
+      "activity": "Floating"
     }
   ],
   "team-members": [
@@ -50,6 +63,17 @@
       "role": "",
       "startTimestamp": "1970-01-01T00:00:00.000Z",
       "description": "Hi-YAA!"
+    },
+    {
+      "avatar": "",
+      "client": "Earth Federation",
+      "emailAddress": "samus@nintendo.com",
+      "firstName": "Samus",
+      "id": 3,
+      "lastName": "Aran",
+      "role": "",
+      "startTimestamp": "1970-01-01T00:00:00.000Z",
+      "description": "Teh metroid"
     }
   ]
 }

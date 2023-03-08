@@ -5,15 +5,18 @@
   "scripts": {
     "pretty": "prettier --write \"*.js*\"",
     "json-server": "json-server --watch db.json --port 3004",
-    "dev": "npm run json-server & npx nx serve team-awesome-web",
+    "graphql-server": "json-graphql-server db.json --p 3333",
+    "dev": "npm run json-server & npm run graphql-server & npx nx serve team-awesome-web",
     "build": "npx nx build team-awesome-web",
     "lint": "npx nx lint team-awesome-web",
     "storybook": "npx nx run team-awesome-web:storybook"
   },
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.7.10",
     "@nrwl/next": "15.8.5",
     "@storybook/addon-actions": "^6.5.16",
+    "graphql": "^16.6.0",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

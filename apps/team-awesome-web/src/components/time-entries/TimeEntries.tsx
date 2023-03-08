@@ -1,7 +1,15 @@
-import React, { FormEvent, useEffect, useRef, useContext, useState } from "react";
+import React, {
+  FormEvent,
+  useEffect,
+  useRef,
+  useContext,
+  useState,
+  SetStateAction,
+  Dispatch,
+} from "react";
 
+import { useMutation, useQuery } from "@apollo/client";
 import { Button } from "../button";
-import { deleteTimeEntry, postTimeEntry } from "../../services";
 import { Filter } from "../forms/filter";
 import { Modal } from "../modal";
 import { ReactComponent as PlusIcon } from "../../../public/icons/plus-icon.svg";
@@ -13,6 +21,8 @@ import { TimeEntryForm } from "../forms/time-entry-form";
 import { TimeEntryHeader } from "../time-entry-header";
 import * as Styled from "./TimeEntries.styled";
 import * as Types from "../../types";
+import { GET_TIME_ENTRIES } from "../../graphql/time-entries/queries";
+import { ADD_TIME_ENTRY, DELETE_TIME_ENTRY } from "../../graphql/time-entries/mutations";
 
 const title = "Timesheets";
 
@@ -35,11 +45,18 @@ interface TimeEntriesProps {
 export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   const { timeEntries, setTimeEntries } = useContext(StoreContext);
 
-  const [sortedTimeEntries, setSortedTimeEntries] = useState<Types.TimeEntry[]>(timeEntries);
+  const { loading: timeEntryLoad, data: timeEntryData } = useQuery(GET_TIME_ENTRIES, {
+    pollInterval: 5000,
+  });
 
-  const subheaderCount = `${sortedTimeEntries.length} Entr${
-    sortedTimeEntries.length > 1 ? "ies" : "y"
-  }`;
+  if (!timeEntryLoad) {
+    const { allTimeEntries = {} } = timeEntryData;
+    setTimeEntries(allTimeEntries);
+  }
+
+  const [sortedTimeEntries, setSortedTimeEntries] = useState(timeEntries);
+
+  const subheaderCount = `${timeEntries.length} Entr${timeEntries.length > 1 ? "ies" : "y"}`;
 
   const [newTimeEntry, setNewTimeEntry] = useState<Types.TimeEntry>(defaultEntry);
 
@@ -49,14 +66,10 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleRemoval = async (id: number) => {
-    const response = await deleteTimeEntry(id);
+  const [removeTimeEntries] = useMutation(DELETE_TIME_ENTRY);
 
-    if (response instanceof Error) {
-      console.warn(`Deletion of entry with id ${id} failed.`);
-      return;
-    }
-    setTimeEntries(timeEntries.filter((timeEntry) => timeEntry.id !== id));
+  const handleRemoval = async (id: number) => {
+    removeTimeEntries({ variables: { id } });
   };
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,29 +86,23 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
     setNewTimeEntry({ ...newTimeEntry, [target.name]: target.value });
   };
 
+  const [addNewTimeEntry] = useMutation(ADD_TIME_ENTRY);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (formRef.current?.checkValidity()) {
-      const response = await postTimeEntry(JSON.stringify(newTimeEntry));
-
-      if (response instanceof Error) {
-        console.error("Something went wrong.");
-        return;
-      }
-      setTimeEntries([...timeEntries, response]);
+      addNewTimeEntry({ variables: { ...newTimeEntry } });
       setIsModalActive(false);
       setNewTimeEntry(defaultEntry);
       setErrorMessages([]);
     }
   };
 
-  // Inital load
   useEffect(() => {
     setTimeEntries(props.timeEntries);
   }, []);
 
-  // Sorted list rerender
   useEffect(() => {
     setSortedTimeEntries(timeEntries);
   }, [timeEntries]);
@@ -110,12 +117,23 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
       </SubHeader>
       <Styled.TimeEntries>
         <Styled.Actions>
-          <Filter filterArray={timeEntries} setFilteredResults={setSortedTimeEntries} />
+          <Filter
+            filterArray={timeEntries}
+            setFilteredResults={
+              setSortedTimeEntries as Dispatch<
+                SetStateAction<(Types.TimeEntry | Types.TeamMember)[]>
+              >
+            }
+          />
           <Select
-            direction
-            setSortedResults={setSortedTimeEntries}
+            setSortedResults={
+              setSortedTimeEntries as Dispatch<
+                SetStateAction<(Types.TimeEntry | Types.TeamMember)[]>
+              >
+            }
             sortArray={sortedTimeEntries}
             sortList="timesheets"
+            direction
           />
         </Styled.Actions>
         {sortedTimeEntries.map((timeEntry) => (

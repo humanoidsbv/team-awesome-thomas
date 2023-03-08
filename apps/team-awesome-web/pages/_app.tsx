@@ -1,7 +1,9 @@
+import { ApolloProvider } from "@apollo/client";
 import { AppProps } from "next/app";
-import Head from "next/head";
 import { ThemeProvider } from "styled-components";
+import Head from "next/head";
 
+import { client } from "../src/services";
 import { StoreProvider } from "../src/components/store-context";
 import { theme } from "../src/styles/theme";
 import GlobalStyle from "../src/styles/global";
@@ -15,7 +17,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <StoreProvider>
-          <Component {...pageProps} />
+          <ApolloProvider client={client}>
+            <Component {...pageProps} />
+          </ApolloProvider>
         </StoreProvider>
       </ThemeProvider>
     </>
