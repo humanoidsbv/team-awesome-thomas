@@ -2,15 +2,20 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 
 import { Button } from "../../src/components/button";
+import { ReactComponent as PlusIcon } from "../../public/icons/plus-icon.svg";
+import { ReactComponent as CrossIcon } from "../../public/icons/close.svg";
 
-export const Primary = (args) => (
-  <Button onClick={action("clicked")} {...args}>
-    Primary button
+export const Primary = ({ icon, label, variant, onClick }) => (
+  <Button onClick={onClick} variant={!variant ? "primary" : variant}>
+    {icon === "Plus" ? <PlusIcon /> : null}
+    {!label ? "Primary button" : label}
   </Button>
 );
-export const Secondary = () => (
-  <Button onClick={action("clicked")} variant="secondary">
-    Secondary button
+
+export const Secondary = ({ icon, label, variant, onClick }) => (
+  <Button onClick={onClick} variant={!variant ? "secondary" : variant}>
+    {icon === "Plus" ? <PlusIcon /> : null}
+    {!label ? "Secondary button" : label}
   </Button>
 );
 
@@ -18,12 +23,15 @@ export default {
   title: "Button",
   component: Button,
   argTypes: {
-    text: "Button",
-    onClick: { action: "clicked" },
-    size: {
-      options: ["large", "small"],
-      control: { type: "select" },
+    icon: {
+      options: ["None", "Plus"],
+      type: "select",
     },
-    variant: { options: ["secondary", "primary"], control: { type: "select" } },
+    label: { control: "text" },
+    variant: {
+      options: ["primary", "secondary"],
+      type: "select",
+    },
+    onClick: { action: "clicked" },
   },
 };
