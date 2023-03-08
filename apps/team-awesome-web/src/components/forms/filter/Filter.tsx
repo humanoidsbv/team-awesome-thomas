@@ -12,9 +12,7 @@ import * as Types from "../../../types";
 
 interface FilterProps extends SelectHTMLAttributes<HTMLSelectElement> {
   filterArray: Types.TimeEntry[];
-  setFilteredResults:
-    | Dispatch<SetStateAction<Types.TimeEntry[]>>
-    | Dispatch<SetStateAction<Types.TeamMember[]>>;
+  setFilteredResults: Dispatch<SetStateAction<(Types.TimeEntry | Types.TeamMember)[]>>;
 }
 
 export const Filter = ({ filterArray, setFilteredResults }: FilterProps) => {

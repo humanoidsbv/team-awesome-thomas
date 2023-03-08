@@ -7,13 +7,11 @@ interface StoreProviderProps {
 }
 
 interface StoreContextProps {
-  setSortedArray:
-    | Dispatch<SetStateAction<Types.TimeEntry[]>>
-    | Dispatch<SetStateAction<Types.TeamMember[]>>;
+  setSortedArray: Dispatch<SetStateAction<(Types.TimeEntry | Types.TeamMember)[]>>;
   setSortKey: Dispatch<SetStateAction<Types.SortKey>>;
   setTeamMembers: Dispatch<SetStateAction<Types.TeamMember[]>>;
   setTimeEntries: Dispatch<SetStateAction<Types.TimeEntry[]>>;
-  sortedArray: Types.TimeEntry[] | Types.TeamMember[];
+  sortedArray: (Types.TimeEntry | Types.TeamMember)[];
   sortKey: Types.SortKey;
   teamMembers: Types.TeamMember[];
   timeEntries: Types.TimeEntry[];
@@ -22,7 +20,7 @@ interface StoreContextProps {
 export const StoreContext = createContext<StoreContextProps>({} as StoreContextProps);
 
 export const StoreProvider = ({ children }: StoreProviderProps) => {
-  const [sortedArray, setSortedArray] = useState<Types.TeamMember[] | Types.TimeEntry[]>([]);
+  const [sortedArray, setSortedArray] = useState<(Types.TeamMember | Types.TimeEntry)[]>([]);
 
   const standardKey: Types.SortKey = { key: "id", direction: "ascending" };
 

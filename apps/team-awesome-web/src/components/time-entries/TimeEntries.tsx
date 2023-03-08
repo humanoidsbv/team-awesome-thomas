@@ -1,4 +1,12 @@
-import React, { FormEvent, useEffect, useRef, useContext, useState } from "react";
+import React, {
+  FormEvent,
+  useEffect,
+  useRef,
+  useContext,
+  useState,
+  SetStateAction,
+  Dispatch,
+} from "react";
 
 import { useMutation, useQuery } from "@apollo/client";
 import { Button } from "../button";
@@ -47,10 +55,6 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
   }
 
   const [sortedTimeEntries, setSortedTimeEntries] = useState(timeEntries);
-
-  // useEffect(() => {
-  //   setSortedTimeEntries(timeEntries);
-  // }, [timeEntries]);
 
   const subheaderCount = `${timeEntries.length} Entr${timeEntries.length > 1 ? "ies" : "y"}`;
 
@@ -113,9 +117,20 @@ export const TimeEntries = ({ ...props }: TimeEntriesProps) => {
       </SubHeader>
       <Styled.TimeEntries>
         <Styled.Actions>
-          <Filter filterArray={timeEntries} setFilteredResults={setSortedTimeEntries} />
+          <Filter
+            filterArray={timeEntries}
+            setFilteredResults={
+              setSortedTimeEntries as Dispatch<
+                SetStateAction<(Types.TimeEntry | Types.TeamMember)[]>
+              >
+            }
+          />
           <Select
-            setSortedResults={setSortedTimeEntries}
+            setSortedResults={
+              setSortedTimeEntries as Dispatch<
+                SetStateAction<(Types.TimeEntry | Types.TeamMember)[]>
+              >
+            }
             sortArray={sortedTimeEntries}
             sortList="timesheets"
             direction

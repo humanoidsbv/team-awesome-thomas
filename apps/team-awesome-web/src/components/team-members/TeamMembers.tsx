@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { useQuery } from "@apollo/client";
 
-import { Filter } from "../forms/filter";
 import { GET_TEAM_MEMBERS } from "../../graphql/team-members/queries";
 import { Select } from "../forms/select";
 import { StoreContext } from "../store-context";
@@ -30,9 +29,10 @@ export const TeamMembers = ({ errorMessage, ...props }: TeamMembersProps) => {
   return (
     <Styled.TeamMembers>
       <Styled.Actions>
-        <Filter filterArray={teamMembers} setFilteredResults={setSortedTeamMembers} />
         <Select
-          setSortedResults={setSortedTeamMembers}
+          setSortedResults={
+            setSortedTeamMembers as Dispatch<SetStateAction<(Types.TimeEntry | Types.TeamMember)[]>>
+          }
           sortArray={teamMembers}
           sortList="teamMembers"
           direction
