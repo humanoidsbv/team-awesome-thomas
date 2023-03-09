@@ -9,7 +9,7 @@ export const Primary = ({ ...args }) => (
     onClick={args.onClick}
     variant={!args.disabled ? "primary" : args.disabled}
   >
-    {args.icon === "Plus" ? <PlusIcon /> : null}
+    {args.icon === "Plus" && <PlusIcon />}
     {!args.label ? "Primary button" : args.label}
   </Button>
 );
@@ -20,7 +20,7 @@ export const Secondary = ({ ...args }) => (
     onClick={args.onClick}
     variant={!args.variant ? "secondary" : args.variant}
   >
-    {args.icon === "Plus" ? <PlusIcon /> : null}
+    {args.icon === "Plus" && <PlusIcon />}
     {!args.label ? "Secondary button" : args.label}
   </Button>
 );
